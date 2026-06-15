@@ -1,0 +1,62 @@
+// styles/pages/_notfound.scss — 404 page from index.html
+@use '../tools/mixins' as *;
+
+.notfound-page {
+  padding-top: var(--bar-h);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.nf-wrap {
+  min-height: calc(100vh - var(--bar-h));
+  min-height: calc(100dvh - var(--bar-h));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  text-align: center;
+  padding: 40px;
+}
+
+.nf-code {
+  font-size: clamp(100px, 20vw, 280px);
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  @include nightshift-text;
+  transition: color 0.4s;
+}
+
+.nf-msg {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: #898989;
+}
+
+.nf-actions {
+  display: flex;
+  gap: 28px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nf-link {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  @include nightshift-text;
+  cursor: pointer;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 3px;
+  transition: opacity 0.2s, color 0.4s;
+  text-decoration: none;
+
+  &:hover { opacity: 0.55; }
+}
+
+@media (max-width: 900px) {
+  .nf-code { font-size: clamp(80px, 22vw, 200px); }
+  .nf-actions { flex-direction: column; align-items: center; gap: 18px; }
+}

@@ -1,0 +1,38 @@
+// tokens/_colors.scss
+// City Marin Studio - Design System Colors
+
+// Core palette
+$color-white: #ffffff;
+$color-black: #1b1b1b;
+$color-grey: #898989;
+$color-light-grey: #969696;
+$color-lighter-grey: #c4c4c4;
+$color-mid-grey: #6b6b6b;
+$color-dark-grey: #797979;
+$color-near-black: #101010;
+$color-bg-project: #f7f7f7;
+$color-bg-map: #cccccc;
+
+// Semantic foreground
+$fg-primary: $color-black;
+$fg-secondary: $color-grey;
+$fg-tertiary: $color-mid-grey;
+$fg-disabled: $color-lighter-grey;
+$fg-inverted: $color-white;
+
+// Semantic background
+$bg-page: $color-white;
+$bg-menu: $color-white;
+$bg-overlay: $color-white;
+$bg-project-card: $color-bg-project;
+$bg-nightshift: #000000;
+$bg-nightshift-card: $color-near-black;
+
+// Accent & interactive
+$color-accent: $color-black;
+$color-focus: #0ea5e9;
+
+// Nightshift (dark mode)
+$nightshift-fg-primary: $color-white;
+$nightshift-fg-secondary: $color-dark-grey;
+$nightshift-fg-tertiary: $color-dark-grey;

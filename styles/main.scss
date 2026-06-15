@@ -1,0 +1,47 @@
+// main.scss
+// City Marin Studio - Design System Foundation
+// Loads all design tokens, base styles, utilities, and layout components
+
+// ============================================================================
+// 1. DESIGN TOKENS - Variables, colors, typography, spacing
+// ============================================================================
+@use './tokens/colors';
+@use './tokens/typography';
+@use './tokens/spacing';
+@use './tokens/motion';
+@use './tokens/z-index';
+@use './tokens/layout';
+
+// ============================================================================
+// 2. TOOLS - Mixins and functions (must come before usage)
+// ============================================================================
+@use './tools/functions';
+@use './tools/mixins';
+
+// ============================================================================
+// 3. BASE - Global styles and reset
+// ============================================================================
+@use './base/reset';
+@use './base/globals';
+@use './base/animations';
+@use './base/motion-advanced';
+@use './base/type-classes';
+
+// ============================================================================
+// 4. LAYOUT - Structural utilities and components
+// ============================================================================
+@use './layout/container';
+@use './layout/section';
+@use './layout/flex';
+@use './layout/grid';
+
+// ============================================================================
+// 5. UTILITIES - Auto-generated utility classes
+// ============================================================================
+@use './utilities/generated';
+
+// ============================================================================
+// 6. COMPONENTS - UI component library
+// ============================================================================
+@use './components';
+@use './pages';

@@ -1,0 +1,15 @@
+// components/_manifesto.scss — from index.html
+@use '../tools/mixins' as *;
+
+.manifesto-page { padding-top: var(--bar-h); }
+.mf-hero { padding: clamp(72px,9vw,120px) clamp(24px,4.5vw,60px) clamp(48px,6vw,80px); @include section-border('bottom'); }
+.mf-eyebrow { @include eyebrow; letter-spacing: 0.12em; margin-bottom: 36px; }
+.mf-statement { font-size: clamp(40px, 6vw, 90px); line-height: 1.05; font-weight: 400; @include nightshift-text; letter-spacing: -0.02em; max-width: 16ch; transition: color 0.4s; }
+.mf-body {}
+.mf-row { display: grid; grid-template-columns: 120px 1fr; gap: 40px; padding: 48px 60px; @include section-border('bottom'); align-items: start; }
+.mf-num { font-size: 13px; color: #898989; padding-top: 8px; font-variant-numeric: tabular-nums; }
+.mf-text { font-size: clamp(20px, 2.2vw, 32px); line-height: 1.35; @include nightshift-text; letter-spacing: -0.01em; max-width: 26ch; transition: color 0.4s; }
+@media (max-width: 900px) {
+  .mf-hero { padding: 80px 24px 50px; }
+  .mf-row { grid-template-columns: 1fr; gap: 16px; padding: 36px 24px; }
+}

@@ -1,0 +1,145 @@
+// components/_button.scss
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/motion' as *;
+@use '../tools/mixins' as *;
+
+// ============================================================================
+// BUTTON COMPONENT
+// ============================================================================
+
+.btn {
+  @include button-reset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  @include font-standard;
+  font-size: $text-sm;
+  letter-spacing: $tracking-upper;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  @include transition(all);
+
+  // Primary button (default)
+  &--primary {
+    background-color: $color-black;
+    color: $color-white;
+    border: 1px solid $color-black;
+    @include button-states($color-dark-grey, inherit, $color-dark-grey);
+
+    &:disabled {
+      background-color: $color-lighter-grey;
+      border-color: $color-lighter-grey;
+    }
+  }
+
+  // Secondary button (outline)
+  &--secondary {
+    background-color: transparent;
+    color: $color-black;
+    border: 1px solid $color-black;
+    @include button-states($color-black, $color-white, $color-black);
+
+    &:disabled {
+      border-color: $color-lighter-grey;
+      color: $color-lighter-grey;
+    }
+  }
+
+  // Ghost button (text only)
+  &--ghost {
+    background-color: transparent;
+    color: $color-black;
+    border: none;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:disabled {
+      color: $color-lighter-grey;
+    }
+  }
+
+  // Sizes
+  &--sm {
+    padding: $space-2 $space-4;
+    font-size: $text-xs;
+  }
+
+  &--lg {
+    padding: $space-4 $space-8;
+    font-size: $text-lg;
+  }
+
+  // Full width
+  &--block {
+    width: 100%;
+  }
+
+  // Icon button
+  &--icon {
+    padding: $space-2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  // Loading state
+  &--loading {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+// ============================================================================
+// DARK MODE
+// ============================================================================
+
+body.nightshift {
+  .btn {
+    &--primary {
+      background-color: $color-white;
+      color: $color-black;
+      border-color: $color-white;
+
+      &:hover {
+        background-color: $color-light-grey;
+        border-color: $color-light-grey;
+      }
+
+      &:disabled {
+        background-color: $color-dark-grey;
+        border-color: $color-dark-grey;
+        color: $color-black;
+      }
+    }
+
+    &--secondary {
+      color: $color-white;
+      border-color: $color-white;
+
+      &:hover {
+        background-color: $color-white;
+        color: $color-black;
+      }
+
+      &:disabled {
+        border-color: $color-dark-grey;
+        color: $color-dark-grey;
+      }
+    }
+
+    &--ghost {
+      color: $color-white;
+
+      &:disabled {
+        color: $color-dark-grey;
+      }
+    }
+  }
+}

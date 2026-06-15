@@ -1,0 +1,44 @@
+// components/_careers.scss — from index.html
+@use '../tools/mixins' as *;
+
+.careers-page { padding-top: var(--bar-h); }
+.careers-hero { padding: clamp(60px,8vw,100px) clamp(24px,4.5vw,60px) clamp(48px,6vw,80px); display: grid; grid-template-columns: minmax(160px, 18%) 1fr; gap: clamp(24px,4vw,60px); @include section-border('bottom'); align-items: end; }
+.careers-eyebrow { @include eyebrow; letter-spacing: 0.12em; align-self: end; padding-bottom: 14px; }
+.careers-h1 { font-size: clamp(48px, 7vw, 100px); font-weight: 400; line-height: 1; @include nightshift-text; transition: color 0.4s; grid-row: 1; grid-column: 2; letter-spacing: -0.015em; }
+.careers-lede { grid-column: 2; grid-row: 2; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.5; @include nightshift-text(#1b1b1b, #ddd); max-width: 760px; margin-top: 28px; transition: color 0.4s; }
+.careers-listing { padding: 0 60px; }
+.careers-col-head { display: grid; grid-template-columns: minmax(160px, 18%) 1fr auto; gap: 60px; padding: 32px 0 20px 0; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #898989; @include section-border('bottom'); }
+.careers-jobs { display: flex; flex-direction: column; }
+.careers-job { display: grid; grid-template-columns: minmax(160px, 18%) 1fr auto; gap: 60px; padding: 40px 0; @include section-border('bottom'); cursor: pointer; transition: background 0.2s; }
+.careers-job:hover { background: rgba(0,0,0,0.015); }
+body.nightshift .careers-job:hover { background: rgba(255,255,255,0.02); }
+.cj-meta { display: flex; flex-direction: column; gap: 8px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #898989; }
+.cj-title { font-size: clamp(22px, 2.2vw, 32px); font-weight: 400; line-height: 1.15; @include nightshift-text; margin-bottom: 12px; letter-spacing: -0.005em; transition: color 0.4s; }
+.cj-desc { font-size: 14px; line-height: 1.55; @include nightshift-muted(#6b6b6b, #888); max-width: 620px; transition: color 0.4s; }
+.cj-cta { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #1b1b1b; align-self: center; display: inline-flex; align-items: center; gap: 10px; opacity: 0.55; transition: opacity 0.2s; white-space: nowrap; }
+body.nightshift .cj-cta { color: #fff; }
+.careers-job:hover .cj-cta { opacity: 1; }
+.cj-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+.careers-job:hover .cj-arrow { transform: translateX(6px); }
+.careers-foot { display: grid; grid-template-columns: minmax(160px, 18%) 1fr; gap: 60px; padding: 60px 0 80px 0; }
+.cf-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #898989; }
+.cf-link { font-size: clamp(18px, 1.6vw, 24px); @include nightshift-text; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: color 0.4s; }
+.faq-section { padding: clamp(60px,8vw,100px) clamp(24px,4.5vw,60px); @include section-border('top'); }
+.faq-head { @include section-head; margin-bottom: 50px; }
+.faq-eyebrow { @include eyebrow; letter-spacing: 0.12em; padding-bottom: 8px; }
+.faq-title { font-size: clamp(28px, 3vw, 44px); line-height: 1.1; font-weight: 400; @include nightshift-text; letter-spacing: -0.015em; transition: color 0.4s; }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item { @include section-border('top'); cursor: pointer; }
+.faq-item:last-child { @include section-border('bottom'); }
+.faq-q { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; font-size: clamp(16px, 1.6vw, 22px); @include nightshift-text; letter-spacing: -0.005em; transition: color 0.4s, opacity 0.2s; }
+.faq-item:hover .faq-q { opacity: 0.6; }
+.faq-plus { font-size: 22px; line-height: 1; flex-shrink: 0; transition: transform 0.4s var(--ease); }
+.faq-item.open .faq-plus { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.45s var(--ease); }
+.faq-item.open .faq-a { max-height: 240px; }
+.faq-a-inner { padding: 0 0 32px; max-width: 64ch; font-size: 14px; line-height: 1.65; @include nightshift-muted(#6b6b6b, #999); transition: color 0.4s; }
+@media (max-width: 900px) {
+  .careers-hero { grid-template-columns: 1fr; padding: 80px 24px 40px; gap: 16px; } .careers-h1 { grid-column: 1; grid-row: auto; } .careers-lede { grid-column: 1; grid-row: auto; }
+  .careers-listing { padding: 0 24px; } .careers-col-head { grid-template-columns: 1fr auto; } .careers-job { grid-template-columns: 1fr; gap: 14px; padding: 32px 0; }
+  .faq-section { padding: 64px 24px; } .faq-head { grid-template-columns: 1fr; gap: 12px; }
+}

@@ -1,0 +1,365 @@
+// components/_interactive.scss
+// City Marin Studio - Interactive UI Components
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/motion' as *;
+@use '../tools/mixins' as *;
+
+// ============================================================================
+// SEGMENTED TOGGLE / TOGGLE BUTTON GROUP
+// ============================================================================
+// Used for: List/Map view toggle, EN/TR language toggle
+
+.toggle,
+.seg {
+  display: inline-flex;
+  border: 1px solid $color-lighter-grey;
+  background-color: transparent;
+  border-radius: 2px;
+
+  @include nightshift(border-color, rgba($color-white, 0.15));
+}
+
+.toggle-item,
+.seg span {
+  @include font-standard;
+  font-size: $text-xs;
+  letter-spacing: $tracking-upper;
+  text-transform: uppercase;
+  padding: $space-2 $space-3;
+  color: $color-mid-grey;
+  cursor: pointer;
+  @include transition(all);
+  border: none;
+  background-color: transparent;
+
+  @include nightshift(color, $color-dark-grey);
+
+  &:hover {
+    background-color: rgba($color-black, 0.03);
+  }
+
+  &.active,
+  &.on {
+    background-color: $color-bg-project;
+    color: $color-black;
+    @include transition(all);
+
+    @include nightshift(background-color, #101010);
+    @include nightshift(color, $color-white);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-black;
+    outline-offset: -1px;
+
+    @include nightshift(outline-color, $color-white);
+  }
+}
+
+// ============================================================================
+// BADGE - COUNT INDICATOR
+// ============================================================================
+// Used with filters: "SAVED 3", "FEATURED 2"
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: $space-4;
+  height: $space-4;
+  padding: 0 $space-1;
+  @include font-standard;
+  font-size: $text-xs;
+  background-color: $color-black;
+  color: $color-white;
+  border-radius: 8px;
+  @include transition(all);
+
+  @include nightshift(background-color, $color-white);
+  @include nightshift(color, $color-black);
+
+  &.active {
+    background-color: $color-black;
+    color: $color-white;
+
+    @include nightshift(background-color, $color-white);
+    @include nightshift(color, $color-black);
+  }
+}
+
+// Badge with filter label
+.filter-chip {
+  @include flex-center;
+  gap: $space-2;
+  @include font-standard;
+  font-size: $text-sm;
+  color: $color-black;
+
+  @include nightshift(color, $color-white);
+
+  .badge {
+    margin-left: $space-1;
+  }
+}
+
+// ============================================================================
+// RANGE SLIDER / INPUT RANGE
+// ============================================================================
+// Used for: Year filter, date range selection
+
+.slider,
+.range {
+  width: 100%;
+  max-width: 180px;
+
+  @include respond-to('md') {
+    max-width: 240px;
+  }
+
+  @include respond-to('lg') {
+    max-width: 300px;
+  }
+}
+
+.slider-label,
+.sld-label {
+  @include font-standard;
+  font-size: $text-xs;
+  letter-spacing: $tracking-upper;
+  text-transform: uppercase;
+  color: $color-mid-grey;
+  margin-bottom: $space-2;
+  display: block;
+
+  @include nightshift(color, $color-dark-grey);
+}
+
+.slider-track,
+.sld-track {
+  position: relative;
+  height: 1px;
+  background-color: rgba($color-black, 0.15);
+  margin: $space-3 0;
+
+  @include nightshift(background-color, rgba($color-white, 0.15));
+}
+
+.slider-thumb,
+.sld-thumb {
+  width: $space-3;
+  height: $space-3;
+  border-radius: 50%;
+  background-color: $color-black;
+  position: absolute;
+  top: -5px;
+  left: 35%;
+  cursor: grab;
+  @include transition(all);
+
+  @include nightshift(background-color, $color-white);
+
+  &:hover {
+    transform: scale(1.3);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-black;
+    outline-offset: 2px;
+
+    @include nightshift(outline-color, $color-white);
+  }
+}
+
+// HTML5 input[type="range"] styling
+input[type='range'] {
+  width: 100%;
+  height: 1px;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+
+  // Webkit browsers (Chrome, Safari)
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: $space-3;
+    height: $space-3;
+    border-radius: 50%;
+    background-color: $color-black;
+    cursor: grab;
+    @include transition(all);
+
+    @include nightshift(background-color, $color-white);
+
+    &:hover {
+      transform: scale(1.3);
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: 1px;
+    background-color: rgba($color-black, 0.15);
+    border: none;
+
+    @include nightshift(background-color, rgba($color-white, 0.15));
+  }
+
+  // Firefox
+  &::-moz-range-thumb {
+    width: $space-3;
+    height: $space-3;
+    border-radius: 50%;
+    background-color: $color-black;
+    border: none;
+    cursor: grab;
+    @include transition(all);
+
+    @include nightshift(background-color, $color-white);
+
+    &:hover {
+      transform: scale(1.3);
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &::-moz-range-track {
+    background: transparent;
+    border: none;
+  }
+
+  &::-moz-range-progress {
+    background-color: rgba($color-black, 0.15);
+    height: 1px;
+
+    @include nightshift(background-color, rgba($color-white, 0.15));
+  }
+}
+
+// ============================================================================
+// ACCORDION
+// ============================================================================
+// Used for: FAQ sections, footer collapsible content
+
+.accordion {
+  border-top: 1px solid $color-lighter-grey;
+
+  @include nightshift(border-top-color, rgba($color-white, 0.1));
+
+  &:last-child {
+    border-bottom: 1px solid $color-lighter-grey;
+
+    @include nightshift(border-bottom-color, rgba($color-white, 0.1));
+  }
+}
+
+.accordion-trigger {
+  @include flex-between;
+  align-items: center;
+  width: 100%;
+  padding: $space-4 0;
+  @include font-standard;
+  font-size: $text-body;
+  line-height: $lh-body;
+  color: $color-black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  @include transition(color);
+  text-align: left;
+
+  @include nightshift(color, $color-white);
+
+  &:hover {
+    color: $color-mid-grey;
+
+    @include nightshift(color, $color-light-grey);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-black;
+    outline-offset: -2px;
+
+    @include nightshift(outline-color, $color-white);
+  }
+}
+
+.accordion-icon {
+  @include flex-center;
+  width: $space-6;
+  height: $space-6;
+  font-size: $text-lg;
+  color: inherit;
+  @include transition(transform);
+  flex-shrink: 0;
+
+  // Rotate + to × when open
+  .accordion.open & {
+    transform: rotate(45deg);
+  }
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  @include transition(max-height);
+
+  &.open {
+    max-height: 500px; // Adjust based on content
+  }
+}
+
+.accordion-body {
+  padding: 0 0 $space-4 0;
+  @include font-standard;
+  font-size: $text-sm;
+  line-height: $lh-body;
+  color: $color-grey;
+
+  @include nightshift(color, $color-light-grey);
+}
+
+// ============================================================================
+// FOCUS RING (ACCESSIBILITY)
+// ============================================================================
+// Applied to all interactive elements
+
+.focus-ring,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+// Override default outline for better visibility
+:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .toggle-item,
+  .toggle-item.active,
+  .badge,
+  .slider-thumb,
+  .accordion-icon,
+  input[type='range']::-webkit-slider-thumb,
+  input[type='range']::-moz-range-thumb {
+    transition: none;
+  }
+}

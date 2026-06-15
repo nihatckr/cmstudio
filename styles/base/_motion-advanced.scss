@@ -1,0 +1,270 @@
+// base/_motion-advanced.scss
+// City Marin Studio - Advanced Motion Patterns
+// Reveal-on-scroll, counters, parallax, skeleton fade, bullet dots
+
+@use '../tokens/motion' as *;
+@use '../tokens/spacing' as *;
+
+// ============================================================================
+// REVEAL-ON-SCROLL
+// ============================================================================
+// translateY(28px) + fade, 0.8s ease-out-quad, stagger 70ms
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY($space-7);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY($space-7);
+  animation: revealUp 0.8s $ease-out-quad forwards;
+}
+
+// Stagger delay helper classes (applied via data attr or JS)
+// Usage: <div class="reveal-on-scroll" style="animation-delay: 0ms;">
+// Or: <div class="reveal-on-scroll reveal-delay-1"> (70ms increments)
+
+.reveal-delay-1 { animation-delay: 70ms; }
+.reveal-delay-2 { animation-delay: 140ms; }
+.reveal-delay-3 { animation-delay: 210ms; }
+.reveal-delay-4 { animation-delay: 280ms; }
+.reveal-delay-5 { animation-delay: 350ms; }
+.reveal-delay-6 { animation-delay: 420ms; }
+.reveal-delay-7 { animation-delay: 490ms; }
+.reveal-delay-8 { animation-delay: 560ms; }
+.reveal-delay-9 { animation-delay: 630ms; }
+.reveal-delay-10 { animation-delay: 700ms; }
+
+// ============================================================================
+// COUNTER ANIMATION
+// ============================================================================
+// Count from 0→target value, 1.2s ease-out cubic
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.counter {
+  animation: countUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  font-weight: 700;
+}
+
+// Counter with prefix/suffix
+.counter-prefix {
+  opacity: 0.7;
+}
+
+.counter-suffix {
+  opacity: 0.7;
+  margin-left: 0.25em;
+}
+
+// ============================================================================
+// PARALLAX EFFECT
+// ============================================================================
+// Speed: 0.10–0.18 (slower = more dramatic parallax)
+// Applied via transform: translateY(calc(var(--scroll) * var(--speed)))
+// Edges release to page scroll (no overflow)
+
+.parallax {
+  // Use CSS custom property for scroll value (set by JS)
+  // --scroll: current scroll progress (0→1 or pixel value)
+  // --speed: parallax speed (0.10-0.18 recommended)
+  transform: translateY(calc(var(--scroll, 0) * var(--speed, 0.15) * 100px));
+
+  // Alternative: using pixels
+  // transform: translateY(var(--offset, 0px));
+}
+
+.parallax-slow {
+  --speed: 0.1;
+}
+
+.parallax-normal {
+  --speed: 0.15;
+}
+
+.parallax-fast {
+  --speed: 0.18;
+}
+
+// Parallax container (optional: clip content)
+.parallax-container {
+  overflow: hidden;
+}
+
+// ============================================================================
+// IMAGE FADE-IN (Skeleton → Image)
+// ============================================================================
+// Skeleton: 520ms fade, then replaced by actual image
+
+@keyframes imageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.image-fade {
+  animation: imageLoad 0.52s ease-out forwards;
+}
+
+// Image with skeleton placeholder
+.image-with-skeleton {
+  position: relative;
+
+  img {
+    display: block;
+    animation: imageLoad 0.52s ease-out forwards;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      #f7f7f7 0%,
+      #e8e8e8 50%,
+      #f7f7f7 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+  }
+
+  &.loaded::before {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+// ============================================================================
+// BULLET DOT ANIMATION
+// ============================================================================
+// Scale(0→1), 0.3s ease-out-quad on hover
+
+@keyframes bulletScale {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.bullet-animate {
+  animation: bulletScale 0.3s $ease-out-quad forwards;
+}
+
+// ============================================================================
+// PROJECT OPEN ANIMATION
+// ============================================================================
+// Skeleton 520ms → horizontal track fade-in
+
+@keyframes projectSkeletonFade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes trackFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.project-opening .skeleton {
+  animation: projectSkeletonFade 0.52s ease-out forwards;
+}
+
+.project-track {
+  animation: trackFadeIn 0.52s ease-out 0.52s forwards;
+  opacity: 0;
+}
+
+// ============================================================================
+// REDUCED MOTION SUPPORT
+// ============================================================================
+// Disable all animations when prefers-reduced-motion is set
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3,
+  .reveal-delay-4,
+  .reveal-delay-5,
+  .reveal-delay-6,
+  .reveal-delay-7,
+  .reveal-delay-8,
+  .reveal-delay-9,
+  .reveal-delay-10,
+  .counter,
+  .parallax,
+  .image-fade,
+  .bullet-animate,
+  .project-opening .skeleton,
+  .project-track {
+    animation: none;
+    transform: none;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+  }
+
+  .image-with-skeleton.loaded::before {
+    opacity: 0;
+  }
+
+  .project-track {
+    opacity: 1;
+  }
+}
+
+// ============================================================================
+// SCROLL-BASED ANIMATIONS (helpers for JS integration)
+// ============================================================================
+
+// Mark element for scroll-triggered animation
+[data-scroll-animate] {
+  opacity: 0;
+
+  &.in-view {
+    animation: revealUp 0.8s $ease-out-quad forwards;
+  }
+}
+
+// Mark element for parallax
+[data-parallax] {
+  transform: translateY(0);
+  will-change: transform;
+}
+
+// Mark for counter
+[data-counter] {
+  animation: countUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}

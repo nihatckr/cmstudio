@@ -1,0 +1,20 @@
+// layout/_flex.scss
+%flex-base {
+  display: flex;
+}
+
+.flex {
+  @extend %flex-base;
+}
+
+.flex-center {
+  @extend %flex-base;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  @extend %flex-base;
+  align-items: center;
+  justify-content: space-between;
+}

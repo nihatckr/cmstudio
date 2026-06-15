@@ -1,0 +1,15 @@
+// components/index.scss
+// City Marin Studio - Component Library
+// Page-level styles live in styles/pages/
+
+// Design system components
+@use './header';
+@use './footer';
+@use './button';
+@use './shared';
+
+// Legacy / interactive
+@use './hero';
+@use './card';
+@use './interactive';
+@use './indicators';

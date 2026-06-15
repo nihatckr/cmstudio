@@ -1,0 +1,23 @@
+// layout/_container.scss
+@use '../tokens/spacing' as *;
+@use '../tools/mixins' as *;
+
+// Responsive padding mixin - mobile-first padding strategy
+@mixin responsive-container-padding {
+  padding-inline: $global-padding;
+
+  @include respond-to('sm') {
+    padding-inline: $global-padding-mobile;
+  }
+}
+
+.container {
+  width: min(100% - #{$global-padding} * 2, #{$max-width});
+  margin-inline: auto;
+  @include responsive-container-padding;
+}
+
+.container-full {
+  width: 100%;
+  @include responsive-container-padding;
+}

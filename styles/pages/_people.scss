@@ -1,0 +1,42 @@
+// components/_people.scss — People page CSS from index.html
+@use '../tools/mixins' as *;
+
+.people-page { padding-top: var(--bar-h); }
+.people-header { padding: clamp(60px,8vw,100px) clamp(24px,4.5vw,60px) clamp(40px,5vw,60px); display: grid; grid-template-columns: minmax(160px, 18%) 1fr; gap: clamp(24px,4vw,60px); align-items: end; @include section-border('bottom'); }
+.ph-eyebrow { @include eyebrow; letter-spacing: 0.12em; padding-bottom: 14px; }
+.people-h1 { font-size: clamp(48px, 7vw, 100px); font-weight: 400; line-height: 1; @include nightshift-text; letter-spacing: -0.015em; transition: color 0.4s; }
+.ph-lede { grid-column: 2; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.5; @include nightshift-text(#1b1b1b, #ddd); max-width: 760px; margin-top: 28px; transition: color 0.4s; }
+.founder-block { display: grid; grid-template-columns: 38% 62%; @include section-border('bottom'); }
+.fb-image { background: #1a1a1a; min-height: 560px; }
+.fb-text { padding: clamp(48px,6vw,80px) clamp(32px,5vw,80px); display: flex; flex-direction: column; gap: 18px; @include section-border('left'); }
+.fb-eyebrow { @include eyebrow; letter-spacing: 0.12em; }
+.fb-name { font-size: clamp(40px, 4.5vw, 64px); line-height: 1; font-weight: 400; @include nightshift-text; letter-spacing: -0.02em; margin-top: 8px; transition: color 0.4s; }
+.fb-role { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #898989; margin-bottom: 18px; }
+.fb-bio { font-size: 15px; line-height: 1.6; @include nightshift-text(#1b1b1b, #ddd); max-width: 56ch; transition: color 0.4s; margin-bottom: 16px; }
+.fb-meta { display: flex; flex-direction: column; gap: 10px; }
+.fb-meta-row { display: grid; grid-template-columns: 110px 1fr; gap: 18px; padding: 10px 0; @include section-border('top'); }
+.fb-meta-row:last-child { @include section-border('bottom'); }
+.fb-k { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #898989; padding-top: 2px; }
+.fb-v { font-size: 13px; @include nightshift-text; transition: color 0.4s; }
+.team-section { padding: clamp(40px,5vw,60px) clamp(24px,4.5vw,60px) clamp(48px,6vw,80px); @include section-border('bottom'); }
+.ts-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px; padding-bottom: 18px; @include section-border('bottom'); }
+.ts-eyebrow { font-size: clamp(18px, 1.8vw, 24px); font-weight: 400; @include nightshift-text; letter-spacing: -0.005em; transition: color 0.4s; }
+.ts-count { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #898989; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.team-member { display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: transform 0.3s var(--ease); }
+.team-member:hover { transform: translateY(-2px); }
+.tm-avatar { width: 100%; aspect-ratio: 4 / 5; background: linear-gradient(140deg, hsl(200, 8%, 92%) 0%, hsl(200, 8%, 80%) 100%); position: relative; overflow: hidden; transition: filter 0.3s; }
+.tm-avatar::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.08) 100%); }
+.tm-avatar::after { content: ''; position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%); width: 38%; aspect-ratio: 1; border-radius: 50%; background: rgba(0,0,0,0.06); }
+body.nightshift .tm-avatar { filter: brightness(0.6) contrast(0.9); }
+.tm-name { font-size: 14px; @include nightshift-text; transition: color 0.4s; }
+.tm-role { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #898989; }
+@media (max-width: 900px) {
+  .people-header { grid-template-columns: 1fr; padding: 80px 24px 40px; gap: 14px; } .ph-lede { grid-column: 1; }
+  .founder-block { grid-template-columns: 1fr; } .fb-image { min-height: 320px; } .fb-text { padding: 40px 24px; border-left: none; border-top: 1px solid rgba(0,0,0,0.07); }
+  body.nightshift .fb-text { border-top-color: rgba(255,255,255,0.07); }
+  .team-section { padding: 40px 24px 60px; } .team-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+}
+@media (max-width: 480px) {
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}

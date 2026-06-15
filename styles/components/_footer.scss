@@ -1,0 +1,268 @@
+// components/_footer.scss
+// CSS birebir /design/design_handoff_citymarin_site/index.html
+// Design system token'ları ile eşlenmiş
+
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/motion' as *;
+@use '../tools/mixins' as *;
+
+// ── .footer ──────────────────────────────────────────────────────────────────
+// padding:0; border-top:1px solid rgba(0,0,0,0.07); margin-top:0;
+
+.footer {
+  padding: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  margin-top: 0;
+  font-family: $font-standard;
+
+  body.nightshift & {
+    border-top-color: rgba(255, 255, 255, 0.07);
+  }
+}
+
+// ── .footer-grid ─────────────────────────────────────────────────────────────
+// display:grid; grid-template-columns:repeat(4,1fr);
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── .footer-col ──────────────────────────────────────────────────────────────
+// padding:48px 40px; border-right:1px solid rgba(0,0,0,0.07);
+
+.footer-col {
+  padding: 48px 40px;
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+
+  &:last-child {
+    border-right: none;
+  }
+
+  body.nightshift & {
+    border-right-color: rgba(255, 255, 255, 0.07);
+  }
+
+  @media (max-width: 900px) {
+    padding: 32px 24px;
+
+    &:nth-child(2n) {
+      border-right: none;
+    }
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+      body.nightshift & {
+        border-bottom-color: rgba(255, 255, 255, 0.07);
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+    body.nightshift & {
+      border-bottom-color: rgba(255, 255, 255, 0.07);
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// ── .footer-btn ──────────────────────────────────────────────────────────────
+// font-size:11px; letter-spacing:0.07em; text-transform:uppercase;
+// color:#6b6b6b; cursor:pointer;
+// display:flex; align-items:center; justify-content:space-between;
+// padding-bottom:20px; border-bottom:1px solid rgba(0,0,0,0.07);
+// .open → .footer-plus rotates 45deg
+
+.footer-btn {
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $color-mid-grey;               // #6b6b6b
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  transition: color 0.2s;
+  user-select: none;
+
+  &:hover {
+    color: $color-black;                // #1b1b1b
+  }
+
+  body.nightshift & {
+    border-bottom-color: rgba(255, 255, 255, 0.07);
+    color: #555;
+  }
+
+  body.nightshift &:hover {
+    color: $color-white;
+  }
+}
+
+// ── .footer-plus ─────────────────────────────────────────────────────────────
+// font-size:16px; transition:transform 0.3s;
+// .open → transform:rotate(45deg)
+
+.footer-plus {
+  font-size: 16px;
+  transition: transform 0.3s $ease-out-quad;
+  line-height: 1;
+
+  .footer-btn.open & {
+    transform: rotate(45deg);
+  }
+}
+
+// ── .footer-content ──────────────────────────────────────────────────────────
+// max-height:0; overflow:hidden;
+// .open → max-height:300px; padding-top:20px;
+
+.footer-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s $ease-out-quad, padding 0.3s;
+  font-size: $text-sm;                  // 12px
+
+  &.open {
+    max-height: 300px;
+    padding-top: 20px;
+  }
+}
+
+// ── .footer-row ──────────────────────────────────────────────────────────────
+// display:grid; grid-template-columns:auto 1fr; gap:14px; row-gap:10px;
+
+.footer-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  row-gap: 10px;
+}
+
+// ── .footer-key ──────────────────────────────────────────────────────────────
+// font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:#898989;
+
+.footer-key {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $color-grey;                   // #898989
+  padding-top: 1px;
+}
+
+// ── .footer-value ────────────────────────────────────────────────────────────
+// color:#1b1b1b; transition:color 0.4s;
+
+.footer-value {
+  color: $color-black;                  // #1b1b1b
+  transition: color 0.4s;
+  font-size: $text-sm;                  // 12px
+
+  body.nightshift & {
+    color: #ccc;
+  }
+}
+
+// ── .footer-social ───────────────────────────────────────────────────────────
+// font-size:11px; text-transform:uppercase; letter-spacing:0.06em;
+// color:#1b1b1b; display:flex; align-items:center; gap:8px; margin-bottom:14px;
+
+.footer-social {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $color-black;                  // #1b1b1b
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  text-decoration: none;
+  transition: color 0.4s, opacity 0.2s;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  body.nightshift & {
+    color: #ccc;
+  }
+}
+
+// ── .footer-legal ────────────────────────────────────────────────────────────
+// font-size:12px; color:#6b6b6b; display:block; margin-bottom:12px;
+
+.footer-legal {
+  font-size: $text-sm;                  // 12px
+  color: $color-mid-grey;               // #6b6b6b
+  display: block;
+  margin-bottom: 12px;
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $color-black;
+  }
+
+  body.nightshift & {
+    color: #797979;
+  }
+
+  body.nightshift &:hover {
+    color: $color-white;
+  }
+}
+
+// ── .footer-bottom ───────────────────────────────────────────────────────────
+// display:flex; align-items:center; justify-content:center; padding:28px;
+// border-top:1px solid rgba(0,0,0,0.07);
+// font-size:11px; letter-spacing:0.07em; text-transform:uppercase;
+// color:#797979; cursor:pointer; gap:16px;
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $color-dark-grey;              // #797979
+  cursor: pointer;
+  gap: 16px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $color-black;
+  }
+
+  body.nightshift & {
+    border-top-color: rgba(255, 255, 255, 0.07);
+    color: #555;
+  }
+
+  body.nightshift &:hover {
+    color: $color-white;
+  }
+}

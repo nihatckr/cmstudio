@@ -1,0 +1,10 @@
+// layout/_section.scss
+@use '../tokens/spacing' as *;
+
+.section {
+  padding-block: $space-12;
+}
+
+.section-large {
+  padding-block: $space-15;
+}

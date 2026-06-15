@@ -1,0 +1,48 @@
+// base/_type-classes.scss
+// City Marin Studio - Typography classes
+
+@use "../tokens/typography" as *;
+@use "../tokens/colors" as *;
+@use "../tools/mixins" as *;
+
+.type-h1 {
+  @include type-style($text-5xl, $lh-tight);
+
+  @include respond-to('md') {
+    font-size: $text-6xl;
+  }
+
+  @include respond-to('lg') {
+    font-size: $text-7xl;
+  }
+}
+
+.type-h2 {
+  @include type-style($text-3xl, $lh-tight);
+}
+
+.type-h3 {
+  @include type-style($text-2xl, $lh-body);
+}
+
+.type-body {
+  @include type-style($text-body, $lh-body);
+}
+
+.type-body-lg {
+  @include type-style($text-lg, $lh-body);
+}
+
+.type-caption {
+  @include type-style($text-sm, $lh-body);
+  color: $fg-secondary;
+  text-transform: uppercase;
+  letter-spacing: $tracking-upper;
+}
+
+.type-meta {
+  @include type-style($text-xs, $lh-tight);
+  color: $fg-tertiary;
+  text-transform: uppercase;
+  letter-spacing: $tracking-upper;
+}

@@ -1,0 +1,386 @@
+// tools/_mixins.scss
+// City Marin Studio - Reusable SCSS Mixins
+
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/colors' as *;
+@use '../tokens/motion' as *;
+@use 'sass:map';
+@use '../tokens/layout' as layout;
+
+// ============================================================================
+// BREAKPOINT MAP (DRY - single source of truth)
+// ============================================================================
+
+$breakpoints: (
+  'xs': layout.$breakpoint-xs,
+  'sm': layout.$breakpoint-sm,
+  'md': layout.$breakpoint-md,
+  'lg': layout.$breakpoint-lg,
+  'xl': layout.$breakpoint-xl,
+  '2xl': layout.$breakpoint-2xl
+);
+
+// ============================================================================
+// RESPONSIVE DESIGN MIXINS
+// ============================================================================
+
+/// Mobile-first breakpoint mixin using token values
+/// @param {String} $breakpoint - xs, sm, md, lg, xl, 2xl
+@mixin respond-to($breakpoint) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+/// Hide element on specific breakpoint
+@mixin hide-on($breakpoint) {
+  @include respond-to($breakpoint) {
+    display: none !important;
+  }
+}
+
+/// Show element on specific breakpoint
+@mixin show-on($breakpoint) {
+  @include respond-to($breakpoint) {
+    display: block;
+  }
+}
+
+// ============================================================================
+// FLEXBOX MIXINS
+// ============================================================================
+
+/// Flex container center (both axes)
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Flex space-between
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/// Flex column
+@mixin flex-column($align: flex-start, $justify: flex-start) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+// ============================================================================
+// GRID MIXINS
+// ============================================================================
+
+/// Grid auto-fit with minimum column width
+@mixin grid-auto-fit($min-width: 250px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+}
+
+/// Grid auto-fill with minimum column width
+@mixin grid-auto-fill($min-width: 250px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+}
+
+// ============================================================================
+// TYPOGRAPHY MIXINS
+// ============================================================================
+
+/// Base typography styles (font, weight, color)
+@mixin type-base {
+  font-family: $font-standard;
+  font-weight: $font-weight-normal;
+  color: $fg-primary;
+}
+
+/// Typography style with size and line-height
+@mixin type-style($size, $line-height) {
+  @include type-base;
+  font-size: $size;
+  line-height: $line-height;
+}
+
+/// Text truncate
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// Line clamp
+@mixin line-clamp($lines: 3) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ============================================================================
+// ANIMATION MIXINS
+// ============================================================================
+
+/// Smooth transition
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+  transition: $properties $duration $timing;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/// Fade in animation
+@mixin fade-in($duration: 0.3s) {
+  animation: fadeIn $duration ease-in-out;
+}
+
+// ============================================================================
+// VISUAL EFFECT MIXINS
+// ============================================================================
+
+/// Hover opacity effect
+@mixin hover-opacity($opacity: 0.8) {
+  transition: opacity 0.2s ease-in-out;
+  
+  &:hover {
+    opacity: $opacity;
+  }
+}
+
+/// Focus ring
+@mixin focus-ring($color: var(--color-focus), $width: 2px) {
+  outline: $width solid $color;
+  outline-offset: 2px;
+}
+
+/// Glassmorphism effect
+@mixin glassmorphism($opacity: 0.1) {
+  background-color: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur(10px);
+}
+
+// ============================================================================
+// COMPONENT STATE MIXINS
+// ============================================================================
+
+/// Button state interactions (hover, active, disabled)
+@mixin button-states($hover-bg, $hover-color: inherit, $hover-border: null) {
+  &:hover {
+    background-color: $hover-bg;
+    @if $hover-color != inherit {
+      color: $hover-color;
+    }
+    @if $hover-border != null {
+      border-color: $hover-border;
+    }
+  }
+  
+  &:active {
+    opacity: 0.8;
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+// ============================================================================
+// RESPONSIVE LAYOUT MIXINS
+// ============================================================================
+
+/// Responsive padding (desktop and mobile variants)
+@mixin responsive-padding($desktop, $mobile) {
+  padding: $desktop;
+  
+  @include respond-to('sm') {
+    padding: $mobile;
+  }
+}
+
+/// Dark mode (nightshift) variant
+@mixin nightshift($property, $value) {
+  body.nightshift & {
+    #{$property}: $value;
+  }
+}
+
+// ============================================================================
+// TYPOGRAPHY ENHANCEMENT MIXINS
+// ============================================================================
+
+/// Standard font stack (family + weight + color)
+@mixin font-standard {
+  font-family: $font-standard;
+  font-weight: $font-weight-normal;
+}
+
+/// Responsive font size with optional breakpoints
+@mixin responsive-type($mobile, $md: null, $lg: null) {
+  font-size: $mobile;
+  
+  @if $md {
+    @include respond-to('md') {
+      font-size: $md;
+    }
+  }
+  
+  @if $lg {
+    @include respond-to('lg') {
+      font-size: $lg;
+    }
+  }
+}
+
+/// Hover text color transition
+@mixin hover-text($from, $to) {
+  text-decoration: none;
+  color: $from;
+  @include transition(color);
+  
+  &:hover {
+    color: $to;
+  }
+}
+
+// ============================================================================
+// CONTAINER LAYOUT MIXINS
+// ============================================================================
+
+/// Max-width container constraint with centering
+@mixin container-constraints($max-w, $horizontal: true) {
+  max-width: $max-w;
+  
+  @if $horizontal {
+    margin-inline: auto;
+  }
+}
+
+/// Reset button styles
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+%button-base {
+  @include button-reset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @include transition(all);
+}
+
+%link-base {
+  text-decoration: none;
+  @include transition(color);
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+%interactive {
+  cursor: pointer;
+  @include transition(all);
+  user-select: none;
+}
+
+/// Aspect ratio box
+@mixin aspect-ratio($width: 1, $height: 1) {
+  position: relative;
+  padding-bottom: calc(($height / $width) * 100%);
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+// PROJECT-SPECIFIC MIXINS (from index.html patterns)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Eyebrow label — used everywhere in the design (font-size 10px, uppercase, grey)
+@mixin eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #898989;
+}
+
+/// Section divider line (bottom border + nightshift variant)
+@mixin section-border($side: 'bottom') {
+  @if $side == 'bottom' {
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    body.nightshift & { border-bottom-color: rgba(255,255,255,0.07); }
+  } @else if $side == 'top' {
+    border-top: 1px solid rgba(0,0,0,0.07);
+    body.nightshift & { border-top-color: rgba(255,255,255,0.07); }
+  } @else if $side == 'right' {
+    border-right: 1px solid rgba(0,0,0,0.07);
+    body.nightshift & { border-right-color: rgba(255,255,255,0.07); }
+  }
+}
+
+/// Color transition for nightshift-aware elements
+@mixin color-transition {
+  transition: color 0.4s;
+}
+
+/// Section padding — standard page section padding with mobile override
+@mixin section-padding($desktop: 100px 60px, $mobile-padding: 64px 24px) {
+  padding: $desktop;
+  @media (max-width: 900px) { padding: $mobile-padding; }
+}
+
+/// Fluid horizontal padding — scales between 24px (mobile) and target (desktop)
+/// Usage: @include fluid-px(60px)  →  padding-left/right: clamp(24px, 4.5vw, 60px)
+@mixin fluid-px($max: 60px) {
+  padding-left: clamp(24px, #{$max * 0.075}, #{$max});
+  padding-right: clamp(24px, #{$max * 0.075}, #{$max});
+}
+
+/// Fluid section padding — single mixin replacing @include section-padding + @media
+/// @param $y-max   — max top/bottom padding (default 100px)
+/// @param $y-min   — min top/bottom padding (default 60px)
+/// @param $x-max   — max left/right padding (default 60px)
+/// @param $x-min   — min left/right padding (default 24px)
+@mixin fluid-section-padding($y-max: 100px, $y-min: 60px, $x-max: 60px, $x-min: 24px) {
+  padding-top: clamp(#{$y-min}, #{$y-max * 0.08}vw, #{$y-max});
+  padding-bottom: clamp(#{$y-min}, #{$y-max * 0.08}vw, #{$y-max});
+  padding-left: clamp(#{$x-min}, 4.5vw, #{$x-max});
+  padding-right: clamp(#{$x-min}, 4.5vw, #{$x-max});
+}
+
+/// Section head grid — 1fr 2fr layout used for section headings
+@mixin section-head($gap: 40px) {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: $gap;
+  align-items: end;
+  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/// Nightshift-aware text color (most common pattern)
+@mixin nightshift-text($light: #1b1b1b, $dark: #fff) {
+  color: $light;
+  body.nightshift & { color: $dark; }
+}
+
+/// Nightshift-aware secondary text
+@mixin nightshift-muted($light: #898989, $dark: #aaa) {
+  color: $light;
+  body.nightshift & { color: $dark; }
+}

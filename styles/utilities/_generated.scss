@@ -1,0 +1,244 @@
+// utilities/_generated.scss
+// City Marin Studio - Auto-generated utility classes
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tools/mixins' as *;
+
+// ============================================================================
+// COLOR UTILITIES - Auto-generated from color palette
+// ============================================================================
+
+$color-palette: (
+  'black': $color-black,
+  'white': $color-white,
+  'grey': $color-grey,
+  'light-grey': $color-light-grey,
+  'lighter-grey': $color-lighter-grey,
+  'mid-grey': $color-mid-grey,
+  'dark-grey': $color-dark-grey,
+  'near-black': $color-near-black,
+  'bg-project': $color-bg-project,
+  'bg-map': $color-bg-map
+);
+
+// Background color utilities
+@each $name, $color in $color-palette {
+  .bg-#{$name} {
+    background-color: $color;
+  }
+}
+
+// Text color utilities
+@each $name, $color in $color-palette {
+  .text-#{$name} {
+    color: $color;
+  }
+}
+
+// ============================================================================
+// SEMANTIC COLOR UTILITIES
+// ============================================================================
+
+.bg-primary { background-color: $fg-primary; }
+.bg-secondary { background-color: $fg-secondary; }
+.bg-tertiary { background-color: $fg-tertiary; }
+
+.text-primary { color: $fg-primary; }
+.text-secondary { color: $fg-secondary; }
+.text-tertiary { color: $fg-tertiary; }
+
+// ============================================================================
+// DISPLAY UTILITIES
+// ============================================================================
+
+.hidden {
+  display: none !important;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+// Show on specific breakpoints
+@each $bp in ('sm', 'md', 'lg', 'xl', '2xl') {
+  .show-\@#{$bp} {
+    display: none;
+  }
+  
+  @include respond-to($bp) {
+    .show-\@#{$bp} {
+      display: block;
+    }
+  }
+  
+  .hidden-\@#{$bp} {
+    @include respond-to($bp) {
+      display: none !important;
+    }
+  }
+}
+
+// ============================================================================
+// TEXT UTILITIES
+// ============================================================================
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+// ============================================================================
+// OPACITY UTILITIES
+// ============================================================================
+
+@for $i from 0 through 10 {
+  .opacity-#{$i * 10} {
+    opacity: $i * 0.1;
+  }
+}
+
+// ============================================================================
+// SPACING UTILITIES - Margin & Padding
+// ============================================================================
+
+// Margin utilities (auto-generated from spacing scale)
+@each $space-name, $space-value in (
+  ('1', $space-1),
+  ('2', $space-2),
+  ('3', $space-3),
+  ('4', $space-4),
+  ('6', $space-6),
+  ('8', $space-8),
+  ('12', $space-12),
+  ('15', $space-15)
+) {
+  .m-#{$space-name} { margin: $space-value; }
+  .mx-#{$space-name} { margin-inline: $space-value; }
+  .my-#{$space-name} { margin-block: $space-value; }
+  .mt-#{$space-name} { margin-top: $space-value; }
+  .mb-#{$space-name} { margin-bottom: $space-value; }
+  .ml-#{$space-name} { margin-left: $space-value; }
+  .mr-#{$space-name} { margin-right: $space-value; }
+}
+
+// Padding utilities
+@each $space-name, $space-value in (
+  ('1', $space-1),
+  ('2', $space-2),
+  ('3', $space-3),
+  ('4', $space-4),
+  ('6', $space-6),
+  ('8', $space-8),
+  ('12', $space-12),
+  ('15', $space-15)
+) {
+  .p-#{$space-name} { padding: $space-value; }
+  .px-#{$space-name} { padding-inline: $space-value; }
+  .py-#{$space-name} { padding-block: $space-value; }
+  .pt-#{$space-name} { padding-top: $space-value; }
+  .pb-#{$space-name} { padding-bottom: $space-value; }
+  .pl-#{$space-name} { padding-left: $space-value; }
+  .pr-#{$space-name} { padding-right: $space-value; }
+}
+
+// ============================================================================
+// INTERACTION UTILITIES
+// ============================================================================
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.select-none {
+  user-select: none;
+}
+
+.select-text {
+  user-select: text;
+}
+
+// ============================================================================
+// POSITION UTILITIES
+// ============================================================================
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+// ============================================================================
+// ACCESSIBILITY - Reduced Motion
+// ============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

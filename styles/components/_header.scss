@@ -1,0 +1,629 @@
+// components/_header.scss
+// CSS birebir /design/design_handoff_citymarin_site/index.html
+// Design system token'ları ile eşlenmiş
+
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/motion' as *;
+@use '../tokens/z-index' as *;
+@use '../tools/mixins' as *;
+
+// index.html: --bar-h: 60px
+$bar-h: 60px;
+
+// ── .MainMenu ────────────────────────────────────────────────────────────────
+// position:fixed; top:0; left:0; width:100%; z-index:9999;
+
+.main-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-menu;
+  font-family: $font-standard;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ── .menu-bg ─────────────────────────────────────────────────────────────────
+// position:absolute; top:0; left:0; right:0; height:60px;
+// background:rgba(255,255,255,0.97); backdrop-filter:blur(12px);
+// border-bottom:1px solid rgba(0,0,0,0.07);
+
+.menu-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $bar-h;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  transition: background 0.4s, border-color 0.4s;
+
+  body.nightshift & {
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.07);
+  }
+}
+
+// ── .menu-row ────────────────────────────────────────────────────────────────
+// position:relative; height:60px; display:flex; align-items:center; padding:0 30px;
+
+.menu-row {
+  position: relative;
+  height: $bar-h;
+  display: flex;
+  align-items: center;
+  padding: 0 $global-padding;
+}
+
+// ── .menu-logo ───────────────────────────────────────────────────────────────
+// cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+// position:relative; width:44px; height:25px; z-index:2;
+// hover → .ml-mark fades/scales out, .ml-burger fades in
+// is-open → lock to burger + X morph
+
+.menu-logo {
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 44px;
+  height: 25px;
+  z-index: 2;
+
+  // hover
+  &:hover .ml-mark { opacity: 0; transform: scale(0.85); }
+  &:hover .ml-burger { opacity: 1; pointer-events: auto; }
+
+  // is-open
+  &.is-open .ml-mark { opacity: 0; }
+  &.is-open .ml-burger { opacity: 1; pointer-events: auto; }
+  &.is-open .ml-burger > span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  &.is-open .ml-burger > span:nth-child(2) { opacity: 0; }
+  &.is-open .ml-burger > span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+// ── .ml-mark ─────────────────────────────────────────────────────────────────
+// position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+// opacity:1; transition:opacity 0.25s, transform 0.3s;
+
+.ml-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s $ease-out-quad, transform 0.3s $ease-out-quad;
+  opacity: 1;
+
+  svg { width: 44px; height: 25px; }
+
+  svg polygon,
+  svg path {
+    fill: $color-black;
+    transition: fill 0.3s;
+
+    body.nightshift & { fill: $color-white; }
+  }
+}
+
+// ── .ml-burger ───────────────────────────────────────────────────────────────
+// position:absolute; display:inline-flex; flex-direction:column;
+// justify-content:space-between; padding:2px 0; opacity:0; pointer-events:none;
+// > span: width:100%; height:1.5px; background:#1b1b1b;
+
+.ml-burger {
+  position: absolute;
+  inset: 0;
+  width: 24px;
+  height: 18px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2px 0;
+  opacity: 0;
+  pointer-events: none;
+  display: inline-flex;
+  transition: opacity 0.25s $ease-out-quad;
+
+  > span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: $color-black;
+    transition: transform 0.35s $ease-out-quad, opacity 0.25s $ease-out-quad, background 0.3s;
+
+    body.nightshift & { background: $color-white; }
+  }
+}
+
+// ── .ml-burger-right ─────────────────────────────────────────────────────────
+// display:none → inline-flex at max-width:900px
+// same span structure as .ml-burger
+
+.ml-burger-right {
+  margin-left: 14px;
+  cursor: pointer;
+  width: 22px;
+  height: 18px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  // Override .ml-burger's absolute positioning + opacity:0
+  position: static !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  inset: auto !important;
+
+  @media (max-width: 900px) { display: inline-flex; }
+
+  > span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: $color-black;
+    transition: transform 0.35s $ease-out-quad, opacity 0.25s $ease-out-quad;
+
+    body.nightshift & { background: $color-white; }
+  }
+
+  &.is-open > span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  &.is-open > span:nth-child(2) { opacity: 0; }
+  &.is-open > span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  &.no-show { display: none !important; }
+}
+
+// ── .menu-nav ────────────────────────────────────────────────────────────────
+// position:absolute; left:50%; transform:translateX(-50%);
+// display:flex; align-items:center; gap:45px;
+// @media(max-width:900px) → display:none;
+
+.menu-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 45px;
+
+  // index.html: @media (max-width: 900px) { .menu-nav { display: none; } }
+  @media (max-width: 900px) { display: none; }
+}
+
+// ── .nav-link ─────────────────────────────────────────────────────────────────
+// font-size:12px; letter-spacing:0.04em; color:#6b6b6b;
+// cursor:pointer; user-select:none; white-space:nowrap; position:relative;
+// ::before → left:-12px; top:50%; margin-top:-2.5px; w:5px; h:5px; scale(0→1)
+// hover/active → color:#1b1b1b;
+
+.nav-link {
+  font-size: $text-sm;
+  letter-spacing: $tracking-menu;
+  color: $color-mid-grey;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.25s $ease-out-quad;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    margin-top: -2.5px;
+    width: 5px;
+    height: 5px;
+    background: $color-black;
+    transform: scale(0);
+    transform-origin: center;
+    transition: transform 0.28s $ease-out-quad;
+
+    body.nightshift & { background: $color-white; }
+  }
+
+  &:hover,
+  &.active {
+    color: $color-black;
+
+    &::before { transform: scale(1); }
+  }
+
+  body.nightshift & { color: $color-dark-grey; }
+
+  body.nightshift &:hover,
+  body.nightshift &.active { color: $color-white; }
+}
+
+// ── .mf-item ─────────────────────────────────────────────────────────────────
+// same as .nav-link (portfolio filter items)
+
+.mf-item {
+  font-size: $text-sm;
+  letter-spacing: $tracking-menu;
+  color: $color-mid-grey;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.25s $ease-out-quad;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    margin-top: -2.5px;
+    width: 5px;
+    height: 5px;
+    background: $color-black;
+    transform: scale(0);
+    transform-origin: center;
+    transition: transform 0.28s $ease-out-quad;
+
+    body.nightshift & { background: $color-white; }
+  }
+
+  &:hover,
+  &.active { color: $color-black; &::before { transform: scale(1); } }
+
+  body.nightshift & { color: $color-dark-grey; }
+  body.nightshift &:hover,
+  body.nightshift &.active { color: $color-white; }
+}
+
+// .mf-saved-item
+.mf-saved-item { display: inline-flex; align-items: center; gap: 7px; }
+
+// .mf-saved-badge
+// font-size:9px; min-width:15px; height:15px; background:#1b1b1b; color:#fff; border-radius:8px;
+.mf-saved-badge {
+  font-size: 9px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-black;
+  color: $color-white;
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.4s, color 0.4s;
+
+  body.nightshift & { background: $color-white; color: $color-black; }
+}
+
+// ── .menu-contact ────────────────────────────────────────────────────────────
+// margin-left:auto; font-size:12px; letter-spacing:0.04em; color:#6b6b6b;
+// display:flex; align-items:center; gap:14px;
+
+.menu-contact {
+  margin-left: auto;
+  font-size: $text-sm;
+  letter-spacing: $tracking-menu;
+  color: $color-mid-grey;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  body.nightshift & { color: $color-dark-grey; }
+}
+
+.search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+
+  svg circle, svg path { stroke: $color-black; transition: stroke 0.3s; }
+  body.nightshift & svg circle,
+  body.nightshift & svg path { stroke: $color-white; }
+}
+
+.search-count {
+  font-size: $text-sm;
+  color: $color-black;
+  transition: color 0.3s;
+
+  body.nightshift & { color: $color-white; }
+}
+
+// ── .sub-bar ─────────────────────────────────────────────────────────────────
+// height:0; overflow:hidden; background:#f8f8f7;
+// border-bottom:1px solid rgba(0,0,0,0.04);
+// display:flex; align-items:center; justify-content:center; padding:0 30px; gap:28px;
+// .open → height:38px;
+// @media(max-width:900px) → display:none !important;
+
+.sub-bar {
+  height: 0;
+  overflow: hidden;
+  background: #f8f8f7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 $global-padding;
+  gap: 28px;
+  transition: height 0.26s $ease-out-quad;
+
+  body.nightshift & { background: #0c0c0c; border-bottom-color: rgba(255, 255, 255, 0.04); }
+
+  &.open { height: 38px; }
+
+  @media (max-width: 900px) { display: none !important; }
+}
+
+// ── .sub-item (sub-bar içindeki) ─────────────────────────────────────────────
+// font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+// color:#1b1b1b; cursor:pointer; opacity:0.4 → 1 hover/active;
+// ::before → left:-11px; top:50%; w:4px; h:4px; scale(0→1)
+
+.sub-item {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-black;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -11px;
+    top: 50%;
+    margin-top: -2px;
+    width: 4px;
+    height: 4px;
+    background: $color-black;
+    transform: scale(0);
+    transform-origin: center;
+    transition: transform 0.22s $ease-out-quad;
+
+    body.nightshift & { background: $color-white; }
+  }
+
+  &:hover,
+  &.active { opacity: 1; &::before { transform: scale(1); } }
+
+  body.nightshift & { color: $color-white; }
+}
+
+// ── .side-nav-backdrop ───────────────────────────────────────────────────────
+// position:fixed; inset:0; background:rgba(0,0,0,0.18); backdrop-filter:blur(2px);
+// z-index:9999; opacity:0; pointer-events:none;
+// .show → opacity:1; pointer-events:auto;
+
+.side-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(2px);
+  z-index: $z-menu;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s $ease-out-quad;
+
+  body.nightshift & { background: rgba(255, 255, 255, 0.06); }
+
+  &.show { opacity: 1; pointer-events: auto; }
+}
+
+// ── .side-nav ────────────────────────────────────────────────────────────────
+// position:fixed; top:0; bottom:0; width:clamp(280px,30vw,360px);
+// background:#fff; z-index:10000;
+// display:flex; flex-direction:column; padding:28px 32px;
+// transition:transform 0.42s;
+
+.side-nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: clamp(280px, 30vw, 360px);
+  background: $color-white;
+  z-index: $z-overlay;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 32px;
+  transition: transform 0.42s $ease-out-quad;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+
+  body.nightshift & { background: #0a0a0a; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04); }
+
+  &.side-nav-left  { left: 0;  transform: translateX(-105%); }
+  &.side-nav-right { right: 0; transform: translateX(105%); }
+  &.open           { transform: translateX(0); }
+}
+
+// ── .side-nav-header ─────────────────────────────────────────────────────────
+
+.side-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+  body.nightshift & { border-bottom-color: rgba(255, 255, 255, 0.07); }
+}
+
+.side-nav-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color-grey;
+}
+
+.side-nav-close {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-black;
+  cursor: pointer;
+  opacity: 0.7;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 1; }
+  body.nightshift & { color: $color-white; }
+}
+
+// ── .side-nav-links ──────────────────────────────────────────────────────────
+// margin-top:36px; display:flex; flex-direction:column; gap:8px; flex:1;
+
+.side-nav-links {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+// ── .side-link ───────────────────────────────────────────────────────────────
+// font-size:clamp(20px,2.2vw,28px); font-weight:400; letter-spacing:-0.005em;
+// color:#1b1b1b; padding:6px 0; opacity:0; transform:translateX(-12px);
+// .open > .side-link → opacity:1; translateX(0); stagger via nth-child
+
+.side-link {
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: $color-black;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: opacity 0.2s, transform 0.3s $ease-out-quad;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-12px);
+
+  body.nightshift & { color: $color-white; }
+  &:hover { opacity: 0.55 !important; }
+}
+
+// Active dot indicator on side-link
+.side-link.active::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: 50%;
+  margin-top: -3px;
+  width: 6px;
+  height: 6px;
+  background: $color-black;
+
+  body.nightshift & { background: $color-white; }
+}
+
+.side-nav.open .side-link {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+// Stagger
+.side-nav.open .side-link:nth-child(1) { transition-delay: 0.05s; }
+.side-nav.open .side-link:nth-child(2) { transition-delay: 0.08s; }
+.side-nav.open .side-link:nth-child(3) { transition-delay: 0.11s; }
+.side-nav.open .side-link:nth-child(4) { transition-delay: 0.14s; }
+.side-nav.open .side-link:nth-child(5) { transition-delay: 0.17s; }
+.side-nav.open .side-link:nth-child(6) { transition-delay: 0.20s; }
+.side-nav.open .side-link:nth-child(7) { transition-delay: 0.23s; }
+
+// .side-link-secondary (Contact)
+.side-link-secondary {
+  margin-top: 14px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  font-size: 12px !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-mid-grey !important;
+
+  body.nightshift & { border-top-color: rgba(255, 255, 255, 0.07); color: $color-dark-grey !important; }
+}
+
+// ── Right side-nav: categories ───────────────────────────────────────────────
+
+.side-cat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.side-cat > .side-link { font-size: clamp(18px, 1.8vw, 22px); }
+
+.side-mf.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  margin-top: -3px;
+  width: 6px;
+  height: 6px;
+  background: $color-black;
+
+  body.nightshift & { background: $color-white; }
+}
+
+// ── .side-sub-list ───────────────────────────────────────────────────────────
+// margin:4px 0 8px 14px; padding-left:14px; border-left:1px solid rgba(0,0,0,0.1);
+// opacity:0; transform:translateX(-6px); → .open → opacity:1; delay:0.25s;
+
+.side-sub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 4px 0 8px 14px;
+  padding-left: 14px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.35s $ease-out-quad, transform 0.35s $ease-out-quad;
+
+  body.nightshift & { border-left-color: rgba(255, 255, 255, 0.1); }
+
+  .side-nav.open & { opacity: 1; transform: translateX(0); transition-delay: 0.25s; }
+}
+
+// ── .side-sub-item ───────────────────────────────────────────────────────────
+// font-size:12px; letter-spacing:0.04em; color:#6b6b6b;
+// padding:4px 0; cursor:pointer; hover → color:#1b1b1b; padding-left:6px;
+
+.side-sub-item {
+  font-size: $text-sm;
+  letter-spacing: $tracking-menu;
+  color: $color-mid-grey;
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.2s, padding-left 0.2s;
+
+  &:hover { color: $color-black; padding-left: 6px; }
+  body.nightshift & { color: $color-dark-grey; }
+  body.nightshift &:hover { color: $color-white; }
+}
+
+// ── .side-nav-foot ───────────────────────────────────────────────────────────
+
+.side-nav-foot {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-grey;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+
+  body.nightshift & { border-top-color: rgba(255, 255, 255, 0.07); }
+
+  > div:last-child { opacity: 0.5; margin-top: 6px; }
+}

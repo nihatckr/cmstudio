@@ -1,0 +1,19 @@
+// tokens/_grid.scss
+// City Marin Studio - Design System Grid
+
+// 12-column grid with percentage-based column widths
+$grid-0-5: 8.333333333%;
+$grid-1: 7.246376812%;
+$grid-2: 14.49275362%;
+$grid-3: 21.73913043%;
+$grid-4: 28.57142857%;
+$grid-5: 35.71428571%;
+$grid-6: 42.85714286%;
+$grid-8: 56.52173913%;
+$grid-10: 71.07942974%;
+$grid-12: 85.71428571%;
+$grid-gutter: 1.449275362%;
+
+// Global grid settings
+$grid-columns: 12;
+$grid-max-width: 2140px;

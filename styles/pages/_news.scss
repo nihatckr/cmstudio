@@ -1,0 +1,48 @@
+// components/_news.scss — News page CSS from index.html
+@use '../tools/mixins' as *;
+
+.news-page { padding-top: var(--bar-h); }
+.news-header { padding: clamp(48px,6vw,80px) clamp(24px,4.5vw,60px) 30px; display: grid; grid-template-columns: minmax(160px, 18%) 1fr auto; gap: clamp(20px,3vw,40px); align-items: end; @include section-border('bottom'); }
+.nh-eyebrow { @include eyebrow; letter-spacing: 0.12em; padding-bottom: 14px; }
+.news-h1 { font-size: clamp(48px, 7vw, 100px); font-weight: 400; line-height: 1; @include nightshift-text; transition: color 0.4s; }
+.news-filter-tabs { display: flex; gap: 20px; }
+.news-tab { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #898989; cursor: pointer; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.news-tab:hover, .news-tab.active { color: #1b1b1b; border-bottom-color: #1b1b1b; }
+body.nightshift .news-tab:hover, body.nightshift .news-tab.active { color: #fff; border-bottom-color: #fff; }
+.news-featured { padding: 60px; @include section-border('bottom'); }
+.nf-meta { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #898989; }
+.nf-tag { @include nightshift-text; border-left: 5px solid #1b1b1b; padding-left: 10px; transition: color 0.4s, border-color 0.4s;
+  body.nightshift & { border-left-color: #fff; } }
+.nf-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center; }
+.nf-image { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #efefed; }
+.nf-text { display: flex; flex-direction: column; gap: 22px; }
+.nf-headline { font-size: clamp(28px, 3.6vw, 48px); line-height: 1.1; @include nightshift-text; letter-spacing: -0.02em; font-weight: 400; transition: color 0.4s; }
+.nf-excerpt { font-size: 15px; line-height: 1.6; @include nightshift-muted(#6b6b6b, #aaa); transition: color 0.4s; max-width: 50ch; }
+.nf-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.nf-tag-chip { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #1b1b1b; padding: 5px 10px; border: 1px solid rgba(0,0,0,0.1); transition: color 0.4s, border-color 0.4s, background 0.2s; }
+body.nightshift .nf-tag-chip { color: #fff; border-color: rgba(255,255,255,0.15); }
+.nf-tag-chip:hover { background: rgba(0,0,0,0.04); }
+body.nightshift .nf-tag-chip:hover { background: rgba(255,255,255,0.04); }
+.nf-cta { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #1b1b1b; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; padding-top: 6px; align-self: flex-start; }
+body.nightshift .nf-cta { color: #fff; }
+.nf-cta:hover { opacity: 1; }
+.nf-cta span { transition: transform 0.3s var(--ease); }
+.news-item:hover .news-readmore { opacity: 1; }
+.news-list-head { display: flex; align-items: center; justify-content: space-between; padding: 28px 60px 10px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #898989; @include section-border('bottom'); }
+.news-item { display: grid; grid-template-columns: 140px 1fr 280px; gap: 0; padding: 32px 60px; @include section-border('bottom'); transition: background 0.18s; cursor: pointer; }
+.news-item:hover { background: rgba(0,0,0,0.015); }
+body.nightshift .news-item:hover { background: rgba(255,255,255,0.02); }
+.news-date-col { font-size: 12px; color: #898989; padding-top: 2px; }
+.news-body-col { padding-right: 60px; }
+.news-cat { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #898989; margin-bottom: 10px; }
+.news-headline { font-size: 18px; font-weight: 400; line-height: 1.25; @include nightshift-text; margin-bottom: 12px; transition: color 0.4s; }
+.news-excerpt { font-size: 13px; line-height: 1.55; color: #898989; }
+.news-readmore { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; @include nightshift-text; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s; align-self: center; justify-self: end; opacity: 0.35; }
+@media (max-width: 900px) {
+  .news-header { grid-template-columns: 1fr; padding: 64px 24px 24px; gap: 12px; } .news-filter-tabs { gap: 14px; flex-wrap: wrap; }
+  .news-featured { padding: 40px 24px; } .nf-grid { grid-template-columns: 1fr; gap: 24px; }
+  .news-list-head { padding: 18px 24px 10px; }
+  .news-item { grid-template-columns: 1fr; gap: 8px; padding: 24px 24px; } .news-date-col { font-size: 11px; } .news-readmore { justify-self: start; margin-top: 4px; }
+  .press-strip { padding: 40px 24px; } .press-logos { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .newsletter { flex-direction: column; padding: 24px; gap: 12px; align-items: flex-start; }
+}

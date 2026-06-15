@@ -1,0 +1,143 @@
+// components/_hero.scss
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/motion' as *;
+@use '../tools/mixins' as *;
+
+// ============================================================================
+// HERO SECTION COMPONENT
+// ============================================================================
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  @include flex-center;
+  background-color: $color-near-black;
+  overflow: hidden;
+  padding-top: 80px; // Account for fixed header
+
+  // Hero content
+  &__content {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    max-width: 600px;
+    color: $color-white;
+  }
+
+  // Hero title
+  &__title {
+    @include font-standard;
+    @include responsive-type($text-5xl, $text-6xl, $text-7xl);
+    line-height: $lh-tight;
+    color: $color-white;
+    margin-bottom: $space-6;
+
+    // Animated word
+    &__word {
+      display: inline-block;
+      opacity: 0;
+      animation: slideUp 0.6s $ease-out-quad forwards;
+
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          animation-delay: calc(#{$i} * 0.1s);
+        }
+      }
+    }
+  }
+
+  // Hero subtitle
+  &__subtitle {
+    @include font-standard;
+    font-size: $text-lg;
+    line-height: $lh-body;
+    color: $color-light-grey;
+    margin-bottom: $space-12;
+
+    @include respond-to('md') {
+      font-size: $text-xl;
+    }
+  }
+
+  // Hero CTA
+  &__cta {
+    @include flex-between;
+    gap: $space-6;
+    font-size: $text-sm;
+    font-weight: $font-weight-normal;
+    letter-spacing: $tracking-upper;
+    text-transform: uppercase;
+    color: $color-white;
+
+    &-link {
+      @include flex-center;
+      gap: $space-2;
+      text-decoration: none;
+      color: $color-white;
+      @include transition(opacity);
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &-arrow {
+      display: inline-block;
+      font-size: $text-sm;
+      @include transition(transform);
+
+      .hero__cta-link:hover & {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  // Hero background decoration
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    z-index: 1;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Hero scroll indicator
+  &__scroll {
+    position: absolute;
+    bottom: $space-8;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: $text-xs;
+    letter-spacing: $tracking-upper;
+    text-transform: uppercase;
+    color: $color-light-grey;
+    @include transition(opacity);
+
+    @include respond-to('sm') {
+      bottom: $space-4;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @include nightshift(color, $color-dark-grey);
+  }
+
+  @include nightshift(background-color, $bg-nightshift);
+  @include nightshift(color, $color-white);
+
+  .hero__subtitle {
+    @include nightshift(color, $color-dark-grey);
+  }
+}

@@ -1,0 +1,197 @@
+// components/_card.scss
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/motion' as *;
+@use '../tools/mixins' as *;
+
+// ============================================================================
+// PROJECT CARD COMPONENT
+// ============================================================================
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background-color: $bg-project-card;
+  @include transition(all);
+
+  @include nightshift(background-color, $bg-nightshift-card);
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  // Card image container
+  &__image {
+    position: relative;
+    width: 100%;
+    padding-bottom: 66.666%; // 3:2 aspect ratio
+    overflow: hidden;
+    background-color: $color-bg-project;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      @include transition(transform);
+    }
+
+    // Image overlay
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        135deg,
+        rgba($color-black, 0) 0%,
+        rgba($color-black, 0.3) 100%
+      );
+      opacity: 0;
+      @include transition(opacity);
+    }
+  }
+
+  // Hover image zoom
+  &:hover .card__image img {
+    transform: scale(1.05);
+  }
+
+  &:hover .card__image::after {
+    opacity: 1;
+  }
+
+  // Card content
+  &__content {
+    padding: $space-6 $space-4;
+
+    @include respond-to('md') {
+      padding: $space-8 $space-6;
+    }
+  }
+
+  // Card header
+  &__header {
+    margin-bottom: $space-4;
+  }
+
+  // Card category/type
+  &__category {
+    @include font-standard;
+    font-size: $text-xs;
+    color: $fg-tertiary;
+    letter-spacing: $tracking-upper;
+    text-transform: uppercase;
+    margin-bottom: $space-2;
+
+    @include nightshift(color, $color-dark-grey);
+  }
+
+  // Card title
+  &__title {
+    @include font-standard;
+    font-size: $text-2xl;
+    line-height: $lh-body;
+    color: $fg-primary;
+    margin-bottom: $space-2;
+
+    @include respond-to('md') {
+      font-size: $text-3xl;
+    }
+
+    @include nightshift(color, $color-white);
+  }
+
+  // Card location/meta
+  &__meta {
+    @include font-standard;
+    font-size: $text-sm;
+    color: $fg-secondary;
+    letter-spacing: $tracking-menu;
+    text-transform: uppercase;
+
+    @include nightshift(color, $color-dark-grey);
+  }
+
+  // Card footer / actions
+  &__footer {
+    margin-top: $space-6;
+    @include flex-between;
+    font-size: $text-xs;
+    color: $fg-tertiary;
+    letter-spacing: $tracking-upper;
+    text-transform: uppercase;
+
+    @include nightshift(color, $color-dark-grey);
+  }
+
+  // Card link / CTA
+  &__link {
+    @include hover-text($fg-secondary, $fg-primary);
+
+    @include nightshift(color, $color-dark-grey);
+    
+    body.nightshift &:hover {
+      color: $color-white;
+    }
+  }
+
+  // Status badge
+  &__status {
+    display: inline-block;
+    padding: $space-2 $space-4;
+    font-size: $text-xs;
+    letter-spacing: $tracking-upper;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid $fg-tertiary;
+    color: $fg-tertiary;
+
+    @include nightshift(border-color, $color-dark-grey);
+    @include nightshift(color, $color-dark-grey);
+  }
+}
+
+// ============================================================================
+// CARD VARIANTS
+// ============================================================================
+
+// Featured card (larger)
+.card--featured {
+  .card__image {
+    padding-bottom: 100%; // 1:1 aspect ratio
+  }
+
+  .card__title {
+    font-size: $text-4xl;
+
+    @include respond-to('lg') {
+      font-size: $text-5xl;
+    }
+  }
+}
+
+// Compact card (smaller)
+.card--compact {
+  .card__content {
+    padding: $space-4 $space-3;
+
+    @include respond-to('md') {
+      padding: $space-6 $space-4;
+    }
+  }
+
+  .card__title {
+    font-size: $text-lg;
+  }
+
+  .card__category,
+  .card__meta {
+    font-size: $text-xs;
+  }
+}

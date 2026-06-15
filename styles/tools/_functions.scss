@@ -1,0 +1,128 @@
+// tools/_functions.scss
+// City Marin Studio - SCSS Helper Functions
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+
+// ============================================================================
+// COLOR FUNCTIONS
+// ============================================================================
+
+/// Lighten a color by a percentage
+/// @param {Color} $color - Color to lighten
+/// @param {Number} $amount - Amount to lighten (0-100)
+@function lighten-color($color, $amount) {
+  @return lighten($color, $amount);
+}
+
+/// Darken a color by a percentage
+/// @param {Color} $color - Color to darken
+/// @param {Number} $amount - Amount to darken (0-100)
+@function darken-color($color, $amount) {
+  @return darken($color, $amount);
+}
+
+/// Mix two colors
+/// @param {Color} $color1 - First color
+/// @param {Color} $color2 - Second color
+/// @param {Number} $weight - Weight of color1 (0-100)
+@function mix-colors($color1, $color2, $weight: 50%) {
+  @return mix($color1, $color2, $weight);
+}
+
+/// Get opacity color
+/// @param {Color} $color - Color
+/// @param {Number} $alpha - Alpha/opacity (0-1)
+@function rgba-color($color, $alpha) {
+  @return rgba($color, $alpha);
+}
+
+// ============================================================================
+// SPACING FUNCTIONS
+// ============================================================================
+
+/// Calculate responsive spacing
+/// @param {Number} $mobile - Mobile spacing value
+/// @param {Number} $desktop - Desktop spacing value
+@function responsive-space($mobile, $desktop) {
+  @return clamp($mobile, calc($mobile + (($desktop - $mobile) * 50vw / 640px)), $desktop);
+}
+
+/// Get spacing value from scale
+/// @param {Number} $level - Spacing level (1-15)
+@function get-space($level) {
+  @if $level == 1 { @return $space-1; }
+  @else if $level == 2 { @return $space-2; }
+  @else if $level == 3 { @return $space-3; }
+  @else if $level == 4 { @return $space-4; }
+  @else if $level == 5 { @return $space-5; }
+  @else if $level == 6 { @return $space-6; }
+  @else if $level == 7 { @return $space-7; }
+  @else if $level == 8 { @return $space-8; }
+  @else if $level == 9 { @return $space-9; }
+  @else if $level == 10 { @return $space-10; }
+  @else if $level == 11 { @return $space-11; }
+  @else if $level == 12 { @return $space-12; }
+  @else if $level == 13 { @return $space-13; }
+  @else if $level == 14 { @return $space-14; }
+  @else if $level == 15 { @return $space-15; }
+  @else { @return $space-4; }
+}
+
+// ============================================================================
+// SIZING FUNCTIONS
+// ============================================================================
+
+/// Convert pixels to rem
+/// @param {Number} $px - Pixel value
+/// @param {Number} $base - Base font size (default: 16px)
+@function px-to-rem($px, $base: 16px) {
+  @return calc($px / $base) * 1rem;
+}
+
+/// Convert pixels to em
+/// @param {Number} $px - Pixel value
+/// @param {Number} $base - Base font size (default: 16px)
+@function px-to-em($px, $base: 16px) {
+  @return calc($px / $base) * 1em;
+}
+
+// ============================================================================
+// TYPE FUNCTIONS
+// ============================================================================
+
+/// Check if value is a string
+@function is-string($value) {
+  @return type-of($value) == 'string';
+}
+
+/// Check if value is a number
+@function is-number($value) {
+  @return type-of($value) == 'number';
+}
+
+/// Check if value is a color
+@function is-color($value) {
+  @return type-of($value) == 'color';
+}
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+/// Get contrast ratio (simple version)
+/// Used to determine if text should be light or dark
+@function get-text-color($background) {
+  $red: red($background) / 255;
+  $green: green($background) / 255;
+  $blue: blue($background) / 255;
+  
+  $luminance: 0.299 * $red + 0.587 * $green + 0.114 * $blue;
+  
+  @if $luminance > 0.5 {
+    @return $color-black;
+  }
+  @else {
+    @return $color-white;
+  }
+}
