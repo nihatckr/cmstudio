@@ -1,0 +1,9 @@
+# Ignore global page styles
+# These are imported globally via styles/main.scss -> styles/pages/index.scss
+# They are not CSS Modules but global styles applied to page elements
+styles/pages/**/*.scss
+
+# Ignore generated files
+.next/
+node_modules/
+dist/
