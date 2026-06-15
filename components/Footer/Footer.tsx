@@ -122,10 +122,11 @@ export function Footer() {
         className="footer-bottom"
         onClick={handleNightshift}
         role="button"
+        suppressHydrationWarning
         aria-label={nightshift ? 'Switch to dayshift' : 'Switch to nightshift'}
       >
-        <div className="ns-dot" />
-        <span>{nightshift ? 'DAYSHIFT' : 'NIGHTSHIFT'}</span>
+        <div className="ns-dot" suppressHydrationWarning />
+        <span suppressHydrationWarning>{nightshift ? 'DAYSHIFT' : 'NIGHTSHIFT'}</span>
       </div>
     </footer>
   );
