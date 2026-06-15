@@ -37,17 +37,17 @@ export function Footer() {
   const handleNightshift = () => {
     const next = !nightshift;
     setNightshift(next);
+    // Immediately toggle DOM classes - don't wait for re-render
     document.documentElement.classList.toggle('nightshift', next);
     document.body.classList.toggle('nightshift', next);
     try { localStorage.setItem('cms_nightshift', String(next)); } catch {}
   };
 
-  // Listen for keyboard shortcut N → nightshift toggle
+  // Sync state with DOM after re-render
   useEffect(() => {
-    const handler = () => handleNightshift();
-    window.addEventListener('cms:nightshift-toggle', handler);
-    return () => window.removeEventListener('cms:nightshift-toggle', handler);
-  });
+    document.documentElement.classList.toggle('nightshift', nightshift);
+    document.body.classList.toggle('nightshift', nightshift);
+  }, [nightshift]);
 
   return (
     <footer className="footer">
