@@ -10,7 +10,7 @@
 .contact-col:last-child { border-right: none; }
 .cc-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #898989; display: flex; align-items: center; gap: 10px; }
 .cc-label::before { content: ''; width: 5px; height: 5px; background: #1b1b1b; transition: background 0.4s; }
-body.nightshift .cc-label::before { background: #fff; }
+:global(body.nightshift) .cc-label::before { background: #fff; }
 .cc-block { display: flex; flex-direction: column; gap: 14px; }
 .cc-place { font-size: 16px; @include nightshift-text; transition: color 0.4s; }
 .cc-addr { font-size: 13px; line-height: 1.6; @include nightshift-muted(#6b6b6b, #888); transition: color 0.4s; }

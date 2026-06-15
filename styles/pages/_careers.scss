@@ -11,12 +11,12 @@
 .careers-jobs { display: flex; flex-direction: column; }
 .careers-job { display: grid; grid-template-columns: minmax(160px, 18%) 1fr auto; gap: 60px; padding: 40px 0; @include section-border('bottom'); cursor: pointer; transition: background 0.2s; }
 .careers-job:hover { background: rgba(0,0,0,0.015); }
-body.nightshift .careers-job:hover { background: rgba(255,255,255,0.02); }
+:global(body.nightshift) .careers-job:hover { background: rgba(255,255,255,0.02); }
 .cj-meta { display: flex; flex-direction: column; gap: 8px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #898989; }
 .cj-title { font-size: clamp(22px, 2.2vw, 32px); font-weight: 400; line-height: 1.15; @include nightshift-text; margin-bottom: 12px; letter-spacing: -0.005em; transition: color 0.4s; }
 .cj-desc { font-size: 14px; line-height: 1.55; @include nightshift-muted(#6b6b6b, #888); max-width: 620px; transition: color 0.4s; }
 .cj-cta { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #1b1b1b; align-self: center; display: inline-flex; align-items: center; gap: 10px; opacity: 0.55; transition: opacity 0.2s; white-space: nowrap; }
-body.nightshift .cj-cta { color: #fff; }
+:global(body.nightshift) .cj-cta { color: #fff; }
 .careers-job:hover .cj-cta { opacity: 1; }
 .cj-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
 .careers-job:hover .cj-arrow { transform: translateX(6px); }

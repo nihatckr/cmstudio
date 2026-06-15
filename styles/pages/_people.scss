@@ -28,13 +28,13 @@
 .tm-avatar { width: 100%; aspect-ratio: 4 / 5; background: linear-gradient(140deg, hsl(200, 8%, 92%) 0%, hsl(200, 8%, 80%) 100%); position: relative; overflow: hidden; transition: filter 0.3s; }
 .tm-avatar::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.08) 100%); }
 .tm-avatar::after { content: ''; position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%); width: 38%; aspect-ratio: 1; border-radius: 50%; background: rgba(0,0,0,0.06); }
-body.nightshift .tm-avatar { filter: brightness(0.6) contrast(0.9); }
+:global(body.nightshift) .tm-avatar { filter: brightness(0.6) contrast(0.9); }
 .tm-name { font-size: 14px; @include nightshift-text; transition: color 0.4s; }
 .tm-role { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #898989; }
 @media (max-width: 900px) {
   .people-header { grid-template-columns: 1fr; padding: 80px 24px 40px; gap: 14px; } .ph-lede { grid-column: 1; }
   .founder-block { grid-template-columns: 1fr; } .fb-image { min-height: 320px; } .fb-text { padding: 40px 24px; border-left: none; border-top: 1px solid rgba(0,0,0,0.07); }
-  body.nightshift .fb-text { border-top-color: rgba(255,255,255,0.07); }
+  :global(body.nightshift) .fb-text { border-top-color: rgba(255,255,255,0.07); }
   .team-section { padding: 40px 24px 60px; } .team-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
 }
 @media (max-width: 480px) {
