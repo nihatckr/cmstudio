@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { 
   aboutValues, aboutStats, processSteps,
-  studioBio, aboutHero, aboutSectionMeta
+  studioBio, aboutHero,
+  aboutSectionMeta
 } from '@/lib/data';
 import { StudioTour } from '@/components/UI/StudioTour';
 export const metadata: Metadata = { title: 'About — City Marin Studio' };
@@ -49,9 +50,10 @@ export default function AboutPage() {
           <div className="ast-col" key={s.label}><div className="ast-num">{s.num}</div><div className="ast-label">{s.label}</div></div>
         ))}
       </div> 
+
       {/* 360° Studio tour */}
       <StudioTour />
- 
+ 1
 
       {/* Process */}
       <div className="about-process">

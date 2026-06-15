@@ -31,8 +31,7 @@ export function ScrollReveal() {
       '.reveal', '.reveal-stagger',
       // about page
       '.about-body-section', '.about-values', '.about-stats',
-      '.about-quote', '.about-process', '.about-timeline',
-      '.about-awards', '.studio-tour', '.about-testimonials', '.about-dash',
+      '.about-process', '.studio-tour',
       // people
       '.founder-block', '.team-section',
       // news

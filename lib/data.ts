@@ -70,30 +70,6 @@ export const processSteps: ProcessStep[] = [
   { num: '05', name: 'Deliver', desc: 'We stay on site through construction and return after handover to measure how the building actually performs.' },
 ];
 
-export const timeline: TimelineItem[] = [
-  { year: '2012', title: 'Studio founded',                      desc: 'Marin Cakir establishes the practice in Istanbul with a focus on hospitality and residential commissions across Turkey.' },
-  { year: '2016', title: 'First international project',         desc: 'The studio expands beyond Turkey with the Dubai Corporate Office commission — its first project in the UAE.' },
-  { year: '2019', title: 'Sustainability practice formalised',  desc: 'A dedicated sustainability team is brought in-house; LEED workflows become standard across all new projects.' },
-  { year: '2022', title: 'Zorlu Residence delivered',           desc: "Completion of the studio's largest residential project to date — 250 residences across multiple towers in central Istanbul." },
-  { year: '2025', title: 'Best Resort Design Award',            desc: 'The Ela Quality Resort receives international recognition for its integration of luxury hospitality and sustainable design.' },
-  { year: '2026', title: 'In progress',                         desc: 'A new boutique studio space, a Mediterranean villa, and two restaurant interiors are currently in design.', future: true },
-];
-
-export const awards: Award[] = [
-  { year: '2025', name: 'Best Resort Design Award',    org: 'Intl. Architecture Forum', cite: 'Recognised for the integration of luxury hospitality with deep ecological intent — described by the jury as "a new paradigm for Mediterranean coastal architecture."' },
-  { year: '2024', name: 'Coastal Architecture Award',  org: 'Aegean Design Council',    cite: 'Awarded to Bodrum Coastal Villa for its seamless integration with the Aegean landscape and exemplary use of local stone and timber.' },
-  { year: '2024', name: 'Minimalist Design Award',     org: 'Mono Hotel',               cite: 'A project that proves restraint is luxury — celebrated for the disciplined material palette and the way light is shaped through the building.' },
-  { year: '2023', name: 'Tower Design Excellence',     org: 'Ozak Global Tower',        cite: 'A landmark on the Istanbul skyline — recognised for the elegant facade rhythm and how the tower meets its public ground.' },
-  { year: '2023', name: 'Innovative Façade Design',    org: 'Dubai Corporate Office',   cite: 'Parametric double-skin envelope tuned for the Gulf climate — a study in performance and presence on the skyline.' },
-  { year: '2021', name: 'Smart Office Innovation',     org: 'Schneider Electric',       cite: 'A demonstration project for integrated building intelligence — 60% energy reduction over a comparable baseline.' },
-];
-
-export const testimonials: Testimonial[] = [
-  { quote: "They listened before they drew. The result is a building that feels like it grew out of the coastline rather than landing on it.", name: 'Ela Quality Resort',   role: 'Private Developer · Antalya' },
-  { quote: 'Precision without coldness. Every material was chosen for how it would feel in ten years, not just on opening day.',              name: 'Zorlu Holding',        role: 'Residential Complex · Istanbul' },
-  { quote: 'The studio managed an international, technically demanding project with calm and clarity. A genuine creative partner.',            name: 'Dubai Corporate Group', role: 'Office Tower · Dubai' },
-];
-
 // ─── Sustainability ──────────────────────────────────────────────────────────
 
 export interface SustainabilityStat { num: string; label: string; desc: string; }
@@ -241,31 +217,6 @@ export const studioBio: StudioBio = {
 
 export const aboutHero = {
   heading: 'Architecture & Design Studio',
-};
-
-export const portfolioDashboardMeta: DashboardMeta = {
-  eyebrow: 'Portfolio at a glance',
-  title: 'Thirteen projects, five years.',
-};
-
-export const portfolioDashboard: PortfolioDashboard = {
-  typologyLabel: 'By typology',
-  typologyCounts: [
-    { label: 'Hospitality', value: 5 },
-    { label: 'Residential', value: 4 },
-    { label: 'Commercial', value: 4 },
-  ],
-  yearLabel: 'By year',
-  yearData: [
-    { year: '21', count: 1 },
-    { year: '22', count: 1 },
-    { year: '23', count: 3 },
-    { year: '24', count: 4 },
-    { year: '25', count: 2 },
-  ],
-  locationLabel: 'By location',
-  locationStanford: 8,
-  locationOther: 5,
 };
 
 export const aboutSectionMeta = {
