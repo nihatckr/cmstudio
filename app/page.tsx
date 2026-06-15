@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { projects, subfilters, homepageMarquee, homepageMeta } from '@/lib/data';
+import { projects, subfilters, homepageMeta } from '@/lib/data';
 import { ProjectDetail } from '@/components/UI/ProjectDetail';
 import { ArchSVG } from '@/components/UI/ArchSVG';
 
@@ -165,19 +165,6 @@ export default function ProjectsPage() {
             );
           })
         )}
-      </div>
-
-      {/* Marquee */}
-      <div className="marquee">
-        <div className="marquee-track">
-          {homepageMarquee.flatMap(s => [
-            <span key={s}>{s}</span>, <span key={`${s}-dot`} className="marquee-dot">✦</span>
-          ]).concat(
-            homepageMarquee.flatMap(s => [
-              <span key={`${s}2`}>{s}</span>, <span key={`${s}-dot2`} className="marquee-dot">✦</span>
-            ])
-          )}
-        </div>
       </div>
     </div>
   );
