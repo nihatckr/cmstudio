@@ -28,16 +28,21 @@ body.nightshift .search-close { color: #aaa; }
 body.nightshift .search-close:hover { color: #fff; }
 .search-results { flex: 1; padding-top: 40px; overflow-y: auto; }
 .search-results-head { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #898989; margin-bottom: 20px; }
+body.nightshift .search-results-head { color: #aaa; }
 .search-result { display: grid; grid-template-columns: 80px 1fr auto auto; gap: 32px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid rgba(0,0,0,0.07); cursor: pointer; transition: background 0.18s, padding 0.25s var(--ease); }
 body.nightshift .search-result { border-bottom-color: rgba(255,255,255,0.07); }
 .search-result:hover { padding-left: 8px; background: rgba(0,0,0,0.02); }
 body.nightshift .search-result:hover { background: rgba(255,255,255,0.03); }
 .sr-code { font-size: 11px; letter-spacing: 0.08em; color: #898989; font-variant-numeric: tabular-nums; }
+body.nightshift .sr-code { color: #aaa; }
 .sr-title { font-size: clamp(18px, 1.6vw, 22px); color: #1b1b1b; transition: color 0.4s; }
 body.nightshift .sr-title { color: #fff; }
 .sr-loc { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #898989; }
+body.nightshift .sr-loc { color: #aaa; }
 .sr-tag { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #898989; }
+body.nightshift .sr-tag { color: #aaa; }
 .sr-empty { color: #898989; font-size: 14px; padding: 40px 0; }
+body.nightshift .sr-empty { color: #aaa; }
 mark.sr-hl { background: transparent; color: inherit; border-bottom: 1px dashed currentColor; }
 
 // ── Lightbox ──────────────────────────────────────────────────────────────────
@@ -65,6 +70,7 @@ mark.sr-hl { background: transparent; color: inherit; border-bottom: 1px dashed 
 .cookie-banner.show { transform: translateY(0); opacity: 1; }
 body.nightshift .cookie-banner { background: rgba(0,0,0,0.85); border-color: rgba(255,255,255,0.1); }
 .cookie-eyebrow { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #898989; }
+body.nightshift .cookie-eyebrow { color: #aaa; }
 .cookie-text { font-size: 13px; line-height: 1.5; color: #1b1b1b; transition: color 0.4s; }
 body.nightshift .cookie-text { color: #ddd; }
 .cookie-actions { display: flex; gap: 12px; margin-top: 4px; }
