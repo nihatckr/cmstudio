@@ -33,13 +33,13 @@ export function ScrollReveal() {
       '.about-body-section', '.about-values', '.about-stats',
       '.about-process', '.studio-tour',
       // people
-      '.founder-block', '.team-section',
+      '.team-section',
       // news
       '.news-featured', '.news-list-head', '.news-item',
       // sustainability
       '.sustain-intro-grid', '.sustain-stats',
       // careers
-      '.careers-listing', '.careers-job', '.faq-section',
+      '.careers-listing', '.careers-job',
       // contact
       '.contact-grid', '.contact-map',
       // project entries

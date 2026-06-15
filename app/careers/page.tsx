@@ -1,11 +1,8 @@
 'use client';
-import { useState } from 'react';
 import Link from 'next/link';
-import { jobs, faqs, careersLocations, careersApplicationEmail, careersMeta } from '@/lib/data';
+import { jobs, careersLocations, careersApplicationEmail, careersMeta } from '@/lib/data';
 
 export default function CareersPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   return (
     <div className="careers-page">
       <div className="careers-hero">
@@ -36,21 +33,6 @@ export default function CareersPage() {
             <div className="cf-label">{careersMeta.generalApplicationsLabel}</div>
             <Link className="cf-link" href={`mailto:${careersApplicationEmail}`}>{careersApplicationEmail}</Link>
           </div>
-        </div>
-      </div>
-
-      <div className="faq-section">
-        <div className="faq-head">
-          <div className="faq-eyebrow">{careersMeta.faqEyebrow}</div>
-          <h2 className="faq-title">{careersMeta.faqTitle}</h2>
-        </div>
-        <div className="faq-list">
-          {faqs.map((faq, i) => (
-            <div className={`faq-item${openFaq === i ? ' open' : ''}`} key={i} onClick={() => setOpenFaq(openFaq === i ? null : i)}>
-              <div className="faq-q"><span>{faq.q}</span><span className="faq-plus">+</span></div>
-              <div className="faq-a"><div className="faq-a-inner">{faq.a}</div></div>
-            </div>
-          ))}
         </div>
       </div>
     </div>

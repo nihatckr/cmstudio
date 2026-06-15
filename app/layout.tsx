@@ -4,11 +4,10 @@ import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { ProgressBar } from "@/components/UI/ProgressBar";
 import { BackToTop } from "@/components/UI/BackToTop";
-import { CookieBanner } from "@/components/UI/CookieBanner";
 import { LangToggle } from "@/components/UI/LangToggle";
 import { SearchOverlay } from "@/components/UI/SearchOverlay";
 import { ScrollReveal } from "@/components/UI/ScrollReveal";
-import { NightshiftInit } from "@/components/UI/NightshiftInit";
+ 
 import { GlobalKeyboard } from "@/components/UI/GlobalKeyboard";
 import { IntroScreen } from "@/components/UI/IntroScreen";
 import "../styles/main.scss";
@@ -30,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <NightshiftInit />
       </head>
       <body suppressHydrationWarning>
         {/* Synchronous inline script — body exists here, runs before paint.
@@ -59,7 +57,7 @@ export default function RootLayout({
         <Footer />
         <ProgressBar />
         <BackToTop />
-        <CookieBanner />
+        
         <LangToggle />
         <SearchOverlay />
         <ScrollReveal />

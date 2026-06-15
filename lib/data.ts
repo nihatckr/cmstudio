@@ -90,15 +90,6 @@ export const sustainabilityPrinciples: SustainabilityPrinciple[] = [
   { num: '04', name: 'Measured outcomes',   desc: 'Every project ships with energy and water targets, then is monitored after handover. Real performance, not predicted performance, is what matters.' },
 ];
 
-export const certifications: Certification[] = [
-  { label: 'LEED',         meta: 'Gold · Platinum targets' },
-  { label: 'BREEAM',       meta: 'Very good · Excellent' },
-  { label: 'WELL',         meta: 'Building Standard v2' },
-  { label: 'EDGE',         meta: 'IFC efficiency certification' },
-  { label: 'PASSIVE HOUSE', meta: 'Selected residential work' },
-  { label: 'EU TAXONOMY',  meta: 'Alignment screening' },
-];
-
 export const sustainabilityMeta = {
   eyebrow: 'Our commitment',
   title: 'Sustainability',
@@ -106,15 +97,6 @@ export const sustainabilityMeta = {
   intro2: 'From material selection to energy systems, from site orientation to water management, our projects are designed to minimize environmental impact while maximizing human wellbeing and comfort.',
   principlesEyebrow: 'Principles',
   principlesTitle: 'Four ideas, applied to every project.',
-  featuredInitiativeEyebrow: 'Featured initiative',
-  featuredInitiativeTitle: 'Net-positive resort, Antalya',
-  featuredInitiativeBody: 'Ela Quality Resort is one of the first hospitality projects in Turkey to target net-positive operational energy. A photovoltaic canopy across the parking deck, a deep-loop geothermal array, and a tuned envelope work together to push annual generation above demand.',
-  featuredSVGLabel: 'ELA RESORT · PV CANOPY',
-  featuredMetrics: [
-    { num: '+12%', label: 'Energy surplus, year 1' },
-    { num: '2,400', label: 'PV panels installed' },
-    { num: '42%', label: 'Recycled water reuse' },
-  ],
 };
 
 // ─── People ──────────────────────────────────────────────────────────────────

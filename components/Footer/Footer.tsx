@@ -61,29 +61,33 @@ export function Footer() {
           <div className={`footer-content${isOpen('email') ? ' open' : ''}`}>
             <div className="footer-row">
               {contactData.inquiries.map((inquiry: typeof contactData.inquiries[number]) => (
-                <>
+                <div key={inquiry.label}>
                   <span className="footer-key">{inquiry.label.toUpperCase()}</span>
                   <span className="footer-value">{inquiry.email}</span>
-                </>
+                </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* {footerMeta.sections.offices} <span className="footer-plus">+</span>
+        {/* OFFICES */}
+        <div className="footer-col">
+          <div className={`footer-btn${isOpen('offices') ? ' open' : ''}`} onClick={() => toggle('offices')} role="button">
+            {footerMeta.sections.offices} <span className="footer-plus">+</span>
           </div>
           <div className={`footer-content${isOpen('offices') ? ' open' : ''}`}>
             <div className="footer-row">
               <span className="footer-key">{contactData.studio.place.split(', ')[1].toUpperCase()}</span>
-              <span className="footer-value">{contactData.studio.address.replace(/\n/g, '<br />')}
+              <span className="footer-value">{contactData.studio.address.replace(/\n/g, '<br />')}</span>
+            </div>
             <div className="footer-row">
               <span className="footer-key">ISTANBUL</span>
               <span className="footer-value">Cevizli, Istanbul<br />Turkey<br />mail@citymarinstudio.com</span>
             </div>
           </div>
         </div>
-
-        {/* SOCIAL */}
+ 
+        { /*  SOCIAL */}
         <div className="footer-col">
           <div className={`footer-btn${isOpen('social') ? ' open' : ''}`} onClick={() => toggle('social')} role="button">
             {footerMeta.sections.social} <span className="footer-plus">+</span>
