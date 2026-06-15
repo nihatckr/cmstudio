@@ -45,10 +45,7 @@ export const subfilters: Record<ProjectType, string[]> = {
 export interface AboutStat { num: string; label: string; }
 export interface AboutValue { label: string; text: string; }
 export interface ProcessStep { num: string; name: string; desc: string; }
-export interface TimelineItem { year: string; title: string; desc: string; future?: boolean; }
-export interface Award { year: string; name: string; org: string; cite: string; }
-export interface Testimonial { quote: string; name: string; role: string; }
-
+ 
 export const aboutStats: AboutStat[] = [
   { num: '14', label: 'Years of practice' },
   { num: '42', label: 'Completed projects' },
@@ -74,8 +71,7 @@ export const processSteps: ProcessStep[] = [
 
 export interface SustainabilityStat { num: string; label: string; desc: string; }
 export interface SustainabilityPrinciple { num: string; name: string; desc: string; }
-export interface Certification { label: string; meta: string; }
-
+ 
 export const sustainabilityStats: SustainabilityStat[] = [
   { num: '40%',  label: 'Energy Reduction',  desc: 'Average energy savings across hospitality projects through passive design and renewable energy systems.' },
   { num: '35%',  label: 'Water Conservation', desc: 'Reduction in water use through rainwater harvesting, greywater recycling, and native landscaping.' },
@@ -158,15 +154,7 @@ export const careersMeta = {
   faqTitle: 'Before you apply',
 };
 
-export interface FAQ { q: string; a: string; }
-
-export const faqs: FAQ[] = [
-  { q: 'Do you accept internships?',      a: 'Yes. We take a small number of interns each year, typically for 3–6 month placements. Applications are reviewed on a rolling basis — send your portfolio to careers@citymarinstudio.com.' },
-  { q: 'What software do you use?',       a: 'Our studio works primarily in Rhino, Revit and the Adobe suite, with Enscape and V-Ray for visualisation. Comfort with at least one BIM workflow is expected for architect roles.' },
-  { q: 'Is remote work possible?',        a: "We're a studio-first practice — most roles are based in our Istanbul office. Hybrid arrangements are possible for senior roles after an initial period." },
-  { q: 'What should a portfolio include?', a: "Show us three to five projects you care about, with your specific role made clear. We're more interested in how you think than in polished renders alone. Keep it under 15MB." },
-  { q: "What's the interview process?",   a: 'A short call, then a portfolio conversation with the design team, and finally a half-day in the studio. We aim to give a decision within two weeks of the studio visit.' },
-];
+ 
 
 // ─── About Page ──────────────────────────────────────────────────────────────
 
@@ -176,21 +164,7 @@ export interface StudioBio {
   studio: string;
   approach: string;
 }
-
-export interface PortfolioDashboard {
-  typologyLabel: string;
-  typologyCounts: { label: string; value: number }[];
-  yearLabel: string;
-  yearData: { year: string; count: number }[];
-  locationLabel: string;
-  locationStanford: number;
-  locationOther: number;
-}
-
-export interface DashboardMeta {
-  eyebrow: string;
-  title: string;
-}
+ 
 
 export const studioBio: StudioBio = {
   studio: 'City Marin Studio is a dynamic architectural and design firm dedicated to creating innovative spaces that harmonize with their urban and natural environments. Founded and led by Marin Cakir, the studio brings together architects, interior designers, and sustainability experts.',
@@ -222,15 +196,7 @@ export const aboutSectionMeta = {
     locationLabel2: 'Other',
   },
 };
-
-export const founderQuote = {
-  text: 'Architecture, when it is done with care, becomes a quiet act of generosity — toward the people who use the space, toward the climate around it, and toward the years it will outlast us.',
-  name: 'Marin Cakir',
-  role: 'Founder & Principal Architect',
-  basedIn: 'Istanbul',
-  education: 'M.Arch · ITU',
-  joined: '2012 · Founder',
-};
+ 
 
 // ─── Contact Page ────────────────────────────────────────────────────────────
  
@@ -269,14 +235,7 @@ export const contactData = {
   mapLabel: 'CEVIZLI · ISTANBUL',
 };
 
-// ─── Homepage ────────────────────────────────────────────────────────────────
-
-export const homepageMarquee: string[] = [
-  'Available for new projects · 2026',
-  'Architecture · Interiors · Hospitality',
-  'Istanbul · Antalya · Bodrum · Dubai',
-  'Let\'s build something lasting',
-];
+// ─── Shared UI ───────────────────────────────────────────────────────────────
 
 export const homepageMeta = {
   emptyTitle: 'No projects found',
@@ -322,12 +281,7 @@ export const headerMeta = {
   projectsLabel: 'projects',
 };
 
-export const cookieBannerMeta = {
-  eyebrow: 'Cookies',
-  text: 'We use a small set of analytics cookies to understand how the studio website is used. No personal data is collected.',
-  acceptLabel: 'Accept',
-  declineLabel: 'Decline',
-};
+ 
 
 export const searchMeta = {
   placeholder: 'Search projects by name, location, typology…',
