@@ -207,25 +207,49 @@ export function SearchOverlay() {
             {query.trim() && (
               <div className="search-chip">
                 Text: &ldquo;{query}&rdquo;
-                <span onClick={() => setQuery('')} className="search-chip-close">×</span>
+                <button 
+                  onClick={() => setQuery('')} 
+                  className="search-chip-close"
+                  aria-label="Clear search text"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
               </div>
             )}
             {selectedTags.map(tag => (
               <div key={tag} className="search-chip">
                 Tag: {tag}
-                <span onClick={() => toggleTag(tag)} className="search-chip-close">×</span>
+                <button 
+                  onClick={() => toggleTag(tag)} 
+                  className="search-chip-close"
+                  aria-label={`Remove tag: ${tag}`}
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
               </div>
             ))}
             {selectedCity && (
               <div className="search-chip">
                 City: {selectedCity}
-                <span onClick={() => setSelectedCity('')} className="search-chip-close">×</span>
+                <button 
+                  onClick={() => setSelectedCity('')} 
+                  className="search-chip-close"
+                  aria-label={`Remove city filter: ${selectedCity}`}
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
               </div>
             )}
             {(areaRange[0] > 0 || areaRange[1] < 52000) && (
               <div className="search-chip">
                 Area: {areaRange[0].toLocaleString()}-{areaRange[1].toLocaleString()} m²
-                <span onClick={() => setAreaRange([0, 52000])} className="search-chip-close">×</span>
+                <button 
+                  onClick={() => setAreaRange([0, 52000])} 
+                  className="search-chip-close"
+                  aria-label="Clear area range filter"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
               </div>
             )}
           </div>

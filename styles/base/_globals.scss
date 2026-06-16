@@ -80,7 +80,6 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
 }
 
-// index.html: body.nightshift { background: $color-pure-black; color: $color-white; }
 // html.nightshift catches pre-hydration (script sets class on <html> in <head>)
 body.nightshift,
 html.nightshift body {
