@@ -1,8 +1,36 @@
 // tokens/_z-index.scss
-// City Marin Studio - Design System Z-index layers
+// City Marin Studio - Z-Index System
 
-$z-case: 2;
-$z-case-open: 100;
-$z-overlay: 100000;
-$z-menu: 9999;
-$z-intro: 99999;
+// ============================================================================
+// Z-INDEX LAYERS
+// ============================================================================
+// Organized from lowest to highest to prevent conflicts
+
+// Content layers
+$z-base: 1; // Base content layer
+$z-content: 2; // Above base content
+$z-case: 2; // Case studies content
+$z-case-open: 100; // Active case study
+
+// UI layers
+$z-cookie-banner: 9996; // Cookie consent banner
+$z-floating-ui: 9997; // Floating controls (nightshift toggle, lang toggle, back-to-top)
+$z-search-overlay: 9998; // Search overlay
+$z-indicators: 9999; // Loading indicators, progress bars
+$z-menu: 9999; // Legacy menu layer (keep for compatibility)
+
+// Overlays & Modals
+$z-lightbox: 10001; // Image lightbox viewer
+$z-keyboard-help: 10002; // Keyboard shortcuts modal
+$z-lightbox-controls: 10002; // Lightbox navigation controls
+$z-modal: 10003; // Generic modals, newsletter
+$z-menu-overlay: 10004; // Mobile menu overlay
+
+// Navigation (critical)
+$z-header: 100000; // Site header
+$z-menu-active: 100001; // Active mobile navigation menu
+$z-skip-link: 100002; // Accessibility skip link
+$z-overlay: 100000; // Legacy overlay layer (keep for compatibility)
+
+// Intro/loading (highest)
+$z-intro: 99999; // Page intro animation

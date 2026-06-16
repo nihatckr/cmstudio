@@ -161,7 +161,7 @@ $breakpoints: (
 
 /// Glassmorphism effect
 @mixin glassmorphism($opacity: 0.1) {
-  background-color: rgba(255, 255, 255, $opacity);
+  background-color: rgba($color-white, $opacity); // White overlay with variable opacity
   backdrop-filter: blur(10px);
 }
 
@@ -317,20 +317,20 @@ $breakpoints: (
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #898989;
+  color: $color-grey;
 }
 
 /// Section divider line (bottom border + nightshift variant)
 @mixin section-border($side: 'bottom') {
   @if $side == 'bottom' {
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-    body.nightshift & { border-bottom-color: rgba(255,255,255,0.07); }
+    border-bottom: 1px solid $border-subtle;
+    body.nightshift & { border-bottom-color: $nightshift-border-subtle; }
   } @else if $side == 'top' {
-    border-top: 1px solid rgba(0,0,0,0.07);
-    body.nightshift & { border-top-color: rgba(255,255,255,0.07); }
+    border-top: 1px solid $border-subtle;
+    body.nightshift & { border-top-color: $nightshift-border-subtle; }
   } @else if $side == 'right' {
-    border-right: 1px solid rgba(0,0,0,0.07);
-    body.nightshift & { border-right-color: rgba(255,255,255,0.07); }
+    border-right: 1px solid $border-subtle;
+    body.nightshift & { border-right-color: $nightshift-border-subtle; }
   }
 }
 
@@ -370,17 +370,20 @@ $breakpoints: (
   grid-template-columns: 1fr 2fr;
   gap: $gap;
   align-items: end;
-  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 12px; }
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /// Nightshift-aware text color (most common pattern)
-@mixin nightshift-text($light: #1b1b1b, $dark: #fff) {
+@mixin nightshift-text($light: $color-black, $dark: $color-white) {
   color: $light;
   body.nightshift & { color: $dark; }
 }
 
 /// Nightshift-aware secondary text
-@mixin nightshift-muted($light: #898989, $dark: #aaa) {
+@mixin nightshift-muted($light: $color-grey, $dark: $color-grey-lighter) {
   color: $light;
   body.nightshift & { color: $dark; }
 }

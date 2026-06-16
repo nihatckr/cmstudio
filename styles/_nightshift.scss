@@ -1,104 +1,136 @@
-// Nightshift (dark mode) overrides
-// This file contains all body.nightshift specific styles
+// Nightshift (dark mode) - Non-text property overrides
+// Text colors are handled by @include nightshift-text/nightshift-muted mixins
+// This file contains ONLY background, border, filter, and other non-text properties
+@use 'tokens/colors' as *;
 
-:global {
-  body.nightshift {
-    // About page
-    .about-col { border-right-color: rgba(255,255,255,0.07); color: #e0e0e0; }
+body.nightshift {
+  // === About Page ===
+    .about-col { border-right-color: rgba(255,255,255,0.07); }
     .value-col { border-right-color: rgba(255,255,255,0.07); }
-    .value-label { color: #555; }
-    .value-label::before { background: #fff; }
+    .value-label { color: $color-grey-medium; }
+    .value-label::before { background: $color-white; }
     .ast-col { border-right-color: rgba(255,255,255,0.07); }
-    .aq-mark { color: #333; }
+    .aq-mark { color: $color-grey-darker; }
     .dash-grid { border-top-color: rgba(255,255,255,0.14); }
     .dash-card { border-right-color: rgba(255,255,255,0.07); }
-    .dbar-k { color: #aaa; }
+    .dbar-k { color: $color-grey-lighter; }
     .dbar-track { background: rgba(255,255,255,0.1); }
-    .dbar-fill { background: #fff; }
-    .dcol-bar { background: #fff; }
-    .dash-donut-legend { color: #aaa; }
-    .ddl-dot { background: #fff; }
+    .dbar-fill { background: $color-white; }
+    .dcol-bar { background: $color-white; }
+    .dash-donut-legend { color: $color-grey-lighter; }
+    .ddl-dot { background: $color-white; }
     .ap-track { border-top-color: rgba(255,255,255,0.14); }
     .ap-step { border-right-color: rgba(255,255,255,0.07); }
-    .ap-marker { background: #fff; }
-    .ap-desc { color: #888; }
+    .ap-marker { background: $color-white; }
+    .ap-desc { color: $color-grey-medium-light; }
     .atl-step { border-right-color: rgba(255,255,255,0.07); }
-    .atl-step::before { background: #fff; }
-    .atl-future::before { background: #444 !important; }
-    .atl-future .atl-year { color: #666; }
-    .atl-desc { color: #888; }
+    .atl-step::before { background: $color-white; }
+    .atl-future::before { background: $color-grey-medium-dark !important; }
+    .atl-future .atl-year { color: $color-grey-dark; }
+    .atl-desc { color: $color-grey-medium-light; }
     .att-grid { border-top-color: rgba(255,255,255,0.14); }
     .att-card { border-right-color: rgba(255,255,255,0.07); }
-    .aw-cite { color: #aaa; }
+    .aw-cite { color: $color-grey-lighter; }
 
-    // Careers page
+    // === Careers Page ===
     .careers-job:hover { background: rgba(255,255,255,0.02); }
-    .cj-cta { color: #fff; }
+    .cj-cta { color: $color-white; }
 
-    // Contact page
-    .cc-label::before { background: #fff; }
+    // === Contact Page ===
+    .cc-label { color: $color-dark-grey; }
+    .cc-label::before { background: $color-white; }
+    .cc-k { color: $color-dark-grey; }
 
-    // People page
+    // === People Page ===
     .tm-avatar { filter: brightness(0.6) contrast(0.9); }
     .fb-text { border-top-color: rgba(255,255,255,0.07); }
 
-    // Sustainability page
+    // === Sustainability Page ===
     .sp-grid { border-top-color: rgba(255,255,255,0.14); }
-    .sf-image { background: #111; }
+    .sf-image { background: $color-grey-night-bg; }
     .sc-grid { border-top-color: rgba(255,255,255,0.14); }
 
-    // Projects page
-    .project-filter-btn { color: #797979; }
-    .project-filter-btn:hover { color: #fff; }
+    // === Projects Page ===
+    .project-filter-btn { color: $color-dark-grey; }
+    .project-filter-btn:hover { color: $color-white; }
     .project-entry { border-bottom-color: rgba(255,255,255,0.07); }
     .project-entry:hover { background: rgba(0,0,0,0.2); }
-    .pe-meta-col { background: #000; }
-    .pe-cover { background: #111; }
-    .pe-logo svg polygon { fill: #fff; }
-    .pe-index { color: #444; }
-    .pe-title { color: #fff; }
-    .pe-bottom .pe-year { color: #fff; }
-    .pe-toggle { color: #fff; }
+    .pe-meta-col { background: $color-grey-very-dark; }
+    .pe-cover { background: $color-bg-night-item; }
+    .pe-logo svg polygon { fill: $color-white; }
+    .pe-subtitle { color: $color-dark-grey; }
+    .pe-index { color: $color-grey-medium-dark; }
+    .pe-title { color: $color-white; }
+    .pe-location { color: $color-dark-grey; }
+    .pe-bottom { color: $color-dark-grey; }
+    .pe-bottom .pe-year { color: $color-white; }
+    .pe-toggle { color: $color-white; }
     .pe-om-row { border-top-color: rgba(255,255,255,0.07); }
     .pe-om-row:last-child { border-bottom-color: rgba(255,255,255,0.07); }
-    .pe-om-v { color: #fff; }
-    .pe-detail { background: #0a0a0a; }
-    .pdb-text-body { color: #ddd; }
-    .pdb-meta-v { color: #fff; }
-    .pdb-image { background: #111; }
-    .pdb-image .pdb-caption { color: rgba(255,255,255,0.55); background: rgba(0,0,0,0.5); }
+    .pe-om-v { color: $color-white; }
+    
+    // Project detail view
+    .pe-detail { background: $color-grey-very-dark; }
+    .pe-detail-bar { background: rgba(0,0,0,0.15); }
+    .pe-detail-grid { 
+      background: rgba(255,255,255,0.03); 
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+    }
+    .pe-detail-grid > * { background: $color-grey-very-dark; }
+    .pe-detail-grid::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); }
+    .pdb-text-body { color: $color-grey-lightest; }
+    .pdb-meta-v { color: $color-white; }
+    .pdb-image { background: $color-bg-night-item; }
+    .pdb-image .pdb-caption { 
+      color: rgba(255,255,255,0.55); 
+      background: rgba(0,0,0,0.5); 
+    }
+    .pdb-related-thumb { background: $color-bg-night-item; }
     .pdb-titleblock { border-right-color: rgba(255,255,255,0.07); }
-    .pdb-tb-eyebrow { color: #444; }
-    .pdb-tb-title { color: #fff; }
-    .pdb-tb-v { color: #fff; }
-    .pdb-related { background: #0c0c0c; }
+    .pdb-tb-eyebrow { color: $color-grey-medium-dark; }
+    .pdb-tb-title { color: $color-white; }
+    .pdb-tb-v { color: $color-white; }
+    .pdb-related { background: $color-bg-night-darker; }
     .pdb-related-item { border-top-color: rgba(255,255,255,0.08); }
     .pdb-related-item:last-child { border-bottom-color: rgba(255,255,255,0.08); }
-    .pdb-related-title { color: #fff; }
-    .pdb-end-title { color: #fff; }
-    .pdb-end-link { color: #fff; }
-    .pdb-quote { background: #0c0c0c; }
-    .pdb-quote-mark { color: #333; }
-    .pdb-quote-text { color: #fff; }
-    .pdb-quote-attr-name { color: #fff; }
+    .pdb-related-title { color: $color-white; }
+    .pdb-end-title { color: $color-white; }
+    .pdb-end-link { color: $color-white; }
+    .pdb-quote { background: $color-bg-night-darker; }
+    .pdb-quote-mark { color: $color-grey-darker; }
+    .pdb-quote-text { color: $color-white; }
+    .pdb-quote-attr-name { color: $color-white; }
     .pe-detail-progress { background: rgba(255,255,255,0.06); }
-    .pe-detail-progress-bar { background: #fff; }
-    .sk-block, .sk-title { background: #141414; }
-    .sk-line { background: #1d1d1d; }
-    .sk-block::after, .sk-title::after, .sk-line::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent); }
+    .pe-detail-progress-bar { background: $color-white; }
+    
+    // Skeleton loaders
+    .sk-block, .sk-title { background: $color-bg-night-darkest; }
+    .sk-line { background: $color-bg-night-line; }
+    .sk-block::after, .sk-title::after, .sk-line::after { 
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent); 
+    }
+    
+    // Project actions
     .pe-compare { background: rgba(0,0,0,0.65); }
-    .pe-compare svg { stroke: #fff; }
-    .pe-compare.is-active svg { fill: #fff; }
+    .pe-compare svg { stroke: $color-white; }
+    .pe-compare.is-active svg { fill: $color-white; }
     .pe-bookmark { background: rgba(0,0,0,0.65); }
-    .pe-bookmark svg { stroke: #fff; }
-    .pe-bookmark.is-saved svg { fill: #fff; }
-    .project-mini-header { background: rgba(0,0,0,0.95); border-bottom-color: rgba(255,255,255,0.07); color: #797979; }
-    .pmh-num { color: #444; }
-    .pmh-title { color: #fff; }
-    .pmh-nav:hover { color: #fff; }
-    .pe-empty-mark { color: #444; }
-    .pe-empty-title { color: #fff; }
-    .pe-empty-desc { color: #888; }
-    .pe-empty-cta { color: #fff; }
-  }
+    .pe-bookmark svg { stroke: $color-white; }
+    .pe-bookmark.is-saved svg { fill: $color-white; }
+    
+    // Mini header
+    .project-mini-header { 
+      background: rgba(0,0,0,0.95); 
+      border-bottom-color: rgba(255,255,255,0.07); 
+      color: $color-dark-grey; 
+    }
+    .pmh-num { color: $color-grey-medium-dark; }
+    .pmh-title { color: $color-white; }
+    .pmh-nav:hover { color: $color-white; }
+    
+  // Empty state
+  .pe-empty-mark { color: $color-grey-medium-dark; }
+  .pe-empty-title { color: $color-white; }
+  .pe-empty-desc { color: $color-grey-medium-light; }
+  .pe-empty-cta { color: $color-white; }
 }

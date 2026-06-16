@@ -7,6 +7,9 @@
 @use './footer';
 @use './button';
 @use './shared';
+@use './error-boundary';
+@use './forms';
+@use './images';
 
 // Legacy / interactive
 @use './hero';

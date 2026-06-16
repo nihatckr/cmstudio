@@ -1,0 +1,242 @@
+// components/_forms.scss
+// Form components and validation styles
+
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/motion' as *;
+@use '../tokens/spacing' as *;
+
+.contact-form-wrapper {
+  max-width: 680px; // Optimal reading width for forms
+  margin: 80px auto;
+  padding: 0 40px;
+}
+
+.contact-form-header {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.contact-form-title {
+  font-size: clamp(32px, 4vw, 42px); // Fluid typography: mobile 32px → desktop 42px
+  font-weight: 400;
+  color: $color-black;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+
+  body.nightshift & {
+    color: $nightshift-fg-primary;
+  }
+}
+
+.contact-form-subtitle {
+  font-size: 15px;
+  color: $color-mid-grey;
+  line-height: 1.6;
+
+  body.nightshift & {
+    color: $color-grey-lighter;
+  }
+}
+
+// ── Form Elements ─────────────────────────────────────────────────────────────
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-mid-grey;
+  font-weight: 500;
+
+  body.nightshift & {
+    color: $color-grey-lighter;
+  }
+}
+
+.form-required {
+  color: $color-error;
+
+  body.nightshift & {
+    color: $color-error-light;
+  }
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-family: 'Everett', sans-serif;
+  background: $color-bg-hover-light;
+  border: 1px solid $color-border-light;
+  border-radius: 4px; // Input corner radius
+  color: $color-black;
+  transition: all 0.2s var(--ease);
+  outline: none;
+
+  &:focus {
+    background: $color-bg-hover-light-strong;
+    border-color: $color-border-hover-light;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  body.nightshift & {
+    background: $color-bg-hover-dark;
+    border-color: $color-border-dark;
+    color: $color-white;
+
+    &:focus {
+      background: $bg-chip-hover-night;
+      border-color: $color-border-hover-dark;
+    }
+  }
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: $color-grey-lighter;
+
+  body.nightshift & {
+    color: $color-grey-dark;
+  }
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+// ── Validation States ─────────────────────────────────────────────────────────
+.form-input-error {
+  border-color: $color-error-border-strong !important;
+  background: $color-error-bg-hover !important;
+
+  &:focus {
+    border-color: $color-error-border-focus !important;
+  }
+}
+
+body.nightshift .form-input-error {
+  border-color: $color-error-border-night-strong !important;
+  background: $color-error-bg-night !important;
+
+  &:focus {
+    border-color: $color-error-border-night-focus !important;
+  }
+}
+
+.form-error {
+  font-size: 12px;
+  color: $color-error;
+  margin-top: -4px; // Negative margin for visual tightness
+
+  body.nightshift & {
+    color: $color-error-light;
+  }
+}
+
+// ── Submit Button ─────────────────────────────────────────────────────────────
+.form-submit {
+  padding: 16px 32px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'Everett', sans-serif;
+  background: $color-black;
+  color: $color-white;
+  border: none;
+  border-radius: 4px; // Button corner radius
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  margin-top: 12px;
+
+  &:hover:not(:disabled) {
+    background: $color-pure-black;
+    transform: translateY(-1px); // 1px lift on hover
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  body.nightshift & {
+    background: $color-white;
+    color: $color-black;
+
+    &:hover:not(:disabled) {
+      background: $color-grey-lightest;
+    }
+  }
+}
+
+// ── Status Messages ───────────────────────────────────────────────────────────
+.form-message {
+  padding: 16px 20px;
+  border-radius: 4px; // Message corner radius
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.form-message-success {
+  background: $color-error-bg;
+  border: 1px solid $color-error-border;
+  color: $color-success; // Success green
+
+  body.nightshift & {
+    background: $color-error-bg-night;
+    border-color: $color-error-border-night;
+    color: $color-success-light;
+  }
+}
+
+.form-message-error {
+  background: $color-error-bg;
+  border: 1px solid $color-error-border;
+  color: $color-error;
+
+  body.nightshift & {
+    background: $color-error-bg-night;
+    border-color: $color-error-border-night;
+    color: $color-error-light;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .contact-form-wrapper {
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  .contact-form-header {
+    margin-bottom: 32px;
+  }
+
+  .contact-form {
+    gap: 24px;
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+}

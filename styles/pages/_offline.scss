@@ -1,0 +1,139 @@
+// styles/pages/_offline.scss
+// Offline page styles for PWA
+@use '../tokens/colors' as *;
+
+.offline-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Horizontal padding */
+  padding: 2rem;
+  background: $bg-page;
+}
+
+.offline-container {
+  max-width: 500px;
+  text-align: center;
+}
+
+.offline-icon {
+  margin-bottom: 2rem;
+  color: $color-grey;
+  
+  svg {
+    display: inline-block;
+    /* Pulsing animation duration */
+    animation: offline-pulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes offline-pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.offline-title {
+  font-size: 2rem;
+  /* Normal font weight */
+  font-weight: 400;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  color: $fg-primary;
+}
+
+.offline-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: $color-grey;
+  margin-bottom: 2rem;
+}
+
+.offline-actions {
+  display: flex;
+  /* Gap between buttons */
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.offline-button {
+  padding: 0.75rem 2rem;
+  /* Rounded corners */
+  border-radius: 4px;
+  font-size: 0.875rem;
+  /* Medium font weight */
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid $border-subtle;
+  
+  &.primary {
+    background: $fg-primary;
+    color: $bg-page;
+    border-color: $fg-primary;
+    
+    &:hover {
+      background: $color-grey;
+      border-color: $color-grey;
+    }
+  }
+  
+  &.secondary {
+    background: transparent;
+    color: $fg-primary;
+    
+    &:hover {
+      background: $color-bg-subtle;
+    }
+  }
+}
+
+.offline-cached {
+  padding-top: 2rem;
+  border-top: 1px solid $border-subtle;
+}
+
+.offline-cached-title {
+  font-size: 0.875rem;
+  color: $color-grey;
+  margin-bottom: 1rem;
+}
+
+.offline-cached-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* Gap between list items */
+  gap: 0.5rem;
+  
+  a {
+    color: $fg-primary;
+    text-decoration: none;
+    font-size: 0.875rem;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Dark mode adjustments
+body.nightshift {
+  .offline-icon {
+    color: $nightshift-fg-secondary;
+  }
+}

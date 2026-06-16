@@ -1,27 +1,33 @@
 // styles/pages/_notfound.scss — 404 page from index.html
+@use '../tokens/colors' as *;
 @use '../tools/mixins' as *;
 
 .notfound-page {
   padding-top: var(--bar-h);
   min-height: 100vh;
+  /* Support for Dynamic Viewport Height units */
   min-height: 100dvh;
 }
 
 .nf-wrap {
   min-height: calc(100vh - var(--bar-h));
+  /* Support for Dynamic Viewport Height units */
   min-height: calc(100dvh - var(--bar-h));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* Gap between elements */
   gap: 22px;
   text-align: center;
+  /* Padding for breathing room */
   padding: 40px;
 }
 
 .nf-code {
   font-size: clamp(100px, 20vw, 280px);
   line-height: 0.9;
+  /* Normal font weight */
   font-weight: 400;
   letter-spacing: -0.03em;
   @include nightshift-text;
@@ -31,11 +37,12 @@
 .nf-msg {
   font-size: 14px;
   letter-spacing: 0.04em;
-  color: #898989;
+  color: $color-grey;
 }
 
 .nf-actions {
   display: flex;
+  /* Gap between action links */
   gap: 28px;
   margin-top: 16px;
   flex-wrap: wrap;
@@ -53,10 +60,16 @@
   transition: opacity 0.2s, color 0.4s;
   text-decoration: none;
 
-  &:hover { opacity: 0.55; }
+  &:hover {
+    opacity: 0.55;
+  }
 }
 
 @media (max-width: 900px) {
   .nf-code { font-size: clamp(80px, 22vw, 200px); }
-  .nf-actions { flex-direction: column; align-items: center; gap: 18px; }
+  .nf-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
 }

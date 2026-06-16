@@ -13,12 +13,12 @@
 
 .footer {
   padding: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  border-top: 1px solid $border-subtle;
   margin-top: 0;
   font-family: $font-standard;
 
   body.nightshift & {
-    border-top-color: rgba(255, 255, 255, 0.07);
+    border-top-color: $nightshift-border-subtle;
   }
 }
 
@@ -43,14 +43,14 @@
 
 .footer-col {
   padding: 48px 40px;
-  border-right: 1px solid rgba(0, 0, 0, 0.07);
+  border-right: 1px solid $border-subtle;
 
   &:last-child {
     border-right: none;
   }
 
   body.nightshift & {
-    border-right-color: rgba(255, 255, 255, 0.07);
+    border-right-color: $nightshift-border-subtle;
   }
 
   @media (max-width: 900px) {
@@ -62,20 +62,20 @@
 
     &:nth-child(1),
     &:nth-child(2) {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      border-bottom: 1px solid $border-subtle;
 
       body.nightshift & {
-        border-bottom-color: rgba(255, 255, 255, 0.07);
+        border-bottom-color: $nightshift-border-subtle;
       }
     }
   }
 
   @media (max-width: 480px) {
     border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    border-bottom: 1px solid $border-subtle;
 
     body.nightshift & {
-      border-bottom-color: rgba(255, 255, 255, 0.07);
+      border-bottom-color: $nightshift-border-subtle;
     }
 
     &:last-child {
@@ -102,7 +102,7 @@
   justify-content: space-between;
   margin-bottom: 0;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid $border-subtle;
   transition: color 0.2s;
   user-select: none;
 
@@ -111,12 +111,12 @@
   }
 
   body.nightshift & {
-    border-bottom-color: rgba(255, 255, 255, 0.07);
-    color: #555;
-  }
+    border-bottom-color: $nightshift-border-subtle;
+    color: $color-grey-dark;
 
-  body.nightshift &:hover {
-    color: $color-white;
+    &:hover {
+      color: $color-white;
+    }
   }
 }
 
@@ -180,7 +180,7 @@
   font-size: $text-sm;                  // 12px
 
   body.nightshift & {
-    color: #ccc;
+    color: $color-lighter-grey;
   }
 }
 
@@ -205,7 +205,7 @@
   }
 
   body.nightshift & {
-    color: #ccc;
+    color: $color-lighter-grey;
   }
 }
 
@@ -225,11 +225,11 @@
   }
 
   body.nightshift & {
-    color: #797979;
-  }
+    color: $color-dark-grey;
 
-  body.nightshift &:hover {
-    color: $color-white;
+    &:hover {
+      color: $color-white;
+    }
   }
 }
 
@@ -244,7 +244,7 @@
   align-items: center;
   justify-content: center;
   padding: 28px;
-  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  border-top: 1px solid $border-subtle;
   font-size: 11px;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -258,11 +258,11 @@
   }
 
   body.nightshift & {
-    border-top-color: rgba(255, 255, 255, 0.07);
-    color: #555;
-  }
+    border-top-color: $nightshift-border-subtle;
+    color: $color-grey-dark;
 
-  body.nightshift &:hover {
-    color: $color-white;
+    &:hover {
+      color: $color-white;
+    }
   }
 }

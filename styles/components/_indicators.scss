@@ -6,6 +6,7 @@
 @use '../tokens/typography' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/motion' as *;
+@use '../tokens/z-index' as *;
 @use '../tools/mixins' as *;
 
 // ============================================================================
@@ -43,7 +44,7 @@
   margin-right: -$space-2;
   background-color: transparent;
 
-  @include nightshift(border-color, rgba($color-white, 0.15));
+  @include nightshift(border-color, $border-indicator-night-weak);
 }
 
 // Bullet dots in flex/grid context
@@ -69,7 +70,7 @@
   right: 0;
   height: 2px;
   background-color: transparent;
-  z-index: 9999;
+  z-index: $z-indicators;
 
   @include nightshift(background-color, transparent);
 
@@ -96,7 +97,7 @@
   right: 0;
   height: 2px;
   background-color: transparent;
-  z-index: 9999;
+  z-index: $z-indicators;
 
   @include nightshift(background-color, transparent);
 
@@ -133,7 +134,7 @@
   border-radius: 1px;
   @include transition(background-color, $duration-base, $ease-in-out);
 
-  @include nightshift(background-color, rgba($color-white, 0.15));
+  @include nightshift(background-color, $border-indicator-night-weak);
 
   &.completed {
     background-color: $color-black;
@@ -217,7 +218,7 @@
   border-radius: 50%;
   @include transition(all);
 
-  @include nightshift(background-color, rgba($color-white, 0.2));
+  @include nightshift(background-color, $bg-indicator-night);
 
   &.active {
     background-color: $color-black;
@@ -245,7 +246,7 @@
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 
-  @include nightshift(border-color, rgba($color-white, 0.2));
+  @include nightshift(border-color, $bg-indicator-night);
   @include nightshift(border-top-color, $color-white);
 }
 

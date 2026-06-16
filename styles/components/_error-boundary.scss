@@ -1,0 +1,359 @@
+// components/_error-boundary.scss
+// Error boundary and loading states
+
+@use '../tokens/colors' as *;
+@use '../tokens/motion' as *;
+
+// ── Error Boundary ────────────────────────────────────────────────────────────
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: $color-bg-subtle;
+
+  body.nightshift & {
+    background: $color-bg-dark-subtle;
+  }
+}
+
+.error-content {
+  max-width: 600px;
+  text-align: center;
+}
+
+.error-icon {
+  font-size: 64px; // Large icon for visual impact
+  margin-bottom: 24px;
+  opacity: 0.6;
+}
+
+.error-title {
+  font-size: clamp(32px, 5vw, 48px); // Fluid typography: mobile 32px → desktop 48px
+  font-weight: 400;
+  color: $color-black;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+
+  body.nightshift & {
+    color: $color-pure-white;
+  }
+}
+
+.error-message {
+  font-size: 16px;
+  color: $color-mid-grey;
+  line-height: 1.6;
+  margin-bottom: 32px;
+
+  body.nightshift & {
+    color: $color-grey-lighter;
+  }
+}
+
+.error-digest {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-grey;
+  margin-bottom: 32px;
+  font-variant-numeric: tabular-nums;
+
+  body.nightshift & {
+    color: $color-grey-dark;
+  }
+}
+
+.error-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.error-btn {
+  padding: 14px 28px; // Comfortable click target
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  border-radius: 2px;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Everett', sans-serif;
+}
+
+.error-btn-primary {
+  background: $color-black;
+  color: $color-pure-white;
+  border: 1px solid $color-black;
+
+  body.nightshift & {
+    background: $color-pure-white;
+    color: $color-black;
+    border-color: $color-pure-white;
+  }
+
+  &:hover {
+    background: $color-pure-black;
+    border-color: $color-pure-black;
+  }
+
+  body.nightshift &:hover {
+    background: $color-grey-lightest;
+    border-color: $color-grey-lightest;
+  }
+}
+
+.error-btn-secondary {
+  background: transparent;
+  color: $color-black;
+  border: 1px solid $color-border-light;
+
+  body.nightshift & {
+    color: $color-pure-white;
+    border-color: $color-border-dark;
+  }
+
+  &:hover {
+    background: $color-bg-hover-light;
+    border-color: $color-border-hover-light;
+  }
+
+  body.nightshift &:hover {
+    background: $color-bg-hover-dark;
+    border-color: $color-border-hover-dark;
+  }
+}
+
+.error-details {
+  margin-top: 40px;
+  text-align: left;
+  background: $color-error-bg;
+  border: 1px solid $color-error-border;
+  border-radius: 4px;
+  padding: 20px;
+
+  body.nightshift & {
+    background: $color-error-bg-night;
+    border-color: $color-error-border-night;
+  }
+}
+
+.error-details summary {
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-error;
+  margin-bottom: 16px;
+
+  body.nightshift & {
+    color: $color-error-light;
+  }
+}
+
+.error-stack {
+  font-size: 11px;
+  line-height: 1.6;
+  color: $color-grey-dark;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+body.nightshift .error-stack {
+  color: $color-grey-lighter;
+}
+
+// ── Project-specific Error ────────────────────────────────────────────────────
+.project-error {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+}
+
+.project-error-content {
+  max-width: 500px;
+  text-align: center;
+
+  h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 400;
+    color: $color-black;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: 15px;
+    color: $color-mid-grey;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+}
+
+body.nightshift .project-error-content h1 {
+  color: $color-white;
+}
+
+body.nightshift .project-error-content p {
+  color: $color-grey-lighter;
+}
+
+.project-error-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+// ── Loading Skeleton ──────────────────────────────────────────────────────────
+.loading-skeleton {
+  padding: 80px 40px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.loading-header {
+  margin-bottom: 60px;
+}
+
+.loading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    $gradient-loading-start 0%,
+    $gradient-loading-mid 50%,
+    $gradient-loading-end 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+
+  body.nightshift & {
+    background: linear-gradient(
+      90deg,
+      $gradient-loading-start-night 0%,
+      $gradient-loading-mid-night 50%,
+      $gradient-loading-end-night 100%
+    );
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-title {
+  height: 48px;
+  width: 60%;
+  margin-bottom: 16px;
+}
+
+.skeleton-subtitle {
+  height: 24px;
+  width: 40%;
+}
+
+.skeleton-image {
+  height: 240px;
+  width: 100%;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 100%;
+}
+
+.skeleton-text-short {
+  width: 70%;
+}
+
+// ── Project Loading ───────────────────────────────────────────────────────────
+.project-loading {
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.project-loading-hero {
+  margin-bottom: 60px;
+}
+
+.skeleton-hero-image {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.skeleton-project-title {
+  height: 56px;
+  width: 50%;
+}
+
+.project-loading-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 60px;
+  max-width: 600px;
+}
+
+.project-loading-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.skeleton-gallery-image {
+  height: 280px;
+  width: 100%;
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .loading-skeleton {
+    padding: 40px 20px;
+  }
+
+  .loading-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .project-loading {
+    padding: 20px;
+  }
+
+  .skeleton-hero-image {
+    height: 280px;
+  }
+
+  .skeleton-project-title {
+    width: 80%;
+  }
+
+  .project-loading-gallery {
+    grid-template-columns: 1fr;
+  }
+}

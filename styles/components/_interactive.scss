@@ -18,7 +18,7 @@
   background-color: transparent;
   border-radius: 2px;
 
-  @include nightshift(border-color, rgba($color-white, 0.15));
+  @include nightshift(border-color, $bg-interactive-night);
 }
 
 .toggle-item,
@@ -37,7 +37,7 @@
   @include nightshift(color, $color-dark-grey);
 
   &:hover {
-    background-color: rgba($color-black, 0.03);
+    background-color: $bg-interactive-hover;
   }
 
   &.active,
@@ -140,10 +140,10 @@
 .sld-track {
   position: relative;
   height: 1px;
-  background-color: rgba($color-black, 0.15);
+  background-color: $bg-interactive-active;
   margin: $space-3 0;
 
-  @include nightshift(background-color, rgba($color-white, 0.15));
+  @include nightshift(background-color, $bg-interactive-night);
 }
 
 .slider-thumb,
@@ -207,10 +207,10 @@ input[type='range'] {
 
   &::-webkit-slider-runnable-track {
     height: 1px;
-    background-color: rgba($color-black, 0.15);
+    background-color: $bg-interactive-active;
     border: none;
 
-    @include nightshift(background-color, rgba($color-white, 0.15));
+    @include nightshift(background-color, $bg-interactive-night);
   }
 
   // Firefox
@@ -240,10 +240,10 @@ input[type='range'] {
   }
 
   &::-moz-range-progress {
-    background-color: rgba($color-black, 0.15);
+    background-color: $bg-interactive-active;
     height: 1px;
 
-    @include nightshift(background-color, rgba($color-white, 0.15));
+    @include nightshift(background-color, $bg-interactive-night);
   }
 }
 
@@ -255,12 +255,12 @@ input[type='range'] {
 .accordion {
   border-top: 1px solid $color-lighter-grey;
 
-  @include nightshift(border-top-color, rgba($color-white, 0.1));
+  @include nightshift(border-top-color, $nightshift-border-divider-strong);
 
   &:last-child {
     border-bottom: 1px solid $color-lighter-grey;
 
-    @include nightshift(border-bottom-color, rgba($color-white, 0.1));
+    @include nightshift(border-bottom-color, $nightshift-border-divider-strong);
   }
 }
 

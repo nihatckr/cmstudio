@@ -13,6 +13,55 @@ $color-near-black: #101010;
 $color-bg-project: #f7f7f7;
 $color-bg-map: #cccccc;
 
+// Error/Alert colors
+$color-error: #cc0000;
+$color-error-light: #ff6b6b;
+$color-error-bg: rgba(255, 0, 0, 0.03);
+$color-error-bg-hover: rgba(255, 0, 0, 0.02);
+$color-error-border: rgba(255, 0, 0, 0.1);
+$color-error-border-focus: rgba(255, 0, 0, 0.6);
+$color-error-border-strong: rgba(255, 0, 0, 0.4);
+$color-error-bg-night: rgba(255, 100, 100, 0.05);
+$color-error-border-night: rgba(255, 100, 100, 0.15);
+$color-error-border-night-strong: rgba(255, 100, 100, 0.4);
+$color-error-border-night-focus: rgba(255, 100, 100, 0.6);
+
+// Success colors
+$color-success: #00a05a;
+$color-success-light: #6bffb5;
+$color-success-bg: rgba(0, 200, 100, 0.08);
+$color-success-border: rgba(0, 200, 100, 0.2);
+$color-success-bg-night: rgba(100, 255, 150, 0.1);
+$color-success-border-night: rgba(100, 255, 150, 0.2);
+
+// Utility colors
+$color-pure-black: #000000;
+$color-pure-white: #ffffff;
+$color-bg-subtle: #fafafa;
+$color-bg-dark-subtle: #0a0a0a;
+$color-bg-hover-light: rgba(0, 0, 0, 0.02);
+$color-bg-hover-light-strong: rgba(0, 0, 0, 0.03);
+$color-bg-hover-dark: rgba(255, 255, 255, 0.05);
+$color-bg-hover-dark-strong: rgba(255, 255, 255, 0.08);
+$color-border-light: rgba(0, 0, 0, 0.2);
+$color-border-dark: rgba(255, 255, 255, 0.2);
+$color-border-hover-light: rgba(0, 0, 0, 0.3);
+$color-border-hover-dark: rgba(255, 255, 255, 0.3);
+$color-grey-dark: #666666;
+$color-grey-darker: #333333;
+$color-grey-medium: #555555;
+$color-grey-medium-dark: #444444;
+$color-grey-medium-light: #888888;
+$color-grey-lighter: #aaaaaa;
+$color-grey-lightest: #e0e0e0;
+$color-grey-very-dark: #0a0a0a;
+$color-grey-night-bg: #111111;
+$color-bg-night-darker: #0c0c0c;
+$color-bg-night-darkest: #141414;
+$color-bg-night-line: #1d1d1d;
+$color-bg-night-item: #1a1a1a;
+$color-focus-night: #4db8ff;
+
 // Semantic foreground
 $fg-primary: $color-black;
 $fg-secondary: $color-grey;
@@ -23,10 +72,144 @@ $fg-inverted: $color-white;
 // Semantic background
 $bg-page: $color-white;
 $bg-menu: $color-white;
+$bg-menu-glass: rgba(255, 255, 255, 0.97);
+$bg-menu-night: rgba(0, 0, 0, 0.95);
+$bg-submenu: #f8f8f7;
+$bg-submenu-night: #0c0c0c;
+$bg-project-light: #fafaf9;
+$bg-project-lighter: #ececea;
+$bg-project-skeleton: #e0e0dd;
+$bg-map-dark: #1a1a1a;
 $bg-overlay: $color-white;
+$bg-overlay-glass: rgba(255, 255, 255, 0.96);
+$bg-overlay-night: rgba(0, 0, 0, 0.95);
 $bg-project-card: $color-bg-project;
+$bg-project-detail: #fafaf9;
+$bg-project-meta: $color-white;
+$bg-project-cover: #efefed;
 $bg-nightshift: #000000;
 $bg-nightshift-card: $color-near-black;
+
+// Borders
+$border-subtle: rgba(0, 0, 0, 0.07);
+$border-subtle-strong: rgba(0, 0, 0, 0.08);
+$border-subtle-medium: rgba(0, 0, 0, 0.04);
+$border-divider: rgba(0, 0, 0, 0.07);
+$border-separator: rgba(0, 0, 0, 0.18);
+$border-submenu: rgba(0, 0, 0, 0.04);
+$border-light-hover: rgba(0, 0, 0, 0.15);
+$border-light-chip: rgba(0, 0, 0, 0.06);
+$border-divider-strong: rgba(0, 0, 0, 0.1);
+$border-grid: rgba(0, 0, 0, 0.12);
+$border-track: rgba(0, 0, 0, 0.07);
+$bg-scrollbar: rgba(0, 0, 0, 0.2);
+$bg-hover-subtle: rgba(0, 0, 0, 0.015);
+$bg-progress: rgba(0, 0, 0, 0.06);
+$color-caption: rgba(0, 0, 0, 0.45);
+$bg-caption: rgba(255, 255, 255, 0.6);
+$bg-button-glass: rgba(255, 255, 255, 0.85);
+$bg-header-glass: rgba(255, 255, 255, 0.97);
+$gradient-shimmer: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+$gradient-avatar-bottom: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.08) 100%);
+$bg-avatar-circle: rgba(0, 0, 0, 0.06);
+$color-st-eyebrow: rgba(255, 255, 255, 0.6);
+$color-st-hint: rgba(255, 255, 255, 0.45);
+$color-st-badge: rgba(255, 255, 255, 0.7);
+
+// Nightshift borders
+$nightshift-border-subtle: rgba(255, 255, 255, 0.07);
+$nightshift-border-subtle-strong: rgba(255, 255, 255, 0.1);
+$nightshift-border-divider: rgba(255, 255, 255, 0.07);
+$nightshift-border-submenu: rgba(255, 255, 255, 0.04);
+$nightshift-border-hover: rgba(255, 255, 255, 0.2);
+$nightshift-border-chip: rgba(255, 255, 255, 0.08);
+$nightshift-border-divider-strong: rgba(255, 255, 255, 0.1);
+
+// Overlay & shadow
+$bg-overlay-dark: rgba(0, 0, 0, 0.18);
+$bg-overlay-night: rgba(255, 255, 255, 0.06);
+$shadow-submenu: 0 0 0 1px rgba(0, 0, 0, 0.04);
+$shadow-submenu-night: 0 0 0 1px rgba(255, 255, 255, 0.04);
+
+// Interactive states
+$bg-interactive-hover: rgba(0, 0, 0, 0.03);
+$bg-interactive-active: rgba(0, 0, 0, 0.15);
+$bg-interactive-night: rgba(255, 255, 255, 0.15);
+
+// Overlay backgrounds (for chips, filters, etc)
+$bg-chip: rgba(0, 0, 0, 0.04);
+$bg-chip-hover: rgba(0, 0, 0, 0.06);
+$bg-chip-strong: rgba(0, 0, 0, 0.08);
+$bg-chip-night: rgba(255, 255, 255, 0.05);
+$bg-chip-hover-night: rgba(255, 255, 255, 0.08);
+$bg-chip-strong-night: rgba(255, 255, 255, 0.1);
+
+// Border variations
+$border-chip: rgba(0, 0, 0, 0.08);
+$border-chip-strong: rgba(0, 0, 0, 0.1);
+$border-chip-night: rgba(255, 255, 255, 0.1);
+$border-chip-strong-night: rgba(255, 255, 255, 0.15);
+
+// Range input backgrounds
+$bg-range: rgba(0, 0, 0, 0.1);
+$bg-range-night: rgba(255, 255, 255, 0.15);
+
+// Clear filter button colors
+$bg-clear-filter: rgba(255, 0, 0, 0.08);
+$border-clear-filter: rgba(255, 0, 0, 0.2);
+$bg-clear-filter-hover: rgba(255, 0, 0, 0.12);
+$border-clear-filter-hover: rgba(255, 0, 0, 0.3);
+$bg-clear-filter-night: rgba(255, 100, 100, 0.1);
+$border-clear-filter-night: rgba(255, 100, 100, 0.3);
+$bg-clear-filter-hover-night: rgba(255, 100, 100, 0.15);
+$border-clear-filter-hover-night: rgba(255, 100, 100, 0.4);
+
+// Hover/Result backgrounds
+$bg-hover-result: rgba(0, 0, 0, 0.02);
+$bg-hover-result-night: rgba(255, 255, 255, 0.03);
+
+// Lightbox colors
+$bg-lightbox: rgba(15, 15, 15, 0.96);
+$color-lightbox-text: rgba(255, 255, 255, 0.85);
+$border-lightbox: rgba(255, 255, 255, 0.08);
+
+// Indicator colors
+$border-indicator-night: rgba(255, 255, 255, 0.15);
+$bg-indicator-night: rgba(255, 255, 255, 0.2);
+$border-indicator-night-weak: rgba($color-white, 0.15);
+$bg-indicator-night-weak: rgba($color-white, 0.15);
+
+// Loading gradient colors
+$gradient-loading-start: rgba(0, 0, 0, 0.04);
+$gradient-loading-mid: rgba(0, 0, 0, 0.08);
+$gradient-loading-end: rgba(0, 0, 0, 0.04);
+$gradient-loading-start-night: rgba(255, 255, 255, 0.05);
+$gradient-loading-mid-night: rgba(255, 255, 255, 0.1);
+$gradient-loading-end-night: rgba(255, 255, 255, 0.05);
+
+// Card gradient overlay
+$gradient-card-start: rgba($color-black, 0);
+$gradient-card-end: rgba($color-black, 0.3);
+
+// Lightbox & overlay colors
+$color-lightbox-text: rgba(255, 255, 255, 0.55);
+$color-lightbox-text-active: rgba(255, 255, 255, 0.7);
+$color-lightbox-text-dim: rgba(255, 255, 255, 0.45);
+$bg-lightbox: rgba(0, 0, 0, 0.55);
+$bg-lightbox-nav-hover: rgba(255, 255, 255, 0.04);
+$shadow-lightbox: 0 30px 80px rgba(0, 0, 0, 0.5);
+
+// Keyboard help colors
+$border-key: rgba(0, 0, 0, 0.18);
+$bg-key: rgba(0, 0, 0, 0.03);
+$border-key-night: rgba(255, 255, 255, 0.18);
+$bg-key-night: rgba(255, 255, 255, 0.06);
+
+// UI toggle controls (nightshift, lang, back-to-top)
+$bg-toggle: rgba(255, 255, 255, 0.6);
+$bg-toggle-night: rgba(0, 0, 0, 0.5);
+$bg-cookie-banner-night: rgba(0, 0, 0, 0.85);
+$bg-hover-toggle-night: rgba(255, 255, 255, 0.06);
 
 // Accent & interactive
 $color-accent: $color-black;

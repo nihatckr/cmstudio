@@ -1,0 +1,142 @@
+// Project detail page styles
+@use '../tokens/colors' as *;
+
+.project-page {
+  min-height: 100vh;
+  padding: calc(var(--bar-h) + 2rem) 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-hero {
+  margin-bottom: 3rem;
+  
+  .project-hero-image {
+    position: relative;
+    width: 100%;
+    /* Viewport-relative height for hero image */
+    height: 60vh;
+    min-height: 400px;
+    max-height: 700px;
+    margin-bottom: 2rem;
+    /* Subtle rounded corners */
+    border-radius: 8px;
+    overflow: hidden;
+    
+    @media (max-width: 768px) {
+      height: 40vh;
+      min-height: 300px;
+    }
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    /* Normal font weight */
+    font-weight: 400;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+}
+
+.project-meta {
+  display: flex;
+  /* Gap between metadata items */
+  gap: 2rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  /* Slightly transparent */
+  opacity: 0.7;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.project-info {
+  margin-bottom: 4rem;
+}
+
+.project-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* Gap between grid items */
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid $color-border-light;
+}
+
+body.nightshift .project-info-grid {
+  border-bottom-color: $color-border-dark;
+}
+
+.project-info-item {
+  display: flex;
+  flex-direction: column;
+  /* Gap between label and value */
+  gap: 0.5rem;
+  
+  .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    /* Dimmed label color */
+    opacity: 0.5;
+  }
+  
+  .value {
+    font-size: 1rem;
+  }
+}
+
+.project-description {
+  margin-bottom: 2rem;
+  
+  p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    max-width: 800px;
+  }
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  /* Gap between tags */
+  gap: 0.75rem;
+}
+
+.project-tag {
+  padding: 0.5rem 1rem;
+  background: $color-bg-hover-light;
+  /* Fully rounded corners for pill shape */
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  text-transform: lowercase;
+}
+
+body.nightshift .project-tag {
+  background: $color-bg-hover-dark;
+}
+
+.project-back {
+  margin-top: 4rem;
+  
+  a {
+    display: inline-block;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: inherit;
+    /* Dimmed link color */
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

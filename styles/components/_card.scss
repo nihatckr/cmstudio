@@ -49,8 +49,8 @@
       bottom: 0;
       background: linear-gradient(
         135deg,
-        rgba($color-black, 0) 0%,
-        rgba($color-black, 0.3) 100%
+        $gradient-card-start 0%,
+        $gradient-card-end 100%
       );
       opacity: 0;
       @include transition(opacity);
