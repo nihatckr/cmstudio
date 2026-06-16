@@ -17,7 +17,7 @@ export function Footer() {
     
     // Only update DOM, don't call setNightshift here to avoid cascade
     if (isNightshift) {
-      document.body.classList.add('nightshift');
+      document.documentElement.classList.add('nightshift');
     }
     
     // Update state after initial render
@@ -30,7 +30,7 @@ export function Footer() {
       setNightshift(prev => {
         const newValue = !prev;
         localStorage.setItem('cms_nightshift', String(newValue));
-        document.body.classList.toggle('nightshift', newValue);
+        document.documentElement.classList.toggle('nightshift', newValue);
         return newValue;
       });
     };
@@ -43,7 +43,7 @@ export function Footer() {
     setNightshift(prev => {
       const newValue = !prev;
       localStorage.setItem('cms_nightshift', String(newValue));
-      document.body.classList.toggle('nightshift', newValue);
+      document.documentElement.classList.toggle('nightshift', newValue);
       return newValue;
     });
   };

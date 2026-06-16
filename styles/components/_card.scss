@@ -136,7 +136,7 @@
 
     @include nightshift(color, $color-dark-grey);
     
-    body.nightshift &:hover {
+    html.nightshift &:hover {
       color: $color-white;
     }
   }

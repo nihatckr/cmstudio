@@ -24,7 +24,7 @@
   letter-spacing: -0.02em;
   margin-bottom: 12px;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $nightshift-fg-primary;
   }
 }
@@ -34,7 +34,7 @@
   color: $color-mid-grey;
   line-height: 1.6;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-grey-lighter;
   }
 }
@@ -59,7 +59,7 @@
   color: $color-mid-grey;
   font-weight: 500;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-grey-lighter;
   }
 }
@@ -67,7 +67,7 @@
 .form-required {
   color: $color-error;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-error-light;
   }
 }
@@ -95,7 +95,7 @@
     cursor: not-allowed;
   }
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-bg-hover-dark;
     border-color: $color-border-dark;
     color: $color-white;
@@ -111,7 +111,7 @@
 .form-textarea::placeholder {
   color: $color-grey-lighter;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-grey-dark;
   }
 }
@@ -132,7 +132,7 @@
   }
 }
 
-body.nightshift .form-input-error {
+html.nightshift .form-input-error {
   border-color: $color-error-border-night-strong !important;
   background: $color-error-bg-night !important;
 
@@ -146,7 +146,7 @@ body.nightshift .form-input-error {
   color: $color-error;
   margin-top: -4px; // Negative margin for visual tightness
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-error-light;
   }
 }
@@ -176,7 +176,7 @@ body.nightshift .form-input-error {
     cursor: not-allowed;
   }
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-white;
     color: $color-black;
 
@@ -200,7 +200,7 @@ body.nightshift .form-input-error {
   border: 1px solid $color-error-border;
   color: $color-success; // Success green
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-error-bg-night;
     border-color: $color-error-border-night;
     color: $color-success-light;
@@ -212,7 +212,7 @@ body.nightshift .form-input-error {
   border: 1px solid $color-error-border;
   color: $color-error;
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-error-bg-night;
     border-color: $color-error-border-night;
     color: $color-error-light;

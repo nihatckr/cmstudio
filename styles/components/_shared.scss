@@ -14,7 +14,7 @@
   z-index: $z-search-overlay;
   transition: width 0.08s linear, background 0.4s;
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-white;
   }
 }
@@ -31,7 +31,7 @@
   opacity: 0;
   transition: width 0.45s var(--ease), opacity 0.3s var(--ease);
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-white;
   }
 
@@ -54,7 +54,7 @@
   pointer-events: none;
   transition: opacity 0.35s var(--ease);
 }
-body.nightshift .search-overlay { background: $bg-overlay-night; }
+html.nightshift .search-overlay { background: $bg-overlay-night; }
 .search-overlay.open {
   opacity: 1;
   pointer-events: auto;
@@ -66,7 +66,7 @@ body.nightshift .search-overlay { background: $bg-overlay-night; }
   padding-bottom: 24px;
   border-bottom: 1px solid $border-subtle;
 }
-body.nightshift .search-head { border-bottom-color: $nightshift-border-subtle; }
+html.nightshift .search-head { border-bottom-color: $nightshift-border-subtle; }
 .search-input-row {
   flex: 1;
   display: flex;
@@ -74,7 +74,7 @@ body.nightshift .search-head { border-bottom-color: $nightshift-border-subtle; }
   gap: 18px;
 }
 .search-input-row svg circle, .search-input-row svg path { stroke: $color-mid-grey; }
-body.nightshift .search-input-row svg circle, body.nightshift .search-input-row svg path { stroke: $color-grey-lighter; }
+html.nightshift .search-input-row svg circle, html.nightshift .search-input-row svg path { stroke: $color-grey-lighter; }
 #searchInput {
   flex: 1;
   font: 400 clamp(28px, 4vw, 56px)/1.1 'Everett', sans-serif;
@@ -85,9 +85,9 @@ body.nightshift .search-input-row svg circle, body.nightshift .search-input-row 
   padding: 8px 0;
   letter-spacing: -0.015em;
 }
-body.nightshift #searchInput { color: $color-white; }
+html.nightshift #searchInput { color: $color-white; }
 #searchInput::placeholder { color: $color-grey-lighter; }
-body.nightshift #searchInput::placeholder { color: $color-grey-dark; }
+html.nightshift #searchInput::placeholder { color: $color-grey-dark; }
 .search-close {
   font-size: 11px;
   letter-spacing: 0.1em;
@@ -102,9 +102,9 @@ body.nightshift #searchInput::placeholder { color: $color-grey-dark; }
   min-height: 44px;
   min-width: 44px;
 }
-body.nightshift .search-close { color: $color-grey-lighter; }
+html.nightshift .search-close { color: $color-grey-lighter; }
 .search-close:hover { color: $color-black; }
-body.nightshift .search-close:hover { color: $color-white; }
+html.nightshift .search-close:hover { color: $color-white; }
 
 // ── Search filters ────────────────────────────────────────────────────────────
 .search-filters {
@@ -114,7 +114,7 @@ body.nightshift .search-close:hover { color: $color-white; }
   flex-direction: column;
   gap: 24px;
 }
-body.nightshift .search-filters { border-bottom-color: $nightshift-border-subtle; }
+html.nightshift .search-filters { border-bottom-color: $nightshift-border-subtle; }
 .search-filter-group {
   display: flex;
   flex-direction: column;
@@ -127,7 +127,7 @@ body.nightshift .search-filters { border-bottom-color: $nightshift-border-subtle
   color: $color-grey;
   font-weight: 500;
 }
-body.nightshift .search-filter-label { color: $color-grey-lighter; }
+html.nightshift .search-filter-label { color: $color-grey-lighter; }
 .search-filter-tags {
   display: flex;
   flex-wrap: wrap;
@@ -144,7 +144,7 @@ body.nightshift .search-filter-label { color: $color-grey-lighter; }
   transition: all 0.2s var(--ease);
   border-radius: 4px;
 }
-body.nightshift .search-tag-chip {
+html.nightshift .search-tag-chip {
   background: $bg-chip-night;
   border-color: $bg-chip-strong-night;
   color: $color-grey-lighter;
@@ -154,7 +154,7 @@ body.nightshift .search-tag-chip {
   border-color: $border-light-hover;
   color: $color-black;
 }
-body.nightshift .search-tag-chip:hover {
+html.nightshift .search-tag-chip:hover {
   background: $bg-chip-hover-night;
   border-color: $bg-indicator-night;
   color: $color-white;
@@ -164,7 +164,7 @@ body.nightshift .search-tag-chip:hover {
   border-color: $color-black;
   color: $color-white;
 }
-body.nightshift .search-tag-chip.active {
+html.nightshift .search-tag-chip.active {
   background: $color-white;
   border-color: $color-white;
   color: $color-black;
@@ -179,7 +179,7 @@ body.nightshift .search-tag-chip.active {
   border-radius: 4px;
   font-family: 'Everett', sans-serif;
 }
-body.nightshift .search-filter-select {
+html.nightshift .search-filter-select {
   background: $bg-chip-night;
   border-color: $bg-chip-strong-night;
   color: $color-white;
@@ -197,7 +197,7 @@ body.nightshift .search-filter-select {
   background: $border-chip-strong;
   border-radius: 2px;
 }
-body.nightshift .search-range-input { background: $border-chip-strong-night; }
+html.nightshift .search-range-input { background: $border-chip-strong-night; }
 .search-range-input::-webkit-slider-thumb {
   appearance: none;
   width: 16px;
@@ -206,7 +206,7 @@ body.nightshift .search-range-input { background: $border-chip-strong-night; }
   border-radius: 50%;
   cursor: pointer;
 }
-body.nightshift .search-range-input::-webkit-slider-thumb { background: $color-white; }
+html.nightshift .search-range-input::-webkit-slider-thumb { background: $color-white; }
 .search-range-input::-moz-range-thumb {
   width: 16px;
   height: 16px;
@@ -215,7 +215,7 @@ body.nightshift .search-range-input::-webkit-slider-thumb { background: $color-w
   cursor: pointer;
   border: none;
 }
-body.nightshift .search-range-input::-moz-range-thumb { background: $color-white; }
+html.nightshift .search-range-input::-moz-range-thumb { background: $color-white; }
 .search-clear-filters {
   padding: 10px 18px;
   font-size: 11px;
@@ -229,7 +229,7 @@ body.nightshift .search-range-input::-moz-range-thumb { background: $color-white
   border-radius: 4px;
   align-self: flex-start;
 }
-body.nightshift .search-clear-filters {
+html.nightshift .search-clear-filters {
   background: $bg-clear-filter-night;
   border-color: $border-clear-filter-night;
   color: $color-error-light;
@@ -238,7 +238,7 @@ body.nightshift .search-clear-filters {
   background: $bg-clear-filter-hover;
   border-color: $border-clear-filter-hover;
 }
-body.nightshift .search-clear-filters:hover {
+html.nightshift .search-clear-filters:hover {
   background: $bg-clear-filter-hover-night;
   border-color: $border-clear-filter-hover-night;
 }
@@ -251,7 +251,7 @@ body.nightshift .search-clear-filters:hover {
   padding: 20px 0;
   border-bottom: 1px solid $border-subtle;
 }
-body.nightshift .search-active-chips { border-bottom-color: $nightshift-border-subtle; }
+html.nightshift .search-active-chips { border-bottom-color: $nightshift-border-subtle; }
 .search-chip {
   display: inline-flex;
   align-items: center;
@@ -264,7 +264,7 @@ body.nightshift .search-active-chips { border-bottom-color: $nightshift-border-s
   color: $color-black;
   border-radius: 4px;
 }
-body.nightshift .search-chip {
+html.nightshift .search-chip {
   background: $bg-chip-hover-night;
   border-color: $border-chip-strong-night;
   color: $color-white;
@@ -290,7 +290,7 @@ body.nightshift .search-chip {
   color: $color-grey;
   margin-bottom: 20px;
 }
-body.nightshift .search-results-head { color: $color-grey-lighter; }
+html.nightshift .search-results-head { color: $color-grey-lighter; }
 .search-result {
   display: grid;
   grid-template-columns: 80px 1fr auto auto auto;
@@ -301,39 +301,39 @@ body.nightshift .search-results-head { color: $color-grey-lighter; }
   cursor: pointer;
   transition: background 0.18s, padding 0.25s var(--ease);
 }
-body.nightshift .search-result { border-bottom-color: $nightshift-border-subtle; }
+html.nightshift .search-result { border-bottom-color: $nightshift-border-subtle; }
 .search-result:hover {
   padding-left: 8px;
   background: $bg-hover-result;
 }
-body.nightshift .search-result:hover { background: $bg-hover-result-night; }
+html.nightshift .search-result:hover { background: $bg-hover-result-night; }
 .sr-code {
   font-size: 11px;
   letter-spacing: 0.08em;
   color: $color-grey;
   font-variant-numeric: tabular-nums;
 }
-body.nightshift .sr-code { color: $color-grey-lighter; }
+html.nightshift .sr-code { color: $color-grey-lighter; }
 .sr-title {
   font-size: clamp(18px, 1.6vw, 22px);
   color: $color-black;
   transition: color 0.4s;
 }
-body.nightshift .sr-title { color: $color-white; }
+html.nightshift .sr-title { color: $color-white; }
 .sr-loc {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: $color-grey;
 }
-body.nightshift .sr-loc { color: $color-grey-lighter; }
+html.nightshift .sr-loc { color: $color-grey-lighter; }
 .sr-tag {
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: $color-grey;
 }
-body.nightshift .sr-tag { color: $color-grey-lighter; }
+html.nightshift .sr-tag { color: $color-grey-lighter; }
 .sr-area {
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -341,13 +341,13 @@ body.nightshift .sr-tag { color: $color-grey-lighter; }
   color: $color-grey;
   font-variant-numeric: tabular-nums;
 }
-body.nightshift .sr-area { color: $color-grey-lighter; }
+html.nightshift .sr-area { color: $color-grey-lighter; }
 .sr-empty {
   color: $color-grey;
   font-size: 14px;
   padding: 40px 0;
 }
-body.nightshift .sr-empty { color: $color-grey-lighter; }
+html.nightshift .sr-empty { color: $color-grey-lighter; }
 mark.sr-hl {
   background: transparent;
   color: inherit;
@@ -480,7 +480,7 @@ mark.sr-hl {
   transform: translateY(0);
   opacity: 1;
 }
-body.nightshift .cookie-banner {
+html.nightshift .cookie-banner {
   background: $bg-cookie-banner-night;
   border-color: $bg-chip-strong-night;
 }
@@ -490,14 +490,14 @@ body.nightshift .cookie-banner {
   text-transform: uppercase;
   color: $color-grey;
 }
-body.nightshift .cookie-eyebrow { color: $color-grey-lighter; }
+html.nightshift .cookie-eyebrow { color: $color-grey-lighter; }
 .cookie-text {
   font-size: 13px;
   line-height: 1.5;
   color: $color-black;
   transition: color 0.4s;
 }
-body.nightshift .cookie-text { color: $color-grey-lightest; }
+html.nightshift .cookie-text { color: $color-grey-lightest; }
 .cookie-actions {
   display: flex;
   gap: 12px;
@@ -526,21 +526,21 @@ body.nightshift .cookie-text { color: $color-grey-lightest; }
   background: transparent;
   color: $color-black;
 }
-body.nightshift .cookie-btn {
+html.nightshift .cookie-btn {
   color: $color-white;
   border-color: $bg-indicator-night;
 }
-body.nightshift .cookie-btn.primary {
+html.nightshift .cookie-btn.primary {
   background: $color-white;
   color: $color-pure-black;
   border-color: $color-white;
 }
-body.nightshift .cookie-btn.primary:hover {
+html.nightshift .cookie-btn.primary:hover {
   background: transparent;
   color: $color-white;
 }
 .cookie-btn:not(.primary):hover { background: $bg-chip; }
-body.nightshift .cookie-btn:not(.primary):hover { background: $bg-hover-toggle-night; }
+html.nightshift .cookie-btn:not(.primary):hover { background: $bg-hover-toggle-night; }
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
 .toast {
@@ -563,7 +563,7 @@ body.nightshift .cookie-btn:not(.primary):hover { background: $bg-hover-toggle-n
   opacity: 1;
   transform: translate(-50%, 0);
 }
-body.nightshift .toast {
+html.nightshift .toast {
   background: $color-white;
   color: $color-pure-black;
 }
@@ -589,13 +589,13 @@ body.nightshift .toast {
   backdrop-filter: blur(6px);
   border: 1px solid $bg-chip-strong;
 }
-body.nightshift #nsToggle {
+html.nightshift #nsToggle {
   color: $color-grey-lighter;
   background: $bg-toggle-night;
   border-color: $bg-chip-strong-night;
 }
 #nsToggle:hover { color: $color-black; }
-body.nightshift #nsToggle:hover { color: $color-white; }
+html.nightshift #nsToggle:hover { color: $color-white; }
 
 .ns-dot {
   width: 8px;
@@ -604,7 +604,7 @@ body.nightshift #nsToggle:hover { color: $color-white; }
   border-radius: 50%;
   transition: background 0.4s, transform 0.3s;
 }
-body.nightshift .ns-dot { background: $color-white; }
+html.nightshift .ns-dot { background: $color-white; }
 #nsToggle:hover .ns-dot { transform: scale(1.4); }
 
 #langToggle {
@@ -624,7 +624,7 @@ body.nightshift .ns-dot { background: $color-white; }
   border: 1px solid $bg-chip-strong;
   user-select: none;
 }
-body.nightshift #langToggle {
+html.nightshift #langToggle {
   background: $bg-toggle-night;
   border-color: $bg-chip-strong-night;
 }
@@ -633,7 +633,7 @@ body.nightshift #langToggle {
   transition: color 0.2s;
 }
 #langToggle .lang-opt.active { color: $color-black; }
-body.nightshift #langToggle .lang-opt.active { color: $color-white; }
+html.nightshift #langToggle .lang-opt.active { color: $color-white; }
 #langToggle .lang-sep { color: $color-grey-lighter; }
 
 #bttBtn {
@@ -665,12 +665,12 @@ body.nightshift #langToggle .lang-opt.active { color: $color-white; }
   transform: translateY(0);
 }
 #bttBtn:hover { color: $color-black; }
-body.nightshift #bttBtn {
+html.nightshift #bttBtn {
   color: $color-grey-lighter;
   background: $bg-toggle-night;
   border-color: $bg-chip-strong-night;
 }
-body.nightshift #bttBtn:hover { color: $color-white; }
+html.nightshift #bttBtn:hover { color: $color-white; }
 #bttBtn svg path { stroke: currentColor; }
 
 // ── Intro ─────────────────────────────────────────────────────────────────────
@@ -731,7 +731,7 @@ body.nightshift #bttBtn:hover { color: $color-white; }
   transform: translateY(20px);
   transition: transform 0.35s var(--ease);
 }
-body.nightshift .kshelp-card {
+html.nightshift .kshelp-card {
   background: $color-grey-night-bg;
   color: $color-white;
 }
@@ -762,7 +762,7 @@ body.nightshift .kshelp-card {
   border-bottom: 1px solid $border-subtle;
   font-size: 13px;
 }
-body.nightshift .kshelp-row { border-bottom-color: $nightshift-border-subtle; }
+html.nightshift .kshelp-row { border-bottom-color: $nightshift-border-subtle; }
 .kshelp-key {
   font-family: monospace;
   font-size: 11px;
@@ -771,7 +771,7 @@ body.nightshift .kshelp-row { border-bottom-color: $nightshift-border-subtle; }
   background: $bg-key;
   letter-spacing: 0.02em;
 }
-body.nightshift .kshelp-key {
+html.nightshift .kshelp-key {
   border-color: $border-key-night;
   background: $bg-hover-toggle-night;
 }
@@ -787,7 +787,7 @@ body.nightshift .kshelp-key {
   gap: 8px;
 }
 .kshelp-close:hover { color: $color-black; }
-body.nightshift .kshelp-close:hover { color: $color-white; }
+html.nightshift .kshelp-close:hover { color: $color-white; }
 
 // ── Marquee ───────────────────────────────────────────────────────────────────
 .marquee {
@@ -799,7 +799,7 @@ body.nightshift .kshelp-close:hover { color: $color-white; }
   cursor: pointer;
   user-select: none;
 }
-body.nightshift .marquee {
+html.nightshift .marquee {
   background: $color-white;
   border-color: $bg-chip-strong-night;
 }
@@ -818,7 +818,7 @@ body.nightshift .marquee {
   color: $color-white;
   transition: color 0.4s;
 }
-body.nightshift .marquee-track span { color: $color-pure-black; }
+html.nightshift .marquee-track span { color: $color-pure-black; }
 .marquee-dot {
   font-size: 16px !important;
   color: $color-grey !important;
@@ -846,7 +846,7 @@ body.nightshift .marquee-track span { color: $color-pure-black; }
   mix-blend-mode: difference;
   display: none;
 }
-body.nightshift #customCursor { background: $color-white; }
+html.nightshift #customCursor { background: $color-white; }
 body.has-custom-cursor #customCursor { display: block; }
 #customCursor.is-hover {
   width: 44px;
@@ -875,7 +875,7 @@ body.has-custom-cursor #customCursor { display: block; }
   font-family: 'Everett', sans-serif;
   mix-blend-mode: normal;
 }
-body.nightshift #customCursor .cc-label { color: $color-pure-black; }
+html.nightshift #customCursor .cc-label { color: $color-pure-black; }
 #customCursor.is-label .cc-label { opacity: 1; }
 #customCursor.is-text {
   width: 2px;
@@ -900,7 +900,7 @@ body.nightshift #customCursor .cc-label { color: $color-pure-black; }
   font-size: 12px;
   letter-spacing: 0.04em;
 }
-body.nightshift .newsletter { border-top-color: $nightshift-border-subtle; }
+html.nightshift .newsletter { border-top-color: $nightshift-border-subtle; }
 .newsletter-label {
   font-size: 10px;
   letter-spacing: 0.12em;
@@ -920,14 +920,14 @@ body.nightshift .newsletter { border-top-color: $nightshift-border-subtle; }
   outline: none;
   transition: border-color 0.2s;
 }
-body.nightshift .newsletter input {
+html.nightshift .newsletter input {
   color: $color-white;
   border-bottom-color: $bg-indicator-night;
 }
 .newsletter input:focus { border-bottom-color: $color-black; }
-body.nightshift .newsletter input:focus { border-bottom-color: $color-white; }
+html.nightshift .newsletter input:focus { border-bottom-color: $color-white; }
 .newsletter input::placeholder { color: $color-grey-lighter; }
-body.nightshift .newsletter input::placeholder { color: $color-grey-dark; }
+html.nightshift .newsletter input::placeholder { color: $color-grey-dark; }
 .newsletter-btn {
   font: 400 11px/1 'Everett', sans-serif;
   letter-spacing: 0.1em;
@@ -943,11 +943,11 @@ body.nightshift .newsletter input::placeholder { color: $color-grey-dark; }
   background: $color-black;
   color: $color-white;
 }
-body.nightshift .newsletter-btn {
+html.nightshift .newsletter-btn {
   color: $color-white;
   border-color: $bg-indicator-night;
 }
-body.nightshift .newsletter-btn:hover {
+html.nightshift .newsletter-btn:hover {
   background: $color-white;
   color: $color-pure-black;
 }
@@ -957,7 +957,7 @@ body.nightshift .newsletter-btn:hover {
   padding: clamp(32px,5vw,60px) clamp(24px,4.5vw,60px);
   border-bottom: 1px solid $border-subtle;
 }
-body.nightshift .press-strip { border-bottom-color: $nightshift-border-subtle; }
+html.nightshift .press-strip { border-bottom-color: $nightshift-border-subtle; }
 .press-eyebrow {
   font-size: 10px;
   letter-spacing: 0.12em;
@@ -986,11 +986,11 @@ body.nightshift .press-strip { border-bottom-color: $nightshift-border-subtle; }
   opacity: 1;
   color: $color-black;
 }
-body.nightshift .press-logo {
+html.nightshift .press-logo {
   color: $color-dark-grey;
   border-top-color: $nightshift-border-subtle;
 }
-body.nightshift .press-logo:hover { color: $color-white; }
+html.nightshift .press-logo:hover { color: $color-white; }
 
 // ── Lightbox ─────────────────────────────────────────────────────────────────
 
@@ -1106,7 +1106,7 @@ body.nightshift .press-logo:hover { color: $color-white; }
   transform: translateY(20px);
   transition: transform 0.35s var(--ease);
 }
-body.nightshift .kshelp-card {
+html.nightshift .kshelp-card {
   background: $color-grey-night-bg;
   color: $color-white;
 }
@@ -1135,14 +1135,14 @@ body.nightshift .kshelp-card {
   display: flex; align-items: center; justify-content: space-between;
   padding: 8px 0; border-bottom: 1px solid $border-subtle; font-size: 13px;
 }
-body.nightshift .kshelp-row { border-bottom-color: $nightshift-border-subtle; }
+html.nightshift .kshelp-row { border-bottom-color: $nightshift-border-subtle; }
 
 .kshelp-key {
   font-family: monospace; font-size: 11px; padding: 3px 8px;
   border: 1px solid $border-key; background: $bg-key;
   letter-spacing: 0.02em;
 }
-body.nightshift .kshelp-key {
+html.nightshift .kshelp-key {
   border-color: $border-key-night;
   background: $bg-hover-toggle-night;
 }
@@ -1153,4 +1153,4 @@ body.nightshift .kshelp-key {
   transition: color 0.2s;
 }
 .kshelp-close:hover { color: $color-black; }
-body.nightshift .kshelp-close:hover { color: $color-white; }
+html.nightshift .kshelp-close:hover { color: $color-white; }

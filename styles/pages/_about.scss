@@ -95,7 +95,7 @@
     flex-shrink: 0;
     @include color-transition;
 
-    body.nightshift & {
+    html.nightshift & {
       background: $color-white;
     }
   }

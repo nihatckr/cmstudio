@@ -43,7 +43,7 @@ html {
   outline: 2px solid #0ea5e9;
   outline-offset: 2px;
 }
-body.nightshift :focus-visible { outline-color: $color-focus-night; }
+html.nightshift :focus-visible { outline-color: $color-focus-night; }
 
 .skip-link {
   position: fixed; top: -60px; left: 16px; z-index: $z-skip-link;
@@ -81,7 +81,7 @@ body {
 }
 
 // html.nightshift catches pre-hydration (script sets class on <html> in <head>)
-body.nightshift,
+html.nightshift,
 html.nightshift body {
   background: $color-pure-black;
   color: $color-white;

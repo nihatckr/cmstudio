@@ -206,7 +206,7 @@ $breakpoints: (
 
 /// Dark mode (nightshift) variant
 @mixin nightshift($property, $value) {
-  body.nightshift & {
+  html.nightshift & {
     #{$property}: $value;
   }
 }
@@ -324,13 +324,13 @@ $breakpoints: (
 @mixin section-border($side: 'bottom') {
   @if $side == 'bottom' {
     border-bottom: 1px solid $border-subtle;
-    body.nightshift & { border-bottom-color: $nightshift-border-subtle; }
+    html.nightshift & { border-bottom-color: $nightshift-border-subtle; }
   } @else if $side == 'top' {
     border-top: 1px solid $border-subtle;
-    body.nightshift & { border-top-color: $nightshift-border-subtle; }
+    html.nightshift & { border-top-color: $nightshift-border-subtle; }
   } @else if $side == 'right' {
     border-right: 1px solid $border-subtle;
-    body.nightshift & { border-right-color: $nightshift-border-subtle; }
+    html.nightshift & { border-right-color: $nightshift-border-subtle; }
   }
 }
 
@@ -379,11 +379,11 @@ $breakpoints: (
 /// Nightshift-aware text color (most common pattern)
 @mixin nightshift-text($light: $color-black, $dark: $color-white) {
   color: $light;
-  body.nightshift & { color: $dark; }
+  html.nightshift & { color: $dark; }
 }
 
 /// Nightshift-aware secondary text
 @mixin nightshift-muted($light: $color-grey, $dark: $color-grey-lighter) {
   color: $light;
-  body.nightshift & { color: $dark; }
+  html.nightshift & { color: $dark; }
 }

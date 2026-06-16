@@ -17,7 +17,7 @@
   margin-top: 0;
   font-family: $font-standard;
 
-  body.nightshift & {
+  html.nightshift & {
     border-top-color: $nightshift-border-subtle;
   }
 }
@@ -49,7 +49,7 @@
     border-right: none;
   }
 
-  body.nightshift & {
+  html.nightshift & {
     border-right-color: $nightshift-border-subtle;
   }
 
@@ -64,7 +64,7 @@
     &:nth-child(2) {
       border-bottom: 1px solid $border-subtle;
 
-      body.nightshift & {
+      html.nightshift & {
         border-bottom-color: $nightshift-border-subtle;
       }
     }
@@ -74,7 +74,7 @@
     border-right: none;
     border-bottom: 1px solid $border-subtle;
 
-    body.nightshift & {
+    html.nightshift & {
       border-bottom-color: $nightshift-border-subtle;
     }
 
@@ -110,7 +110,7 @@
     color: $color-black;                // #1b1b1b
   }
 
-  body.nightshift & {
+  html.nightshift & {
     border-bottom-color: $nightshift-border-subtle;
     color: $color-grey-dark;
 
@@ -179,7 +179,7 @@
   transition: color 0.4s;
   font-size: $text-sm;                  // 12px
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-lighter-grey;
   }
 }
@@ -204,7 +204,7 @@
     opacity: 0.6;
   }
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-lighter-grey;
   }
 }
@@ -224,7 +224,7 @@
     color: $color-black;
   }
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-dark-grey;
 
     &:hover {
@@ -257,7 +257,7 @@
     color: $color-black;
   }
 
-  body.nightshift & {
+  html.nightshift & {
     border-top-color: $nightshift-border-subtle;
     color: $color-grey-dark;
 

@@ -13,7 +13,7 @@
   padding: 40px 20px;
   background: $color-bg-subtle;
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-bg-dark-subtle;
   }
 }
@@ -36,7 +36,7 @@
   margin-bottom: 16px;
   letter-spacing: -0.02em;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-pure-white;
   }
 }
@@ -47,7 +47,7 @@
   line-height: 1.6;
   margin-bottom: 32px;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-grey-lighter;
   }
 }
@@ -60,7 +60,7 @@
   margin-bottom: 32px;
   font-variant-numeric: tabular-nums;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-grey-dark;
   }
 }
@@ -90,7 +90,7 @@
   color: $color-pure-white;
   border: 1px solid $color-black;
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-pure-white;
     color: $color-black;
     border-color: $color-pure-white;
@@ -101,7 +101,7 @@
     border-color: $color-pure-black;
   }
 
-  body.nightshift &:hover {
+  html.nightshift &:hover {
     background: $color-grey-lightest;
     border-color: $color-grey-lightest;
   }
@@ -112,7 +112,7 @@
   color: $color-black;
   border: 1px solid $color-border-light;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-pure-white;
     border-color: $color-border-dark;
   }
@@ -122,7 +122,7 @@
     border-color: $color-border-hover-light;
   }
 
-  body.nightshift &:hover {
+  html.nightshift &:hover {
     background: $color-bg-hover-dark;
     border-color: $color-border-hover-dark;
   }
@@ -136,7 +136,7 @@
   border-radius: 4px;
   padding: 20px;
 
-  body.nightshift & {
+  html.nightshift & {
     background: $color-error-bg-night;
     border-color: $color-error-border-night;
   }
@@ -150,7 +150,7 @@
   color: $color-error;
   margin-bottom: 16px;
 
-  body.nightshift & {
+  html.nightshift & {
     color: $color-error-light;
   }
 }
@@ -164,7 +164,7 @@
   word-break: break-word;
 }
 
-body.nightshift .error-stack {
+html.nightshift .error-stack {
   color: $color-grey-lighter;
 }
 
@@ -197,11 +197,11 @@ body.nightshift .error-stack {
   }
 }
 
-body.nightshift .project-error-content h1 {
+html.nightshift .project-error-content h1 {
   color: $color-white;
 }
 
-body.nightshift .project-error-content p {
+html.nightshift .project-error-content p {
   color: $color-grey-lighter;
 }
 
@@ -245,7 +245,7 @@ body.nightshift .project-error-content p {
   animation: skeleton-loading 1.5s ease-in-out infinite;
   border-radius: 4px;
 
-  body.nightshift & {
+  html.nightshift & {
     background: linear-gradient(
       90deg,
       $gradient-loading-start-night 0%,

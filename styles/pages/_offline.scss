@@ -132,7 +132,7 @@
 }
 
 // Dark mode adjustments
-body.nightshift {
+html.nightshift {
   .offline-icon {
     color: $nightshift-fg-secondary;
   }
