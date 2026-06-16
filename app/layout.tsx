@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { siteMetadata } from "@/lib/data";
 import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/structuredData";
 import { StructuredData } from "@/components/StructuredData";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { ProgressBar } from "@/components/UI/ProgressBar";
@@ -129,13 +130,13 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
           <a href="#mainContent" className="skip-link">Skip to content</a>
-          <Header />
-          <main id="mainContent">
-            {children}
-          </main>
-          <Footer />
-          <ProgressBar />
-          <BackToTop />
+          <ErrorBoundary>
+            <Header />
+            <main id="mainContent">
+              {children}
+            </main>
+            <Footer />
+          </ErrorBoundary>
           <ProgressBar />
           <BackToTop />
         

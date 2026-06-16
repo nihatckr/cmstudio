@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { LoadingSpinner } from '@/components/UI/LoadingSpinner';
 
 interface FormData {
   name: string;
@@ -175,7 +176,15 @@ export function ContactForm() {
           type="submit"
           className="form-submit"
           disabled={isSubmitting}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            transition: 'all 0.2s ease',
+          }}
         >
+          {isSubmitting && <LoadingSpinner size="sm" color="currentColor" />}
           {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>
 
