@@ -1,15 +1,18 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { projects, searchMeta } from '@/lib/data';
 
 /** Search overlay — matches index.html .search-overlay + toggleSearch() */
 export function SearchOverlay() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedCity, setSelectedCity] = useState<string>('');
+  const [areaRange, setAreaRange] = useState<[number, number]>([0, 52000]);
 
   // Cmd+K / Ctrl+K shortcut + custom event from Header search-wrap
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setOpen(v => !v);
@@ -17,14 +20,17 @@ export function SearchOverlay() {
       if (e.key === 'Escape') {
         setOpen(false);
         setQuery('');
+        setSelectedTags([]);
+        setSelectedCity('');
+        setAreaRange([0, 52000]);
       }
     };
-    const onOpen = () => setOpen(true);
-    window.addEventListener('keydown', onKey);
-    window.addEventListener('cms:search-open', onOpen);
+    const handleSearchOpen = () => setOpen(true);
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('cms:search-open', handleSearchOpen);
     return () => {
-      window.removeEventListener('keydown', onKey);
-      window.removeEventListener('cms:search-open', onOpen);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('cms:search-open', handleSearchOpen);
     };
   }, []);
 
@@ -35,12 +41,56 @@ export function SearchOverlay() {
     }
   }, [open]);
 
-  const matched = query.trim()
-    ? projects.filter(p =>
+  // Extract unique tags and cities
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    projects.forEach(p => p.tags.forEach(t => tags.add(t)));
+    return Array.from(tags).sort();
+  }, []);
+
+  const allCities = useMemo(() => {
+    const cities = new Set<string>();
+    projects.forEach(p => cities.add(p.city));
+    return Array.from(cities).sort();
+  }, []);
+
+  // Advanced filtering logic
+  const matched = useMemo(() => {
+    return projects.filter(p => {
+      // Text search
+      const textMatch = !query.trim() || 
         [p.title, p.location, p.typology, p.code, p.client, p.type]
-          .some(s => s.toLowerCase().includes(query.toLowerCase()))
-      )
-    : projects;
+          .some(s => s.toLowerCase().includes(query.toLowerCase()));
+      
+      // Tag filter
+      const tagMatch = selectedTags.length === 0 || 
+        selectedTags.some(tag => p.tags.includes(tag));
+      
+      // City filter
+      const cityMatch = !selectedCity || p.city === selectedCity;
+      
+      // Area filter
+      const areaMatch = p.area >= areaRange[0] && p.area <= areaRange[1];
+      
+      return textMatch && tagMatch && cityMatch && areaMatch;
+    });
+  }, [query, selectedTags, selectedCity, areaRange]);
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const clearFilters = () => {
+    setQuery('');
+    setSelectedTags([]);
+    setSelectedCity('');
+    setAreaRange([0, 52000]);
+  };
+
+  const hasActiveFilters = query.trim() || selectedTags.length > 0 || 
+    selectedCity || areaRange[0] > 0 || areaRange[1] < 52000;
 
   const highlight = (text: string) => {
     if (!query.trim()) return text;
@@ -68,17 +118,123 @@ export function SearchOverlay() {
               autoComplete="off"
               value={query}
               onChange={e => setQuery(e.target.value)}
+              aria-label="Search projects"
             />
           </div>
-          <div className="search-close" onClick={() => { setOpen(false); setQuery(''); }} role="button">
+          <div 
+            className="search-close" 
+            onClick={() => { setOpen(false); clearFilters(); }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(false); clearFilters(); } }}
+            role="button"
+            tabIndex={0}
+            aria-label="Close search"
+          >
             {searchMeta.closeLabel} <span className="pmh-close-x" />
           </div>
         </div>
 
+        {/* Filter Panel */}
+        <div className="search-filters">
+          {/* Tags */}
+          <div className="search-filter-group">
+            <div className="search-filter-label">Tags</div>
+            <div className="search-filter-tags">
+              {allTags.map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className={`search-tag-chip${selectedTags.includes(tag) ? ' active' : ''}`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* City */}
+          <div className="search-filter-group">
+            <div className="search-filter-label">City</div>
+            <select 
+              value={selectedCity} 
+              onChange={e => setSelectedCity(e.target.value)}
+              className="search-filter-select"
+            >
+              <option value="">All Cities</option>
+              {allCities.map(city => (
+                <option key={city} value={city}>{city}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Area Range */}
+          <div className="search-filter-group">
+            <div className="search-filter-label">
+              Area: {areaRange[0].toLocaleString()} - {areaRange[1].toLocaleString()} m²
+            </div>
+            <div className="search-filter-range">
+              <input
+                type="range"
+                min="0"
+                max="52000"
+                step="1000"
+                value={areaRange[0]}
+                onChange={e => setAreaRange([Math.min(+e.target.value, areaRange[1]), areaRange[1]])}
+                className="search-range-input"
+              />
+              <input
+                type="range"
+                min="0"
+                max="52000"
+                step="1000"
+                value={areaRange[1]}
+                onChange={e => setAreaRange([areaRange[0], Math.max(+e.target.value, areaRange[0])])}
+                className="search-range-input"
+              />
+            </div>
+          </div>
+
+          {/* Clear Filters */}
+          {hasActiveFilters && (
+            <button onClick={clearFilters} className="search-clear-filters">
+              Clear All Filters
+            </button>
+          )}
+        </div>
+
+        {/* Active Filter Chips */}
+        {hasActiveFilters && (
+          <div className="search-active-chips">
+            {query.trim() && (
+              <div className="search-chip">
+                Text: &ldquo;{query}&rdquo;
+                <span onClick={() => setQuery('')} className="search-chip-close">×</span>
+              </div>
+            )}
+            {selectedTags.map(tag => (
+              <div key={tag} className="search-chip">
+                Tag: {tag}
+                <span onClick={() => toggleTag(tag)} className="search-chip-close">×</span>
+              </div>
+            ))}
+            {selectedCity && (
+              <div className="search-chip">
+                City: {selectedCity}
+                <span onClick={() => setSelectedCity('')} className="search-chip-close">×</span>
+              </div>
+            )}
+            {(areaRange[0] > 0 || areaRange[1] < 52000) && (
+              <div className="search-chip">
+                Area: {areaRange[0].toLocaleString()}-{areaRange[1].toLocaleString()} m²
+                <span onClick={() => setAreaRange([0, 52000])} className="search-chip-close">×</span>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="search-results">
           <div className="search-results-head">
-            {query
-              ? `${matched.length} ${searchMeta.ofLabel} ${projects.length} ${searchMeta.projectsLabel} · "${query}"`
+            {hasActiveFilters
+              ? `${matched.length} ${searchMeta.ofLabel} ${projects.length} ${searchMeta.projectsLabel} · Filtered`
               : `${searchMeta.startTyping} · All ${projects.length} ${searchMeta.projectsLabel}`}
           </div>
           <div>
@@ -86,7 +242,7 @@ export function SearchOverlay() {
               <div
                 key={p.code}
                 className="search-result"
-                onClick={() => { setOpen(false); setQuery(''); }}
+                onClick={() => { setOpen(false); clearFilters(); }}
               >
                 <div className="sr-code">{p.code}</div>
                 <div
@@ -98,10 +254,11 @@ export function SearchOverlay() {
                   dangerouslySetInnerHTML={{ __html: highlight(p.location) }}
                 />
                 <div className="sr-tag">{p.typology}</div>
+                <div className="sr-area">{p.area.toLocaleString()} m²</div>
               </div>
             ))}
             {matched.length === 0 && (
-              <div className="sr-empty">No matching projects.</div>
+              <div className="sr-empty">No matching projects found. Try adjusting your filters.</div>
             )}
           </div>
         </div>

@@ -1,8 +1,16 @@
 'use client';
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { projects, subfilters, homepageMeta } from '@/lib/data';
-import { ProjectDetail } from '@/components/UI/ProjectDetail';
 import { ArchSVG } from '@/components/UI/ArchSVG';
+import ProjectImage from '@/components/UI/ProjectImage';
+import { StaggerList } from '@/components/animations/StaggerList';
+
+// Lazy load ProjectDetail - only loads when a project is opened
+const ProjectDetail = dynamic(() => import('@/components/UI/ProjectDetail').then(mod => ({ default: mod.ProjectDetail })), {
+  ssr: false,
+});
 
 type Filter = 'all' | 'hospitality' | 'residential' | 'commercial';
 
@@ -48,6 +56,11 @@ export default function ProjectsPage() {
 
   return (
     <div id="page-projects">
+      {/* Visually hidden h1 for SEO and screen readers */}
+      <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
+        City Marin Studio — Architecture & Design Portfolio
+      </h1>
+
       {/* Project mini-header — appears when a project is open */}
       <div className={`project-mini-header${openProject ? ' show' : ''}`}>
         <div className="pmh-left">
@@ -63,7 +76,11 @@ export default function ProjectsPage() {
           <span
             className="pmh-nav"
             onClick={() => navProject(-1)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navProject(-1); } }}
             role="button"
+            tabIndex={openPosInFiltered <= 0 ? -1 : 0}
+            aria-label="Previous project"
+            aria-disabled={openPosInFiltered <= 0}
             style={{ opacity: openPosInFiltered <= 0 ? 0.25 : undefined, pointerEvents: openPosInFiltered <= 0 ? 'none' : undefined }}
           >
             ← PREV PROJECT
@@ -71,12 +88,23 @@ export default function ProjectsPage() {
           <span
             className="pmh-nav"
             onClick={() => navProject(1)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navProject(1); } }}
             role="button"
+            tabIndex={openPosInFiltered >= total - 1 ? -1 : 0}
+            aria-label="Next project"
+            aria-disabled={openPosInFiltered >= total - 1}
             style={{ opacity: openPosInFiltered >= total - 1 ? 0.25 : undefined, pointerEvents: openPosInFiltered >= total - 1 ? 'none' : undefined }}
           >
             NEXT PROJECT →
           </span>
-          <span className="pmh-close" onClick={() => setOpenIdx(null)} role="button">
+          <span 
+            className="pmh-close" 
+            onClick={() => setOpenIdx(null)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenIdx(null); } }}
+            role="button"
+            tabIndex={0}
+            aria-label="Close project"
+          >
             CLOSE <span className="pmh-close-x" />
           </span>
         </div>
@@ -85,8 +113,17 @@ export default function ProjectsPage() {
       {currentSubfilters && (
         <div className="sub-bar open" style={{ position:'fixed', top:'var(--bar-h)', left:0, right:0, zIndex:9997 }}>
           {currentSubfilters.map(sub => (
-            <div key={sub} className={`sub-item${activeSubItem === sub ? ' active' : ''}`}
-              onClick={() => setActiveSubItem(sub)} role="button">{sub}</div>
+            <div 
+              key={sub} 
+              className={`sub-item${activeSubItem === sub ? ' active' : ''}`}
+              onClick={() => setActiveSubItem(sub)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveSubItem(sub); } }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Filter by ${sub}`}
+            >
+              {sub}
+            </div>
           ))}
         </div>
       )}
@@ -94,28 +131,16 @@ export default function ProjectsPage() {
       {/* Project list */}
       <div className="project-list" style={currentSubfilters ? { paddingTop:'calc(var(--bar-h) + 38px)' } : {}}>
 
-        {/* Category filter bar */}
-        <div className="project-filter-bar">
-          {(['all','hospitality','residential','commercial'] as Filter[]).map(f => (
-            <button 
-              key={f} 
-              onClick={() => handleFilter(f)} 
-              className={`project-filter-btn${activeFilter === f ? ' active' : ''}`}
-            >
-              {f} · {f==='all' ? total : projects.filter(p=>p.type===f).length}
-            </button>
-          ))}
-        </div>
-
         {filtered.length === 0 ? (
           <div className="projects-empty">
             <div className="pe-empty-mark">✦</div>
             <div className="pe-empty-title">{homepageMeta.emptyTitle}</div>
             <div className="pe-empty-desc">{homepageMeta.emptyDesc}</div>
-            <div className="pe-empty-cta" onClick={() => setActiveFilter('all')} role="button">{homepageMeta.emptyCTA}</div>
+            <div className="pe-empty-cta" onClick={() => handleFilter('all')} role="button">{homepageMeta.emptyCTA}</div>
           </div>
         ) : (
-          filtered.map((p, i) => {
+          <StaggerList stagger={0.08} y={20}>
+          {filtered.map((p, i) => {
             const origIdx = projects.indexOf(p);
             const isOpen = openIdx === origIdx;
             return (
@@ -141,7 +166,11 @@ export default function ProjectsPage() {
                       <div className="pe-index">{String(i+1).padStart(2,'0')} / {String(total).padStart(2,'0')}</div>
                     </div>
                     <div className="pe-text-block">
-                      <div className="pe-title">{p.title}</div>
+                      <div className="pe-title">
+                        <Link href={`/projects/${p.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                          {p.title}
+                        </Link>
+                      </div>
                       <div className="pe-subtitle">{p.location} · {p.typology} · {p.year}</div>
                     </div>
                     <div className="pe-bottom">
@@ -149,23 +178,36 @@ export default function ProjectsPage() {
                       <span className="pe-toggle"><span>{isOpen ? homepageMeta.toggleOpen : homepageMeta.toggleClosed}</span><span className="pe-toggle-icon"/></span>
                     </div>
                   </div>
-                  <div className="pe-cover"><ArchSVG hue={p.hue} label={p.code} /></div>
+                  <div className="pe-cover">
+                    {p.images && p.images.length > 0 ? (
+                      <ProjectImage 
+                        images={p.images} 
+                        title={p.title} 
+                        hue={p.hue} 
+                        featured={p.featured}
+                        className="pe-cover-image"
+                      />
+                    ) : (
+                      <ArchSVG hue={p.hue} label={p.code} />
+                    )}
+                  </div>
                 </div>
-
-                {/* Detail gallery — horizontal scroll */}
-                {isOpen && (
-                  <ProjectDetail
-                    project={p}
-                    idx={origIdx}
-                    total={projects.length}
-                    onClose={() => setOpenIdx(null)}
-                  />
-                )}
               </div>
             );
-          })
+          })}
+          </StaggerList>
         )}
       </div>
+
+      {/* Project detail modal */}
+      {openIdx !== null && (
+        <ProjectDetail 
+          project={projects[openIdx]} 
+          idx={openIdx}
+          total={projects.length}
+          onClose={() => setOpenIdx(null)} 
+        />
+      )}
     </div>
   );
 }
