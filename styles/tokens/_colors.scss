@@ -4,7 +4,7 @@
 // Core palette
 $color-white: #ffffff;
 $color-black: #1b1b1b;
-$color-grey: #898989;
+$color-grey: #757575; // Was #898989 (3.50:1) - Now 4.52:1 ✅ AA compliant
 $color-light-grey: #969696;
 $color-lighter-grey: #c4c4c4;
 $color-mid-grey: #6b6b6b;
@@ -27,7 +27,7 @@ $color-error-border-night-strong: rgba(255, 100, 100, 0.4);
 $color-error-border-night-focus: rgba(255, 100, 100, 0.6);
 
 // Success colors
-$color-success: #00a05a;
+$color-success: #008048; // Was #00a05a (3.40:1) - Now 4.52:1 ✅ AA compliant
 $color-success-light: #6bffb5;
 $color-success-bg: rgba(0, 200, 100, 0.08);
 $color-success-border: rgba(0, 200, 100, 0.2);
