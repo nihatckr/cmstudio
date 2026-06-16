@@ -1,8 +1,21 @@
 import type { Metadata } from 'next';
-import { teams } from '@/lib/data';
-export const metadata: Metadata = { title: 'People — City Marin Studio' };
+import { teams, siteMetadata } from '@/lib/data';
 
-type WithCustomProperty = React.CSSProperties & { '--tm-h': number };
+export const metadata: Metadata = {
+  title: 'People',
+  description: 'Meet the team at City Marin Studio. Architects, interior designers, engineers and sustainability specialists.',
+  openGraph: {
+    title: 'People — City Marin Studio',
+    description: 'Meet our team of architects, designers, and engineers.',
+    url: `${siteMetadata.siteUrl}/people`,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'People — City Marin Studio',
+    description: 'Meet our team of architects, designers, and engineers.',
+  },
+};
 
 export default function PeoplePage() {
   return (
@@ -23,7 +36,10 @@ export default function PeoplePage() {
           <div className="team-grid">
             {team.members.map((m, i) => (
               <div className="team-member" key={i}>
-                <div className="tm-avatar" style={{ '--tm-h': m.hue } as WithCustomProperty} />
+                <div 
+                  className="tm-avatar" 
+                  style={{ '--tm-h': m.hue } as React.CSSProperties & { '--tm-h': number }}
+                />
                 <div className="tm-name">{m.name}</div>
                 <div className="tm-role">{m.role}</div>
               </div>

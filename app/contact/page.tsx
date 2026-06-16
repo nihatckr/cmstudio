@@ -1,12 +1,44 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { contactData, contactMeta } from '@/lib/data';
+import { contactData, contactMeta, siteMetadata } from '@/lib/data';
+import { generateLocalBusinessSchema, generateBreadcrumbSchema } from '@/lib/structuredData';
+import { StructuredData } from '@/components/StructuredData';
+import { ContactForm } from '@/components/forms/ContactForm';
 
-export const metadata: Metadata = { title: 'Contact — City Marin Studio' };
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Get in touch with City Marin Studio. Istanbul office: Bankalar Caddesi No: 35/2, Karaköy, Istanbul. Email: info@citymarin.com',
+  openGraph: {
+    title: 'Contact — City Marin Studio',
+    description: 'Get in touch with City Marin Studio in Istanbul.',
+    url: `${siteMetadata.siteUrl}/contact`,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Contact — City Marin Studio',
+    description: 'Get in touch with City Marin Studio in Istanbul.',
+  },
+};
 
 export default function ContactPage() {
+  // Use general email instead of hardcoded index
+  const generalInquiry = contactData.inquiries.find(inq => inq.label === 'General') || contactData.inquiries[0];
+  const addressLines = contactData.studio.address.split('\n');
+  
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact' },
+  ];
+  
   return (
     <div className="contact-page">
+      {/* Structured Data - JSON-LD */}
+      <StructuredData data={[
+        generateLocalBusinessSchema(),
+        generateBreadcrumbSchema(breadcrumbs)
+      ]} />
+      
       <div className="contact-hero">
         <div className="contact-eyebrow">{contactMeta.eyebrow}</div>
         <h1 className="contact-h1">{contactMeta.title}</h1>
@@ -17,10 +49,10 @@ export default function ContactPage() {
           <div className="cc-label">{contactMeta.studioLabel}</div>
           <div className="cc-block">
             <div className="cc-place">{contactData.studio.place}</div>
-            <div className="cc-addr">{contactData.studio.address.split('\n').map((line: string, i: number) => (
-              <span key={i}>{line}{i < contactData.studio.address.split('\n').length - 1 && <br/>}</span>
+            <div className="cc-addr">{addressLines.map((line: string, i: number) => (
+              <span key={i}>{line}{i < addressLines.length - 1 && <br/>}</span>
             ))}</div>
-            <Link className="cc-mail" href={`mailto:${contactData.inquiries[3].email}`}>{contactData.inquiries[3].email}</Link>
+            <Link className="cc-mail" href={`mailto:${generalInquiry.email}`}>{generalInquiry.email}</Link>
           </div>
         </div>
         <div className="contact-col">
@@ -67,6 +99,8 @@ export default function ContactPage() {
           <text x="720" y="270" textAnchor="middle" fontFamily="Helvetica Neue,Arial,sans-serif" fontSize="10" letterSpacing="3" fill="rgba(255,255,255,0.55)">{contactData.mapLabel}</text>
         </svg>
       </div>
+
+      <ContactForm />
     </div>
   );
 }

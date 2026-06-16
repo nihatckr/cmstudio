@@ -1,43 +1,245 @@
 // lib/data.ts — Single source of truth for all static content
 // From /design/design_handoff_citymarin_site/index.html
+// Database-ready structure with IDs, timestamps, enums, and normalized fields
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+export enum ProjectType {
+  HOSPITALITY = 'hospitality',
+  RESIDENTIAL = 'residential',
+  COMMERCIAL = 'commercial',
+}
+
+export enum ProjectStatus {
+  PLANNING = 'PLANNING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  ON_HOLD = 'ON_HOLD',
+}
+
+export enum JobDepartment {
+  ARCHITECTURE = 'Architecture',
+  INTERIOR = 'Interior',
+  SUSTAINABILITY = 'Sustainability',
+  ENGINEERING = 'Engineering',
+  MANAGEMENT = 'Management',
+  INTERNSHIP = 'Internship',
+}
+
+export enum EmploymentType {
+  FULL_TIME = 'Full-time',
+  PART_TIME = 'Part-time',
+  CONTRACT = 'Contract',
+  INTERNSHIP = 'Internship',
+  HYBRID = 'Hybrid',
+}
+
+// ─── Helper Functions ────────────────────────────────────────────────────────
+// These functions will be used during database migration
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function parseSize(size: string): { area: number; unit: string } {
+  const match = size.replace(/,/g, '').match(/^(\d+(?:\.\d+)?)\s*(.+)$/);
+  if (!match) return { area: 0, unit: 'm²' };
+  return { area: parseFloat(match[1]), unit: match[2] };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function parseLocation(location: string): { city: string; country: string } {
+  const parts = location.split(',').map(s => s.trim());
+  if (parts.length === 2) {
+    return { city: parts[0], country: parts[1] };
+  }
+  return { city: location, country: '' };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
 
 // ─── Projects ────────────────────────────────────────────────────────────────
 
 export interface Project {
+  id: number;
   code: string;
+  slug: string;
   title: string;
-  location: string;
-  type: 'hospitality' | 'residential' | 'commercial';
+  description: string | null;
+  city: string;
+  country: string;
+  location: string; // Legacy: "CITY, COUNTRY" format for backward compatibility
+  type: ProjectType;
   typology: string;
-  size: string;
-  status: string;
+  area: number;
+  areaUnit: string;
+  size: string; // Legacy: "12,000 m²" format for backward compatibility
+  status: ProjectStatus;
   year: string;
   client: string;
   hue: number;
+  tags: string[];
+  images: string[];
+  featured: boolean;
+  published: boolean;
+  sortOrder: number;
+  createdAt: string; // ISO 8601
+  updatedAt: string; // ISO 8601
 }
 
-export type ProjectType = Project['type'];
-
 export const projects: Project[] = [
-  { code:'ELA',  title:'Ela Quality Resort',        location:'ANTALYA, TURKEY',  type:'hospitality', typology:'Hotel & Resort',     size:'12,000 m²', status:'COMPLETED', year:'2025', client:'Private Developer',      hue:210 },
-  { code:'HST',  title:'Hostel Boutique Hotel',     location:'ISTANBUL, TURKEY', type:'hospitality', typology:'Boutique Hotel',      size:'8,500 m²',  status:'COMPLETED', year:'2025', client:'Boutique Hotels Group',  hue:30  },
-  { code:'MONO', title:'Mono Hotel',                location:'ISTANBUL, TURKEY', type:'hospitality', typology:'Boutique Hotel',      size:'6,200 m²',  status:'COMPLETED', year:'2024', client:'Mono Hospitality Group', hue:160 },
-  { code:'BCV',  title:'Bodrum Coastal Villa',      location:'BODRUM, TURKEY',   type:'residential', typology:'Residential Villa',   size:'850 m²',    status:'COMPLETED', year:'2024', client:'Private Client',         hue:50  },
-  { code:'IST',  title:'Istanbul Residence',        location:'ISTANBUL, TURKEY', type:'residential', typology:'Residential',         size:'420 m²',    status:'COMPLETED', year:'2023', client:'Private Family',          hue:0   },
-  { code:'OZK',  title:'Ozak Global Tower',         location:'ISTANBUL, TURKEY', type:'residential', typology:'Residential Tower',   size:'45,000 m²', status:'COMPLETED', year:'2023', client:'Ozak Group',             hue:220 },
-  { code:'ZRL',  title:'Zorlu Residence',           location:'ISTANBUL, TURKEY', type:'residential', typology:'Residential Complex', size:'38,000 m²', status:'COMPLETED', year:'2022', client:'Zorlu Holding',          hue:280 },
-  { code:'DIA',  title:'Dia Office Complex',        location:'ISTANBUL, TURKEY', type:'commercial',  typology:'Office',              size:'28,000 m²', status:'COMPLETED', year:'2024', client:'Dia Development',        hue:190 },
-  { code:'DXB',  title:'Dubai Corporate Office',    location:'DUBAI, UAE',       type:'commercial',  typology:'Office Tower',        size:'52,000 m²', status:'COMPLETED', year:'2023', client:'Dubai Corporate Group',  hue:35  },
-  { code:'MCK',  title:'Macka Office Tower',        location:'ISTANBUL, TURKEY', type:'commercial',  typology:'Mixed-Use Office',    size:'35,000 m²', status:'COMPLETED', year:'2023', client:'Macka Development',      hue:150 },
-  { code:'SCH',  title:'Schneider Electric Office', location:'ISTANBUL, TURKEY', type:'commercial',  typology:'Office',              size:'15,000 m²', status:'COMPLETED', year:'2021', client:'Schneider Electric',     hue:200 },
-  { code:'GFG',  title:'Go Fungo Restaurant',       location:'ISTANBUL, TURKEY', type:'hospitality', typology:'Restaurant',          size:'380 m²',    status:'COMPLETED', year:'2024', client:'Go Fungo Group',         hue:10  },
-  { code:'KFC',  title:'KFC Restaurant Design',     location:'TURKEY',           type:'hospitality', typology:'Restaurant',          size:'250 m²',    status:'COMPLETED', year:'2023', client:'KFC Turkey',             hue:355 },
+  {
+    id: 1, code: 'ELA', slug: 'ela-quality-resort', title: 'Ela Quality Resort',
+    description: null,
+    city: 'Antalya', country: 'Turkey', location: 'ANTALYA, TURKEY',
+    type: ProjectType.HOSPITALITY, typology: 'Hotel & Resort',
+    area: 12000, areaUnit: 'm²', size: '12,000 m²',
+    status: ProjectStatus.COMPLETED, year: '2025', client: 'Private Developer',
+    hue: 210, tags: ['luxury', 'resort', 'mediterranean'], images: [],
+    featured: true, published: true, sortOrder: 1,
+    createdAt: '2024-01-15T09:00:00Z', updatedAt: '2025-01-15T14:30:00Z',
+  },
+  {
+    id: 2, code: 'HST', slug: 'hostel-boutique-hotel', title: 'Hostel Boutique Hotel',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.HOSPITALITY, typology: 'Boutique Hotel',
+    area: 8500, areaUnit: 'm²', size: '8,500 m²',
+    status: ProjectStatus.COMPLETED, year: '2025', client: 'Boutique Hotels Group',
+    hue: 30, tags: ['boutique', 'urban', 'hospitality'], images: [],
+    featured: true, published: true, sortOrder: 2,
+    createdAt: '2024-02-10T10:00:00Z', updatedAt: '2025-02-10T16:00:00Z',
+  },
+  {
+    id: 3, code: 'MONO', slug: 'mono-hotel', title: 'Mono Hotel',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.HOSPITALITY, typology: 'Boutique Hotel',
+    area: 6200, areaUnit: 'm²', size: '6,200 m²',
+    status: ProjectStatus.COMPLETED, year: '2024', client: 'Mono Hospitality Group',
+    hue: 160, tags: ['boutique', 'contemporary', 'hospitality'], images: [],
+    featured: true, published: true, sortOrder: 3,
+    createdAt: '2023-03-20T11:00:00Z', updatedAt: '2024-12-15T18:00:00Z',
+  },
+  {
+    id: 4, code: 'BCV', slug: 'bodrum-coastal-villa', title: 'Bodrum Coastal Villa',
+    description: null,
+    city: 'Bodrum', country: 'Turkey', location: 'BODRUM, TURKEY',
+    type: ProjectType.RESIDENTIAL, typology: 'Residential Villa',
+    area: 850, areaUnit: 'm²', size: '850 m²',
+    status: ProjectStatus.COMPLETED, year: '2024', client: 'Private Client',
+    hue: 50, tags: ['villa', 'coastal', 'luxury'], images: [],
+    featured: true, published: true, sortOrder: 4,
+    createdAt: '2023-05-10T09:30:00Z', updatedAt: '2024-11-20T17:00:00Z',
+  },
+  {
+    id: 5, code: 'IST', slug: 'istanbul-residence', title: 'Istanbul Residence',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.RESIDENTIAL, typology: 'Residential',
+    area: 420, areaUnit: 'm²', size: '420 m²',
+    status: ProjectStatus.COMPLETED, year: '2023', client: 'Private Family',
+    hue: 0, tags: ['apartment', 'urban', 'residential'], images: [],
+    featured: false, published: true, sortOrder: 5,
+    createdAt: '2022-06-15T10:00:00Z', updatedAt: '2023-10-05T15:30:00Z',
+  },
+  {
+    id: 6, code: 'OZK', slug: 'ozak-global-tower', title: 'Ozak Global Tower',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.RESIDENTIAL, typology: 'Residential Tower',
+    area: 45000, areaUnit: 'm²', size: '45,000 m²',
+    status: ProjectStatus.COMPLETED, year: '2023', client: 'Ozak Group',
+    hue: 220, tags: ['tower', 'high-rise', 'residential'], images: [],
+    featured: true, published: true, sortOrder: 6,
+    createdAt: '2021-01-10T08:00:00Z', updatedAt: '2023-09-15T14:00:00Z',
+  },
+  {
+    id: 7, code: 'ZRL', slug: 'zorlu-residence', title: 'Zorlu Residence',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.RESIDENTIAL, typology: 'Residential Complex',
+    area: 38000, areaUnit: 'm²', size: '38,000 m²',
+    status: ProjectStatus.COMPLETED, year: '2022', client: 'Zorlu Holding',
+    hue: 280, tags: ['complex', 'luxury', 'residential'], images: [],
+    featured: true, published: true, sortOrder: 7,
+    createdAt: '2020-03-20T09:00:00Z', updatedAt: '2022-12-10T16:30:00Z',
+  },
+  {
+    id: 8, code: 'DIA', slug: 'dia-office-complex', title: 'Dia Office Complex',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.COMMERCIAL, typology: 'Office',
+    area: 28000, areaUnit: 'm²', size: '28,000 m²',
+    status: ProjectStatus.COMPLETED, year: '2024', client: 'Dia Development',
+    hue: 190, tags: ['office', 'commercial', 'corporate'], images: [],
+    featured: true, published: true, sortOrder: 8,
+    createdAt: '2023-02-15T10:30:00Z', updatedAt: '2024-11-05T17:45:00Z',
+  },
+  {
+    id: 9, code: 'DXB', slug: 'dubai-corporate-office', title: 'Dubai Corporate Office',
+    description: null,
+    city: 'Dubai', country: 'UAE', location: 'DUBAI, UAE',
+    type: ProjectType.COMMERCIAL, typology: 'Office Tower',
+    area: 52000, areaUnit: 'm²', size: '52,000 m²',
+    status: ProjectStatus.COMPLETED, year: '2023', client: 'Dubai Corporate Group',
+    hue: 35, tags: ['tower', 'office', 'international'], images: [],
+    featured: true, published: true, sortOrder: 9,
+    createdAt: '2021-06-10T11:00:00Z', updatedAt: '2023-08-20T18:00:00Z',
+  },
+  {
+    id: 10, code: 'MCK', slug: 'macka-office-tower', title: 'Macka Office Tower',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.COMMERCIAL, typology: 'Mixed-Use Office',
+    area: 35000, areaUnit: 'm²', size: '35,000 m²',
+    status: ProjectStatus.COMPLETED, year: '2023', client: 'Macka Development',
+    hue: 150, tags: ['mixed-use', 'office', 'urban'], images: [],
+    featured: false, published: true, sortOrder: 10,
+    createdAt: '2021-09-25T09:00:00Z', updatedAt: '2023-07-30T16:00:00Z',
+  },
+  {
+    id: 11, code: 'SCH', slug: 'schneider-electric-office', title: 'Schneider Electric Office',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.COMMERCIAL, typology: 'Office',
+    area: 15000, areaUnit: 'm²', size: '15,000 m²',
+    status: ProjectStatus.COMPLETED, year: '2021', client: 'Schneider Electric',
+    hue: 200, tags: ['office', 'corporate', 'sustainable'], images: [],
+    featured: false, published: true, sortOrder: 11,
+    createdAt: '2020-01-15T08:30:00Z', updatedAt: '2021-11-10T15:00:00Z',
+  },
+  {
+    id: 12, code: 'GFG', slug: 'go-fungo-restaurant', title: 'Go Fungo Restaurant',
+    description: null,
+    city: 'Istanbul', country: 'Turkey', location: 'ISTANBUL, TURKEY',
+    type: ProjectType.HOSPITALITY, typology: 'Restaurant',
+    area: 380, areaUnit: 'm²', size: '380 m²',
+    status: ProjectStatus.COMPLETED, year: '2024', client: 'Go Fungo Group',
+    hue: 10, tags: ['restaurant', 'hospitality', 'interior'], images: [],
+    featured: false, published: true, sortOrder: 12,
+    createdAt: '2023-08-20T10:00:00Z', updatedAt: '2024-10-15T14:30:00Z',
+  },
+  {
+    id: 13, code: 'KFC', slug: 'kfc-restaurant-design', title: 'KFC Restaurant Design',
+    description: null,
+    city: 'Turkey', country: 'Turkey', location: 'TURKEY',
+    type: ProjectType.HOSPITALITY, typology: 'Restaurant',
+    area: 250, areaUnit: 'm²', size: '250 m²',
+    status: ProjectStatus.COMPLETED, year: '2023', client: 'KFC Turkey',
+    hue: 355, tags: ['restaurant', 'franchise', 'hospitality'], images: [],
+    featured: false, published: true, sortOrder: 13,
+    createdAt: '2022-11-10T09:00:00Z', updatedAt: '2023-09-05T16:00:00Z',
+  },
 ];
 
 export const subfilters: Record<ProjectType, string[]> = {
-  hospitality: ['Hotel & Resort', 'Boutique Hotel', 'Restaurant'],
-  residential: ['Villa', 'Residential', 'Tower', 'Complex'],
-  commercial:  ['Office', 'Mixed-Use', 'Tower'],
+  [ProjectType.HOSPITALITY]: ['Hotel & Resort', 'Boutique Hotel', 'Restaurant'],
+  [ProjectType.RESIDENTIAL]: ['Villa', 'Residential', 'Tower', 'Complex'],
+  [ProjectType.COMMERCIAL]: ['Office', 'Mixed-Use', 'Tower'],
 };
 
 // ─── About ────────────────────────────────────────────────────────────────────
@@ -97,47 +299,299 @@ export const sustainabilityMeta = {
 
 // ─── People ──────────────────────────────────────────────────────────────────
 
-interface TeamMember { name: string; role: string; hue: number; }
-export interface TeamSection { section: string; count: string; members: TeamMember[]; }
+export interface TeamMember {
+  id: number;
+  name: string;
+  slug: string;
+  role: string;
+  email: string | null;
+  phone: string | null;
+  bio: string | null;
+  avatar: string | null;
+  linkedin: string | null;
+  portfolio: string | null;
+  specializations: string[];
+  hue: number;
+  active: boolean;
+  sortOrder: number;
+  createdAt: string; // ISO 8601
+  updatedAt: string; // ISO 8601
+}
+
+export interface TeamSection {
+  section: string;
+  count: string;
+  members: TeamMember[];
+}
 
 export const teams: TeamSection[] = [
-  { section: 'Leadership', count: '04', members: [
-    { name: 'Marin Cakir', role: 'Founder & Principal', hue: 40 },
-    { name: 'Studio Director', role: 'Operations', hue: 180 },
-    { name: 'Design Director', role: 'Architecture', hue: 220 },
-    { name: 'Technical Director', role: 'Engineering', hue: 0 },
-  ]},
-  { section: 'Architecture', count: '06', members: [
-    { name: 'Senior Architect', role: 'Hospitality', hue: 200 },
-    { name: 'Senior Architect', role: 'Residential', hue: 160 },
-    { name: 'Project Architect', role: 'Commercial', hue: 100 },
-    { name: 'Project Architect', role: 'Mixed-Use', hue: 280 },
-    { name: 'Junior Architect', role: 'Hospitality', hue: 30 },
-    { name: 'Junior Architect', role: 'Residential', hue: 320 },
-  ]},
-  { section: 'Interior & Materials', count: '04', members: [
-    { name: 'Senior Interior Designer', role: 'Hospitality', hue: 50 },
-    { name: 'Interior Designer', role: 'Residential', hue: 240 },
-    { name: 'Material Specialist', role: 'Furniture & Finishes', hue: 120 },
-    { name: 'Lighting Designer', role: 'Custom Lighting', hue: 350 },
-  ]},
-  { section: 'Sustainability & Engineering', count: '04', members: [
-    { name: 'Sustainability Consultant', role: 'LEED · Passive Design', hue: 140 },
-    { name: 'Structural Engineer', role: 'In-house', hue: 20 },
-    { name: 'MEP Engineer', role: 'Systems', hue: 190 },
-    { name: 'Environmental Analyst', role: 'Energy modelling', hue: 260 },
-  ]},
+  {
+    section: 'Leadership',
+    count: '04',
+    members: [
+      {
+        id: 1, name: 'Marin Cakir', slug: 'marin-cakir', role: 'Founder & Principal',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['leadership', 'design', 'strategy'], hue: 40,
+        active: true, sortOrder: 1,
+        createdAt: '2010-01-01T08:00:00Z', updatedAt: '2025-01-15T10:00:00Z',
+      },
+      {
+        id: 2, name: 'Studio Director', slug: 'studio-director', role: 'Operations',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['operations', 'management'], hue: 180,
+        active: true, sortOrder: 2,
+        createdAt: '2015-03-10T09:00:00Z', updatedAt: '2025-01-10T11:00:00Z',
+      },
+      {
+        id: 3, name: 'Design Director', slug: 'design-director', role: 'Architecture',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['architecture', 'design'], hue: 220,
+        active: true, sortOrder: 3,
+        createdAt: '2016-06-15T10:00:00Z', updatedAt: '2025-01-08T14:00:00Z',
+      },
+      {
+        id: 4, name: 'Technical Director', slug: 'technical-director', role: 'Engineering',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['engineering', 'technical'], hue: 0,
+        active: true, sortOrder: 4,
+        createdAt: '2017-09-20T11:00:00Z', updatedAt: '2025-01-05T15:00:00Z',
+      },
+    ],
+  },
+  {
+    section: 'Architecture',
+    count: '06',
+    members: [
+      {
+        id: 5, name: 'Senior Architect', slug: 'senior-architect-hospitality', role: 'Hospitality',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['hospitality', 'hotel', 'resort'], hue: 200,
+        active: true, sortOrder: 1,
+        createdAt: '2018-02-10T09:00:00Z', updatedAt: '2024-12-20T10:00:00Z',
+      },
+      {
+        id: 6, name: 'Senior Architect', slug: 'senior-architect-residential', role: 'Residential',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['residential', 'housing'], hue: 160,
+        active: true, sortOrder: 2,
+        createdAt: '2018-05-15T10:00:00Z', updatedAt: '2024-12-18T11:00:00Z',
+      },
+      {
+        id: 7, name: 'Project Architect', slug: 'project-architect-commercial', role: 'Commercial',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['commercial', 'office'], hue: 100,
+        active: true, sortOrder: 3,
+        createdAt: '2019-08-20T11:00:00Z', updatedAt: '2024-12-15T12:00:00Z',
+      },
+      {
+        id: 8, name: 'Project Architect', slug: 'project-architect-mixed-use', role: 'Mixed-Use',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['mixed-use', 'urban'], hue: 280,
+        active: true, sortOrder: 4,
+        createdAt: '2020-01-10T09:30:00Z', updatedAt: '2024-12-10T13:00:00Z',
+      },
+      {
+        id: 9, name: 'Junior Architect', slug: 'junior-architect-hospitality', role: 'Hospitality',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['hospitality', 'hotel'], hue: 30,
+        active: true, sortOrder: 5,
+        createdAt: '2022-03-15T10:00:00Z', updatedAt: '2024-12-05T14:00:00Z',
+      },
+      {
+        id: 10, name: 'Junior Architect', slug: 'junior-architect-residential', role: 'Residential',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['residential', 'villa'], hue: 320,
+        active: true, sortOrder: 6,
+        createdAt: '2022-06-20T11:00:00Z', updatedAt: '2024-12-01T15:00:00Z',
+      },
+    ],
+  },
+  {
+    section: 'Interior & Materials',
+    count: '04',
+    members: [
+      {
+        id: 11, name: 'Senior Interior Designer', slug: 'senior-interior-designer-hospitality', role: 'Hospitality',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['interior', 'hospitality', 'luxury'], hue: 50,
+        active: true, sortOrder: 1,
+        createdAt: '2019-04-10T09:00:00Z', updatedAt: '2024-11-28T10:00:00Z',
+      },
+      {
+        id: 12, name: 'Interior Designer', slug: 'interior-designer-residential', role: 'Residential',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['interior', 'residential'], hue: 240,
+        active: true, sortOrder: 2,
+        createdAt: '2020-07-15T10:00:00Z', updatedAt: '2024-11-25T11:00:00Z',
+      },
+      {
+        id: 13, name: 'Material Specialist', slug: 'material-specialist', role: 'Furniture & Finishes',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['materials', 'furniture', 'finishes'], hue: 120,
+        active: true, sortOrder: 3,
+        createdAt: '2021-02-20T11:00:00Z', updatedAt: '2024-11-20T12:00:00Z',
+      },
+      {
+        id: 14, name: 'Lighting Designer', slug: 'lighting-designer', role: 'Custom Lighting',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['lighting', 'design'], hue: 350,
+        active: true, sortOrder: 4,
+        createdAt: '2021-05-25T12:00:00Z', updatedAt: '2024-11-15T13:00:00Z',
+      },
+    ],
+  },
+  {
+    section: 'Sustainability & Engineering',
+    count: '04',
+    members: [
+      {
+        id: 15, name: 'Sustainability Consultant', slug: 'sustainability-consultant', role: 'LEED · Passive Design',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['sustainability', 'leed', 'passive-design'], hue: 140,
+        active: true, sortOrder: 1,
+        createdAt: '2018-11-10T09:00:00Z', updatedAt: '2024-11-10T10:00:00Z',
+      },
+      {
+        id: 16, name: 'Structural Engineer', slug: 'structural-engineer', role: 'In-house',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['structural', 'engineering'], hue: 20,
+        active: true, sortOrder: 2,
+        createdAt: '2019-01-15T10:00:00Z', updatedAt: '2024-11-05T11:00:00Z',
+      },
+      {
+        id: 17, name: 'MEP Engineer', slug: 'mep-engineer', role: 'Systems',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['mep', 'systems', 'engineering'], hue: 190,
+        active: true, sortOrder: 3,
+        createdAt: '2019-03-20T11:00:00Z', updatedAt: '2024-11-01T12:00:00Z',
+      },
+      {
+        id: 18, name: 'Environmental Analyst', slug: 'environmental-analyst', role: 'Energy modelling',
+        email: null, phone: null, bio: null, avatar: null, linkedin: null, portfolio: null,
+        specializations: ['environmental', 'energy', 'analysis'], hue: 260,
+        active: true, sortOrder: 4,
+        createdAt: '2020-06-10T12:00:00Z', updatedAt: '2024-10-28T13:00:00Z',
+      },
+    ],
+  },
 ];
 
 // ─── Careers ─────────────────────────────────────────────────────────────────
 
-export interface Job { dept: string; loc: string; title: string; desc: string; }
+export interface Job {
+  id: number;
+  slug: string;
+  dept: JobDepartment;
+  location: string;
+  employmentType: EmploymentType;
+  remote: boolean;
+  title: string;
+  desc: string;
+  requirements: string[];
+  responsibilities: string[];
+  benefits: string[];
+  salaryMin: number | null;
+  salaryMax: number | null;
+  salaryCurrency: string | null;
+  active: boolean;
+  featured: boolean;
+  postedAt: string; // ISO 8601
+  createdAt: string; // ISO 8601
+  updatedAt: string; // ISO 8601
+  // Legacy fields for backward compatibility
+  loc: string; // "Istanbul · Full-time" format
+}
 
 export const jobs: Job[] = [
-  { dept: 'Architecture', loc: 'Istanbul · Full-time', title: 'Senior Architect — Hospitality',  desc: 'Lead the design and delivery of luxury hospitality projects across Turkey and the Mediterranean. Min. 8 years of experience.' },
-  { dept: 'Interior',     loc: 'Istanbul · Full-time', title: 'Interior Designer — Residential', desc: 'Curate materials, furniture and lighting for high-end residential commissions. 3–6 years of practice expected.' },
-  { dept: 'Sustainability', loc: 'Istanbul · Hybrid',  title: 'Sustainability Consultant',       desc: 'Embed environmental performance, LEED workflows and passive design strategies into every stage of our projects.' },
-  { dept: 'Internship',   loc: 'Istanbul · 6 months', title: 'Architectural Intern',             desc: 'Hands-on involvement across all studio projects. For students in their final year of architecture school.' },
+  {
+    id: 1,
+    slug: 'senior-architect-hospitality',
+    dept: JobDepartment.ARCHITECTURE,
+    location: 'Istanbul',
+    employmentType: EmploymentType.FULL_TIME,
+    remote: false,
+    title: 'Senior Architect — Hospitality',
+    desc: 'Lead the design and delivery of luxury hospitality projects across Turkey and the Mediterranean. Min. 8 years of experience.',
+    requirements: ['8+ years architecture experience', 'hospitality portfolio', 'licensed architect'],
+    responsibilities: ['Lead design teams', 'Client presentations', 'Construction oversight'],
+    benefits: ['Health insurance', 'Flexible hours', 'Professional development'],
+    salaryMin: 80000,
+    salaryMax: 120000,
+    salaryCurrency: 'TRY',
+    active: true,
+    featured: true,
+    postedAt: '2025-01-10T08:00:00Z',
+    createdAt: '2025-01-10T08:00:00Z',
+    updatedAt: '2025-01-15T10:00:00Z',
+    loc: 'Istanbul · Full-time',
+  },
+  {
+    id: 2,
+    slug: 'interior-designer-residential',
+    dept: JobDepartment.INTERIOR,
+    location: 'Istanbul',
+    employmentType: EmploymentType.FULL_TIME,
+    remote: false,
+    title: 'Interior Designer — Residential',
+    desc: 'Curate materials, furniture and lighting for high-end residential commissions. 3–6 years of practice expected.',
+    requirements: ['3-6 years interior design', 'residential portfolio', 'material knowledge'],
+    responsibilities: ['Material selection', 'Furniture curation', 'Client liaison'],
+    benefits: ['Health insurance', 'Design budget', 'Creative freedom'],
+    salaryMin: 60000,
+    salaryMax: 90000,
+    salaryCurrency: 'TRY',
+    active: true,
+    featured: true,
+    postedAt: '2025-01-12T09:00:00Z',
+    createdAt: '2025-01-12T09:00:00Z',
+    updatedAt: '2025-01-14T11:00:00Z',
+    loc: 'Istanbul · Full-time',
+  },
+  {
+    id: 3,
+    slug: 'sustainability-consultant',
+    dept: JobDepartment.SUSTAINABILITY,
+    location: 'Istanbul',
+    employmentType: EmploymentType.HYBRID,
+    remote: true,
+    title: 'Sustainability Consultant',
+    desc: 'Embed environmental performance, LEED workflows and passive design strategies into every stage of our projects.',
+    requirements: ['LEED certification', 'environmental systems', 'passive design experience'],
+    responsibilities: ['LEED documentation', 'Energy modeling', 'Design consultation'],
+    benefits: ['Remote flexibility', 'Conference budget', 'Health insurance'],
+    salaryMin: 70000,
+    salaryMax: 100000,
+    salaryCurrency: 'TRY',
+    active: true,
+    featured: false,
+    postedAt: '2025-01-08T10:00:00Z',
+    createdAt: '2025-01-08T10:00:00Z',
+    updatedAt: '2025-01-10T12:00:00Z',
+    loc: 'Istanbul · Hybrid',
+  },
+  {
+    id: 4,
+    slug: 'architectural-intern',
+    dept: JobDepartment.INTERNSHIP,
+    location: 'Istanbul',
+    employmentType: EmploymentType.INTERNSHIP,
+    remote: false,
+    title: 'Architectural Intern',
+    desc: 'Hands-on involvement across all studio projects. For students in their final year of architecture school.',
+    requirements: ['Final year student', 'CAD skills', 'portfolio'],
+    responsibilities: ['Design support', 'Drawing production', 'Research'],
+    benefits: ['Mentorship', 'Portfolio development', 'Stipend'],
+    salaryMin: null,
+    salaryMax: null,
+    salaryCurrency: null,
+    active: true,
+    featured: false,
+    postedAt: '2025-01-15T11:00:00Z',
+    createdAt: '2025-01-15T11:00:00Z',
+    updatedAt: '2025-01-16T09:00:00Z',
+    loc: 'Istanbul · 6 months',
+  },
 ];
 
 export const careersLocations = 'Istanbul · Istanbul'; // Display header for careers page
@@ -327,4 +781,15 @@ export const footerMeta = {
 export const siteMetadata = {
   title: "City Marin Studio — Architecture & Design, Istanbul",
   description: "Architecture and design studio based in Istanbul, Turkey.",
+  siteUrl: 'https://cmstudio.com', // TODO: Update with real production URL
+  siteName: 'City Marin Studio',
+  locale: 'en_US',
+  type: 'website',
+  twitterHandle: '@citymarinstudio', // TODO: Update with real Twitter handle
+  ogImage: {
+    url: '/og-image.png', // TODO: Add real OG image (1200x630px)
+    width: 1200,
+    height: 630,
+    alt: 'City Marin Studio - Architecture & Design',
+  },
 };

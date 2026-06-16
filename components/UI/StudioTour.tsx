@@ -6,12 +6,12 @@
  * From /design/design_handoff_citymarin_site/index.html .studio-tour
  */
 export function StudioTour() {
-  const toggle = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleToggle = (e: React.MouseEvent<HTMLDivElement>) => {
     e.currentTarget.classList.toggle('playing');
   };
 
   return (
-    <div className="studio-tour" onClick={toggle}>
+    <div className="studio-tour" onClick={handleToggle}>
       <svg
         className="st-bg"
         xmlns="http://www.w3.org/2000/svg"

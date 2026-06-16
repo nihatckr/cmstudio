@@ -8,17 +8,45 @@ type FooterColKey = 'email' | 'offices' | 'social' | 'legal';
 
 export function Footer() {
   const [openCols, setOpenCols] = useState<Set<FooterColKey>>(new Set());
-  const [nightshift, setNightshift] = useState(() => {
-    // Initialize from localStorage on mount
-    if (typeof window === 'undefined') return false;
-    return localStorage.getItem('cms_nightshift') === 'true';
-  });
+  const [nightshift, setNightshift] = useState(false);
 
-  // Apply nightshift classes when state changes
+  // Initialize from localStorage
   useEffect(() => {
-    document.documentElement.classList.toggle('nightshift', nightshift);
-    document.body.classList.toggle('nightshift', nightshift);
-  }, [nightshift]);
+    const stored = localStorage.getItem('cms_nightshift');
+    const isNightshift = stored === 'true' || stored === '"nightshift"' || stored === 'nightshift';
+    
+    // Only update DOM, don't call setNightshift here to avoid cascade
+    if (isNightshift) {
+      document.body.classList.add('nightshift');
+    }
+    
+    // Update state after initial render
+    setTimeout(() => setNightshift(isNightshift), 0);
+  }, []);
+
+  // Listen to keyboard shortcut event from GlobalKeyboard
+  useEffect(() => {
+    const handleToggle = () => {
+      setNightshift(prev => {
+        const newValue = !prev;
+        localStorage.setItem('cms_nightshift', String(newValue));
+        document.body.classList.toggle('nightshift', newValue);
+        return newValue;
+      });
+    };
+    
+    window.addEventListener('cms:nightshift-toggle', handleToggle);
+    return () => window.removeEventListener('cms:nightshift-toggle', handleToggle);
+  }, []);
+
+  const handleNightshift = () => {
+    setNightshift(prev => {
+      const newValue = !prev;
+      localStorage.setItem('cms_nightshift', String(newValue));
+      document.body.classList.toggle('nightshift', newValue);
+      return newValue;
+    });
+  };
 
   const toggle = (key: FooterColKey) => {
     setOpenCols(prev => {
@@ -34,28 +62,21 @@ export function Footer() {
 
   const isOpen = (key: FooterColKey) => openCols.has(key);
 
-  const handleNightshift = () => {
-    const next = !nightshift;
-    setNightshift(next);
-    // Immediately toggle DOM classes - don't wait for re-render
-    document.documentElement.classList.toggle('nightshift', next);
-    document.body.classList.toggle('nightshift', next);
-    try { localStorage.setItem('cms_nightshift', String(next)); } catch {}
-  };
-
-  // Sync state with DOM after re-render
-  useEffect(() => {
-    document.documentElement.classList.toggle('nightshift', nightshift);
-    document.body.classList.toggle('nightshift', nightshift);
-  }, [nightshift]);
-
   return (
     <footer className="footer">
       <div className="footer-grid">
 
         {/* EMAIL */}
         <div className="footer-col">
-          <div className={`footer-btn${isOpen('email') ? ' open' : ''}`} onClick={() => toggle('email')} role="button">
+          <div 
+            className={`footer-btn${isOpen('email') ? ' open' : ''}`} 
+            onClick={() => toggle('email')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('email'); } }}
+            role="button"
+            tabIndex={0}
+            aria-expanded={isOpen('email')}
+            aria-label="Toggle email contacts"
+          >
             {footerMeta.sections.email} <span className="footer-plus">+</span>
           </div>
           <div className={`footer-content${isOpen('email') ? ' open' : ''}`}>
@@ -72,40 +93,77 @@ export function Footer() {
 
         {/* OFFICES */}
         <div className="footer-col">
-          <div className={`footer-btn${isOpen('offices') ? ' open' : ''}`} onClick={() => toggle('offices')} role="button">
+          <div 
+            className={`footer-btn${isOpen('offices') ? ' open' : ''}`} 
+            onClick={() => toggle('offices')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('offices'); } }}
+            role="button"
+            tabIndex={0}
+            aria-expanded={isOpen('offices')}
+            aria-label="Toggle office locations"
+          >
             {footerMeta.sections.offices} <span className="footer-plus">+</span>
           </div>
           <div className={`footer-content${isOpen('offices') ? ' open' : ''}`}>
             <div className="footer-row">
-              <span className="footer-key">{contactData.studio.place.split(', ')[1].toUpperCase()}</span>
-              <span className="footer-value">{contactData.studio.address.replace(/\n/g, '<br />')}</span>
+              <span className="footer-key">{contactData.studio.place.split(', ')[1]?.toUpperCase() || 'TURKEY'}</span>
+              <span className="footer-value">
+                {contactData.studio.address.split('\n').map((line, idx, arr) => (
+                  <span key={idx}>{line}{idx < arr.length - 1 && <br />}</span>
+                ))}
+              </span>
             </div>
             <div className="footer-row">
               <span className="footer-key">ISTANBUL</span>
-              <span className="footer-value">Cevizli, Istanbul<br />Turkey<br />mail@citymarinstudio.com</span>
+              <span className="footer-value">
+                Cevizli, Istanbul<br />
+                Turkey<br />
+                mail@citymarinstudio.com
+              </span>
             </div>
           </div>
         </div>
  
         { /*  SOCIAL */}
         <div className="footer-col">
-          <div className={`footer-btn${isOpen('social') ? ' open' : ''}`} onClick={() => toggle('social')} role="button">
+          <div 
+            className={`footer-btn${isOpen('social') ? ' open' : ''}`} 
+            onClick={() => toggle('social')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('social'); } }}
+            role="button"
+            tabIndex={0}
+            aria-expanded={isOpen('social')}
+            aria-label="Toggle social media links"
+          >
             {footerMeta.sections.social} <span className="footer-plus">+</span>
           </div>
           <div className={`footer-content${isOpen('social') ? ' open' : ''}`}>
-            <Link href="https://www.instagram.com/citymarinstudio/" target="_blank" rel="noopener noreferrer" className="footer-social">
+            <a 
+              href="https://www.instagram.com/citymarinstudio/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="footer-social"
+            >
               {footerMeta.socialLabel}
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
                 <path d="M2 1H9V8" stroke="currentColor" />
                 <path d="M9 1L1 9" stroke="currentColor" />
               </svg>
-            </Link>
+            </a>
           </div>
         </div>
 
         {/* LEGAL */}
         <div className="footer-col">
-          <div className={`footer-btn${isOpen('legal') ? ' open' : ''}`} onClick={() => toggle('legal')} role="button">
+          <div 
+            className={`footer-btn${isOpen('legal') ? ' open' : ''}`} 
+            onClick={() => toggle('legal')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('legal'); } }}
+            role="button"
+            tabIndex={0}
+            aria-expanded={isOpen('legal')}
+            aria-label="Toggle legal information"
+          >
             {footerMeta.sections.legal} <span className="footer-plus">+</span>
           </div>
           <div className={`footer-content${isOpen('legal') ? ' open' : ''}`}>
@@ -121,7 +179,9 @@ export function Footer() {
       <div
         className="footer-bottom"
         onClick={handleNightshift}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNightshift(); } }}
         role="button"
+        tabIndex={0}
         suppressHydrationWarning
         aria-label={nightshift ? 'Switch to dayshift' : 'Switch to nightshift'}
       >

@@ -29,7 +29,14 @@ export function KeyboardHelp({ onClose }: Props) {
             </div>
           ))}
         </div>
-        <div className="kshelp-close" onClick={onClose} role="button">
+        <div 
+          className="kshelp-close" 
+          onClick={onClose}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}
+          role="button"
+          tabIndex={0}
+          aria-label="Close keyboard help"
+        >
           {keyboardHelpMeta.closeLabel} <span className="pmh-close-x" />
         </div>
       </div>

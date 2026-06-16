@@ -1,6 +1,22 @@
-'use client';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { jobs, careersLocations, careersApplicationEmail, careersMeta } from '@/lib/data';
+import { jobs, careersLocations, careersApplicationEmail, careersMeta, siteMetadata } from '@/lib/data';
+
+export const metadata: Metadata = {
+  title: 'Careers',
+  description: 'Join City Marin Studio. We\'re looking for talented architects, designers, and engineers. Open positions in Istanbul.',
+  openGraph: {
+    title: 'Careers — City Marin Studio',
+    description: 'Join our team of architects, designers, and engineers.',
+    url: `${siteMetadata.siteUrl}/careers`,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Careers — City Marin Studio',
+    description: 'Join our team of architects, designers, and engineers.',
+  },
+};
 
 export default function CareersPage() {
   return (

@@ -17,19 +17,19 @@ interface LightboxProps {
 export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
   const [idx, setIdx] = useState(startIndex);
 
-  const prev = useCallback(() => setIdx(i => Math.max(0, i - 1)), []);
-  const next = useCallback(() => setIdx(i => Math.min(images.length - 1, i + 1)), [images.length]);
+  const handlePrev = useCallback(() => setIdx(i => Math.max(0, i - 1)), []);
+  const handleNext = useCallback(() => setIdx(i => Math.min(images.length - 1, i + 1)), [images.length]);
 
   // Keyboard navigation
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape')      onClose();
-      else if (e.key === 'ArrowLeft')  prev();
-      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft')  handlePrev();
+      else if (e.key === 'ArrowRight') handleNext();
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onClose, prev, next]);
+  }, [onClose, handlePrev, handleNext]);
 
   // Lock scroll
   useEffect(() => {
@@ -45,7 +45,14 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
       {/* Head */}
       <div className="lightbox-head">
         <div className="lb-counter">{counter}</div>
-        <div className="lb-close" onClick={onClose} role="button" aria-label="Close lightbox">
+        <div 
+          className="lb-close" 
+          onClick={onClose}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}
+          role="button"
+          tabIndex={0}
+          aria-label="Close lightbox"
+        >
           CLOSE <span className="pmh-close-x" />
         </div>
       </div>
@@ -54,9 +61,12 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
       <div className="lightbox-body">
         <div
           className={`lb-nav${idx === 0 ? ' disabled' : ''}`}
-          onClick={prev}
+          onClick={handlePrev}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handlePrev(); } }}
           role="button"
+          tabIndex={idx === 0 ? -1 : 0}
           aria-label="Previous image"
+          aria-disabled={idx === 0}
         >
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
             <path d="M18 6 L9 14 L18 22" stroke="currentColor" strokeWidth="1"/>
@@ -71,9 +81,12 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
 
         <div
           className={`lb-nav${idx === images.length - 1 ? ' disabled' : ''}`}
-          onClick={next}
+          onClick={handleNext}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNext(); } }}
           role="button"
+          tabIndex={idx === images.length - 1 ? -1 : 0}
           aria-label="Next image"
+          aria-disabled={idx === images.length - 1}
         >
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
             <path d="M10 6 L19 14 L10 22" stroke="currentColor" strokeWidth="1"/>

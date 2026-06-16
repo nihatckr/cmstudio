@@ -53,7 +53,9 @@ export function Header({
           <div
             className={`menu-logo${leftOpen ? ' is-open' : ''}`}
             onClick={() => { setLeftOpen(v => !v); setRightOpen(false); }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLeftOpen(v => !v); setRightOpen(false); } }}
             role="button"
+            tabIndex={0}
             aria-label={leftOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={leftOpen}
           >
@@ -85,7 +87,10 @@ export function Header({
                   f.isSaved ? 'mf-saved-item' : '',
                 ].filter(Boolean).join(' ')}
                 onClick={() => handleFilter(f.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleFilter(f.value); } }}
                 role="button"
+                tabIndex={0}
+                aria-label={`Filter by ${f.label.toLowerCase()}`}
               >
                 {f.label}
                 {f.isSaved && (
@@ -100,7 +105,9 @@ export function Header({
             <span
               className="search-wrap"
               onClick={() => window.dispatchEvent(new Event('cms:search-open'))}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.dispatchEvent(new Event('cms:search-open')); } }}
               role="button"
+              tabIndex={0}
               aria-label="Open search"
             >
               <span className="search-count">{filterCount}</span>
@@ -114,7 +121,9 @@ export function Header({
             <span
               className={`ml-burger-right${rightOpen ? ' is-open' : ''}`}
               onClick={() => { setRightOpen(v => !v); setLeftOpen(false); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setRightOpen(v => !v); setLeftOpen(false); } }}
               role="button"
+              tabIndex={0}
               aria-label={rightOpen ? 'Close filters' : 'Open filters'}
             >
               <span /><span /><span />
@@ -129,7 +138,10 @@ export function Header({
               key={sub}
               className={`sub-item${activeSubItem === sub ? ' active' : ''}`}
               onClick={(e) => { e.stopPropagation(); setActiveSubItem(sub); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setActiveSubItem(sub); } }}
               role="button"
+              tabIndex={0}
+              aria-label={`Filter by ${sub}`}
             >
               {sub}
             </div>
@@ -182,7 +194,14 @@ export function Header({
       >
         <div className="side-nav-header">
           <span className="side-nav-label">Portfolio</span>
-          <span className="side-nav-close" onClick={() => setRightOpen(false)} role="button">
+          <span 
+            className="side-nav-close" 
+            onClick={() => setRightOpen(false)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setRightOpen(false); } }}
+            role="button"
+            tabIndex={0}
+            aria-label="Close filters"
+          >
             CLOSE <span className="pmh-close-x" />
           </span>
         </div>
@@ -193,7 +212,10 @@ export function Header({
               <div
                 className={`side-link side-mf${activeFilter === cat.value ? ' active' : ''}`}
                 onClick={() => { handleFilter(cat.value); setRightOpen(false); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleFilter(cat.value); setRightOpen(false); } }}
                 role="button"
+                tabIndex={0}
+                aria-label={`Filter by ${cat.label.toLowerCase()}`}
               >
                 {cat.label}
               </div>
@@ -201,7 +223,15 @@ export function Header({
               {cat.subItems.length > 0 && (
                 <div className="side-sub-list">
                   {cat.subItems.map((sub) => (
-                    <div key={sub} className="side-sub-item" role="button">
+                    <div 
+                      key={sub} 
+                      className="side-sub-item" 
+                      onClick={() => { setActiveSubItem(sub); setRightOpen(false); }}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveSubItem(sub); setRightOpen(false); } }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Filter by ${sub}`}
+                    >
                       {sub}
                     </div>
                   ))}

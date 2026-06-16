@@ -19,7 +19,9 @@ export function GlobalKeyboard() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement).tagName;
+      const target = e.target;
+      if (!target || !(target instanceof HTMLElement)) return;
+      const tag = target.tagName;
       // Input/textarea'da shortcut'lar çalışmamalı
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 

@@ -1,6 +1,21 @@
 import type { Metadata } from 'next';
-import { sustainabilityPrinciples, sustainabilityStats, sustainabilityMeta } from '@/lib/data';
-export const metadata: Metadata = { title: 'Sustainability — City Marin Studio' };
+import { sustainabilityPrinciples, sustainabilityStats, sustainabilityMeta, siteMetadata } from '@/lib/data';
+
+export const metadata: Metadata = {
+  title: 'Sustainability',
+  description: 'City Marin Studio\'s approach to sustainable architecture and design. LEED-certified projects, energy efficiency, and environmental responsibility.',
+  openGraph: {
+    title: 'Sustainability — City Marin Studio',
+    description: 'Our approach to sustainable architecture and design.',
+    url: `${siteMetadata.siteUrl}/sustainability`,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Sustainability — City Marin Studio',
+    description: 'Our approach to sustainable architecture and design.',
+  },
+};
 
 export default function SustainabilityPage() {
   return (

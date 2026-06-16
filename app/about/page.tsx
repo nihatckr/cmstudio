@@ -2,14 +2,43 @@ import type { Metadata } from 'next';
 import { 
   aboutValues, aboutStats, processSteps,
   studioBio, aboutHero,
-  aboutSectionMeta
+  aboutSectionMeta, siteMetadata
 } from '@/lib/data';
+import { generateLocalBusinessSchema, generateBreadcrumbSchema } from '@/lib/structuredData';
+import { StructuredData } from '@/components/StructuredData';
 import { StudioTour } from '@/components/UI/StudioTour';
-export const metadata: Metadata = { title: 'About — City Marin Studio' };
+import { GSAPScrollReveal } from '@/components/animations/ScrollReveal';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'City Marin Studio is an architecture and design studio based in Istanbul, Turkey. We specialize in hospitality, residential, and commercial projects.',
+  openGraph: {
+    title: 'About — City Marin Studio',
+    description: 'Architecture and design studio based in Istanbul, Turkey.',
+    url: `${siteMetadata.siteUrl}/about`,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About — City Marin Studio',
+    description: 'Architecture and design studio based in Istanbul, Turkey.',
+  },
+};
 
 export default function AboutPage() {
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'About', url: '/about' },
+  ];
+
   return (
     <div className="about-page">
+      {/* Structured Data - JSON-LD */}
+      <StructuredData data={[
+        generateLocalBusinessSchema(),
+        generateBreadcrumbSchema(breadcrumbs)
+      ]} />
+      
       {/* Hero */}
       <div className="about-hero">
         <svg style={{position:'absolute',inset:'-12% 0',width:'100%',height:'124%',willChange:'transform'}} viewBox="0 0 1440 680" preserveAspectRatio="xMidYMid slice">
@@ -35,25 +64,28 @@ export default function AboutPage() {
       </div>
 
       {/* Values */}
-      <div className="about-values">
-        {aboutValues.map(v => (
-          <div className="value-col" key={v.label}>
-            <div className="value-label">{v.label}</div>
-            <div className="value-text">{v.text}</div>
-          </div>
-        ))}
-      </div>
+      <GSAPScrollReveal>
+        <div className="about-values">
+          {aboutValues.map(v => (
+            <div className="value-col" key={v.label}>
+              <div className="value-label">{v.label}</div>
+              <div className="value-text">{v.text}</div>
+            </div>
+          ))}
+        </div>
+      </GSAPScrollReveal>
 
       {/* Stats */}
-      <div className="about-stats">
-        {aboutStats.map(s=>(
-          <div className="ast-col" key={s.label}><div className="ast-num">{s.num}</div><div className="ast-label">{s.label}</div></div>
-        ))}
-      </div> 
+      <GSAPScrollReveal delay={0.2}>
+        <div className="about-stats">
+          {aboutStats.map(s=>(
+            <div className="ast-col" key={s.label}><div className="ast-num">{s.num}</div><div className="ast-label">{s.label}</div></div>
+          ))}
+        </div>
+      </GSAPScrollReveal> 
 
       {/* 360° Studio tour */}
       <StudioTour />
- 1
 
       {/* Process */}
       <div className="about-process">
