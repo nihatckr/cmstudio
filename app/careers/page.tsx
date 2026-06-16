@@ -4,17 +4,17 @@ import { jobs, careersLocations, careersApplicationEmail, careersMeta, siteMetad
 
 export const metadata: Metadata = {
   title: 'Careers',
-  description: 'Join City Marin Studio. We\'re looking for talented architects, designers, and engineers. Open positions in Istanbul.',
+  description: 'Join our award-winning Istanbul studio. Open positions for architects, interior designers, sustainability consultants and interns. Flexible hours, health insurance, design budget.',
   openGraph: {
     title: 'Careers — City Marin Studio',
-    description: 'Join our team of architects, designers, and engineers.',
+    description: 'Join our award-winning Istanbul studio. Open positions for architects and designers.',
     url: `${siteMetadata.siteUrl}/careers`,
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'Careers — City Marin Studio',
-    description: 'Join our team of architects, designers, and engineers.',
+    description: 'Join our award-winning Istanbul studio. Open positions for architects and designers.',
   },
 };
 

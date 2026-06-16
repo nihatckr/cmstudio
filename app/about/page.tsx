@@ -11,17 +11,17 @@ import { GSAPScrollReveal } from '@/components/animations/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'City Marin Studio is an architecture and design studio based in Istanbul, Turkey. We specialize in hospitality, residential, and commercial projects.',
+  description: 'Istanbul-based architecture studio founded in 2019. Award-winning hospitality, residential and commercial design across Turkey and the Mediterranean. LEED-certified sustainable approach.',
   openGraph: {
     title: 'About — City Marin Studio',
-    description: 'Architecture and design studio based in Istanbul, Turkey.',
+    description: 'Istanbul-based architecture studio founded in 2019. Award-winning sustainable design.',
     url: `${siteMetadata.siteUrl}/about`,
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About — City Marin Studio',
-    description: 'Architecture and design studio based in Istanbul, Turkey.',
+    description: 'Istanbul-based architecture studio founded in 2019. Award-winning sustainable design.',
   },
 };
 

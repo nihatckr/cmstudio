@@ -112,22 +112,26 @@ export default function ProjectPage({
               title={project.title} 
               hue={project.hue} 
               featured={project.featured}
-              className="project-detail-hero-image"
-            />
-          </div>
-        )}
-        {project.images && project.images.length > 0 && (
-          <div className="project-hero-image">
-            <ProjectImage 
-              images={project.images} 
-              title={project.title} 
-              hue={project.hue} 
-              featured={project.featured}
-              className="project-detail-hero-image"
-            />
-          </div>
-        )}
-        <h1>{project.title}</h1>
+             typology={project.typology}
+             location={project.location}
+             className="project-detail-hero-image"
+           />
+         </div>
+       )}
+       {project.images && project.images.length > 0 && (
+         <div className="project-hero-image">
+           <ProjectImage 
+             images={project.images} 
+             title={project.title} 
+             hue={project.hue} 
+             featured={project.featured}
+             typology={project.typology}
+             location={project.location}
+             className="project-detail-hero-image"
+           />
+         </div>
+       )}
+       <h1>{project.title}</h1>
         <div className="project-meta">
           <span className="project-location">{project.city}, {project.country}</span>
           <span className="project-type">{project.typology}</span>

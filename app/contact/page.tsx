@@ -7,17 +7,17 @@ import { ContactForm } from '@/components/forms/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with City Marin Studio. Istanbul office: Bankalar Caddesi No: 35/2, Karaköy, Istanbul. Email: info@citymarin.com',
+  description: 'Get in touch with City Marin Studio. Located in Karaköy, Istanbul. Free consultation for architecture, interior design and sustainable building projects.',
   openGraph: {
     title: 'Contact — City Marin Studio',
-    description: 'Get in touch with City Marin Studio in Istanbul.',
+    description: 'Get in touch with our Istanbul office. Free consultation for your next project.',
     url: `${siteMetadata.siteUrl}/contact`,
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'Contact — City Marin Studio',
-    description: 'Get in touch with City Marin Studio in Istanbul.',
+    description: 'Get in touch with our Istanbul office. Free consultation for your next project.',
   },
 };
 

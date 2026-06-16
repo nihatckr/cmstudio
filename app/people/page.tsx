@@ -3,17 +3,17 @@ import { teams, siteMetadata } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: 'People',
-  description: 'Meet the team at City Marin Studio. Architects, interior designers, engineers and sustainability specialists.',
+  description: 'Meet the 18-person team behind City Marin Studio. Architects, interior designers, structural engineers, and sustainability specialists. Based in Istanbul, working globally.',
   openGraph: {
     title: 'People — City Marin Studio',
-    description: 'Meet our team of architects, designers, and engineers.',
+    description: 'Meet our 18-person team of architects, designers, and sustainability specialists.',
     url: `${siteMetadata.siteUrl}/people`,
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'People — City Marin Studio',
-    description: 'Meet our team of architects, designers, and engineers.',
+    description: 'Meet our 18-person team of architects, designers, and sustainability specialists.',
   },
 };
 

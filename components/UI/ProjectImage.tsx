@@ -12,6 +12,8 @@ interface ProjectImageProps {
   hue: number;
   featured?: boolean;
   className?: string;
+  typology?: string;
+  location?: string;
 }
 
 function ProjectImage({
@@ -20,16 +22,26 @@ function ProjectImage({
   hue,
   featured = false,
   className = '',
+  typology,
+  location,
 }: ProjectImageProps) {
   // Use first image or fallback to generated placeholder
   const hasImage = images && images.length > 0;
   const imageSrc = hasImage ? images[0] : `/api/placeholder?hue=${hue}`;
 
+  // Enhanced alt text with typology and location for better SEO and accessibility
+  const altText = [
+    title,
+    typology,
+    location ? `in ${location}` : null,
+    'Architecture project'
+  ].filter(Boolean).join(' - ');
+
   return (
     <div className={`project-image-wrapper ${className}`}>
       <OptimizedImage
         src={imageSrc}
-        alt={`${title} - Project Image`}
+        alt={altText}
         fill
         priority={featured} // Prioritize featured project images
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

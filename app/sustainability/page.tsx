@@ -3,17 +3,17 @@ import { sustainabilityPrinciples, sustainabilityStats, sustainabilityMeta, site
 
 export const metadata: Metadata = {
   title: 'Sustainability',
-  description: 'City Marin Studio\'s approach to sustainable architecture and design. LEED-certified projects, energy efficiency, and environmental responsibility.',
+  description: 'Our commitment to sustainable architecture. LEED-certified projects, passive design strategies, energy efficiency, and environmental responsibility. 85% reduction in operational carbon.',
   openGraph: {
     title: 'Sustainability — City Marin Studio',
-    description: 'Our approach to sustainable architecture and design.',
+    description: 'Our commitment to sustainable architecture. LEED-certified projects and passive design.',
     url: `${siteMetadata.siteUrl}/sustainability`,
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'Sustainability — City Marin Studio',
-    description: 'Our approach to sustainable architecture and design.',
+    description: 'Our commitment to sustainable architecture. LEED-certified projects and passive design.',
   },
 };
 
