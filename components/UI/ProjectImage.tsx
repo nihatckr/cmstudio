@@ -3,6 +3,7 @@
 
 'use client';
 
+import { memo } from 'react';
 import OptimizedImage from './OptimizedImage';
 
 interface ProjectImageProps {
@@ -13,7 +14,7 @@ interface ProjectImageProps {
   className?: string;
 }
 
-export default function ProjectImage({
+function ProjectImage({
   images,
   title,
   hue,
@@ -38,3 +39,7 @@ export default function ProjectImage({
     </div>
   );
 }
+
+// Memoize to prevent re-renders when parent re-renders but props haven't changed
+// Critical for project lists where many images render simultaneously
+export default memo(ProjectImage);

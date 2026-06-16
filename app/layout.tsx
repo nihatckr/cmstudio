@@ -7,10 +7,8 @@ import { Footer } from "@/components/Footer/Footer";
 import { ProgressBar } from "@/components/UI/ProgressBar";
 import { BackToTop } from "@/components/UI/BackToTop";
 import { LangToggle } from "@/components/UI/LangToggle";
-import { SearchOverlay } from "@/components/UI/SearchOverlay";
 import { ScrollReveal } from "@/components/UI/ScrollReveal";
-import { GlobalKeyboard } from "@/components/UI/GlobalKeyboard";
-import { IntroScreen } from "@/components/UI/IntroScreen";
+import { SearchOverlay, GlobalKeyboard, IntroScreen } from "@/components/ClientProviders";
 import "../styles/main.scss";
 
 export const metadata: Metadata = {
