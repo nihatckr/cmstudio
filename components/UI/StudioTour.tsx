@@ -17,20 +17,21 @@ export function StudioTour() {
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1440 720"
         preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
       >
-        <rect width="1440" height="720" fill="#161616"/>
-        <line x1="160"  y1="0"   x2="160"  y2="720" stroke="rgba(255,255,255,0.05)"/>
-        <line x1="400"  y1="0"   x2="400"  y2="720" stroke="rgba(255,255,255,0.05)"/>
-        <line x1="720"  y1="0"   x2="720"  y2="720" stroke="rgba(255,255,255,0.06)"/>
-        <line x1="1040" y1="0"   x2="1040" y2="720" stroke="rgba(255,255,255,0.05)"/>
-        <line x1="1280" y1="0"   x2="1280" y2="720" stroke="rgba(255,255,255,0.05)"/>
-        <line x1="0"    y1="240" x2="1440" y2="240" stroke="rgba(255,255,255,0.05)"/>
-        <line x1="0"    y1="480" x2="1440" y2="480" stroke="rgba(255,255,255,0.05)"/>
+        <rect className="st-bg-base" width="1440" height="720"/>
+        <line className="st-grid-line" x1="160"  y1="0"   x2="160"  y2="720"/>
+        <line className="st-grid-line" x1="400"  y1="0"   x2="400"  y2="720"/>
+        <line className="st-grid-line st-grid-center" x1="720"  y1="0"   x2="720"  y2="720"/>
+        <line className="st-grid-line" x1="1040" y1="0"   x2="1040" y2="720"/>
+        <line className="st-grid-line" x1="1280" y1="0"   x2="1280" y2="720"/>
+        <line className="st-grid-line" x1="0"    y1="240" x2="1440" y2="240"/>
+        <line className="st-grid-line" x1="0"    y1="480" x2="1440" y2="480"/>
         {/* perspective room */}
-        <polygon points="480,160 960,160 1120,560 320,560"   fill="none"                      stroke="rgba(255,255,255,0.14)"/>
-        <polygon points="480,160 320,560 0,640 0,120"        fill="rgba(255,255,255,0.03)"    stroke="rgba(255,255,255,0.1)"/>
-        <polygon points="960,160 1120,560 1440,640 1440,120" fill="rgba(255,255,255,0.03)"    stroke="rgba(255,255,255,0.1)"/>
-        <line x1="720" y1="160" x2="720" y2="560" stroke="rgba(255,255,255,0.08)"/>
+        <polygon className="st-room-outline" points="480,160 960,160 1120,560 320,560"/>
+        <polygon className="st-room-wall" points="480,160 320,560 0,640 0,120"/>
+        <polygon className="st-room-wall" points="960,160 1120,560 1440,640 1440,120"/>
+        <line className="st-room-divider" x1="720" y1="160" x2="720" y2="560"/>
       </svg>
 
       <div className="st-overlay">
@@ -41,9 +42,9 @@ export function StudioTour() {
           aria-label="Play 360 tour"
           onClick={(e) => e.stopPropagation()}
         >
-          <svg viewBox="0 0 64 64" width="64" height="64">
-            <circle cx="32" cy="32" r="31" fill="none" stroke="rgba(255,255,255,0.5)"/>
-            <path className="st-play-icon" d="M26 22 L44 32 L26 42 Z" fill="#fff"/>
+          <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+            <circle className="st-play-ring" cx="32" cy="32" r="31"/>
+            <path className="st-play-icon" d="M26 22 L44 32 L26 42 Z"/>
           </svg>
         </button>
         <div className="st-hint">360° virtual tour · Cevizli, Istanbul</div>

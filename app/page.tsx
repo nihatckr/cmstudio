@@ -10,10 +10,9 @@ import { StaggerList } from '@/components/animations/StaggerList';
 // Lazy load ProjectDetail - only loads when a project is opened
 const ProjectDetail = dynamic(() => import('@/components/UI/ProjectDetail').then(mod => ({ default: mod.ProjectDetail })), {
   ssr: false,
-});
+});1
 
 type Filter = 'all' | 'hospitality' | 'residential' | 'commercial';
-
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
   const [activeSubItem, setActiveSubItem] = useState<string | null>(null);
@@ -192,6 +191,16 @@ export default function ProjectsPage() {
                     )}
                   </div>
                 </div>
+
+                {/* Detail gallery — horizontal scroll */}
+                {isOpen && (
+                  <ProjectDetail
+                    project={p}
+                    idx={origIdx}
+                    total={projects.length}
+                    onClose={() => setOpenIdx(null)}
+                  />
+                )}
               </div>
             );
           })}

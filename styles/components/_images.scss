@@ -76,3 +76,32 @@ html.nightshift {
     aspect-ratio: 4 / 3;
   }
 }
+
+// Skeleton gradient stops - theme-aware
+.skeleton-stop-1,
+.skeleton-stop-3 {
+  stop-color: var(--color-bg-secondary);
+}
+
+.skeleton-stop-2 {
+  stop-color: var(--color-bg-tertiary);
+}
+
+// Error state styling
+.image-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.image-error-icon {
+  font-size: 2rem;
+}
+
+.image-error-text {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  margin: 0;
+}

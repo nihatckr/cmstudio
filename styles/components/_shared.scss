@@ -1154,3 +1154,42 @@ html.nightshift .kshelp-key {
 }
 .kshelp-close:hover { color: $color-black; }
 html.nightshift .kshelp-close:hover { color: $color-white; }
+
+// ============================================================================
+// STUDIO TOUR SVG COLORS
+// ============================================================================
+
+.st-bg-base {
+  fill: #161616;
+}
+
+.st-grid-line {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+.st-grid-center {
+  stroke: rgba(255, 255, 255, 0.06);
+}
+
+.st-room-outline {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.14);
+}
+
+.st-room-wall {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.st-room-divider {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.st-play-ring {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.5);
+}
+
+.st-play-icon {
+  fill: #fff;
+}
