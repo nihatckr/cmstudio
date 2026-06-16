@@ -1,0 +1,104 @@
+// Nightshift (dark mode) overrides
+// This file contains all body.nightshift specific styles
+
+:global {
+  body.nightshift {
+    // About page
+    .about-col { border-right-color: rgba(255,255,255,0.07); color: #e0e0e0; }
+    .value-col { border-right-color: rgba(255,255,255,0.07); }
+    .value-label { color: #555; }
+    .value-label::before { background: #fff; }
+    .ast-col { border-right-color: rgba(255,255,255,0.07); }
+    .aq-mark { color: #333; }
+    .dash-grid { border-top-color: rgba(255,255,255,0.14); }
+    .dash-card { border-right-color: rgba(255,255,255,0.07); }
+    .dbar-k { color: #aaa; }
+    .dbar-track { background: rgba(255,255,255,0.1); }
+    .dbar-fill { background: #fff; }
+    .dcol-bar { background: #fff; }
+    .dash-donut-legend { color: #aaa; }
+    .ddl-dot { background: #fff; }
+    .ap-track { border-top-color: rgba(255,255,255,0.14); }
+    .ap-step { border-right-color: rgba(255,255,255,0.07); }
+    .ap-marker { background: #fff; }
+    .ap-desc { color: #888; }
+    .atl-step { border-right-color: rgba(255,255,255,0.07); }
+    .atl-step::before { background: #fff; }
+    .atl-future::before { background: #444 !important; }
+    .atl-future .atl-year { color: #666; }
+    .atl-desc { color: #888; }
+    .att-grid { border-top-color: rgba(255,255,255,0.14); }
+    .att-card { border-right-color: rgba(255,255,255,0.07); }
+    .aw-cite { color: #aaa; }
+
+    // Careers page
+    .careers-job:hover { background: rgba(255,255,255,0.02); }
+    .cj-cta { color: #fff; }
+
+    // Contact page
+    .cc-label::before { background: #fff; }
+
+    // People page
+    .tm-avatar { filter: brightness(0.6) contrast(0.9); }
+    .fb-text { border-top-color: rgba(255,255,255,0.07); }
+
+    // Sustainability page
+    .sp-grid { border-top-color: rgba(255,255,255,0.14); }
+    .sf-image { background: #111; }
+    .sc-grid { border-top-color: rgba(255,255,255,0.14); }
+
+    // Projects page
+    .project-filter-btn { color: #797979; }
+    .project-filter-btn:hover { color: #fff; }
+    .project-entry { border-bottom-color: rgba(255,255,255,0.07); }
+    .project-entry:hover { background: rgba(0,0,0,0.2); }
+    .pe-meta-col { background: #000; }
+    .pe-cover { background: #111; }
+    .pe-logo svg polygon { fill: #fff; }
+    .pe-index { color: #444; }
+    .pe-title { color: #fff; }
+    .pe-bottom .pe-year { color: #fff; }
+    .pe-toggle { color: #fff; }
+    .pe-om-row { border-top-color: rgba(255,255,255,0.07); }
+    .pe-om-row:last-child { border-bottom-color: rgba(255,255,255,0.07); }
+    .pe-om-v { color: #fff; }
+    .pe-detail { background: #0a0a0a; }
+    .pdb-text-body { color: #ddd; }
+    .pdb-meta-v { color: #fff; }
+    .pdb-image { background: #111; }
+    .pdb-image .pdb-caption { color: rgba(255,255,255,0.55); background: rgba(0,0,0,0.5); }
+    .pdb-titleblock { border-right-color: rgba(255,255,255,0.07); }
+    .pdb-tb-eyebrow { color: #444; }
+    .pdb-tb-title { color: #fff; }
+    .pdb-tb-v { color: #fff; }
+    .pdb-related { background: #0c0c0c; }
+    .pdb-related-item { border-top-color: rgba(255,255,255,0.08); }
+    .pdb-related-item:last-child { border-bottom-color: rgba(255,255,255,0.08); }
+    .pdb-related-title { color: #fff; }
+    .pdb-end-title { color: #fff; }
+    .pdb-end-link { color: #fff; }
+    .pdb-quote { background: #0c0c0c; }
+    .pdb-quote-mark { color: #333; }
+    .pdb-quote-text { color: #fff; }
+    .pdb-quote-attr-name { color: #fff; }
+    .pe-detail-progress { background: rgba(255,255,255,0.06); }
+    .pe-detail-progress-bar { background: #fff; }
+    .sk-block, .sk-title { background: #141414; }
+    .sk-line { background: #1d1d1d; }
+    .sk-block::after, .sk-title::after, .sk-line::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent); }
+    .pe-compare { background: rgba(0,0,0,0.65); }
+    .pe-compare svg { stroke: #fff; }
+    .pe-compare.is-active svg { fill: #fff; }
+    .pe-bookmark { background: rgba(0,0,0,0.65); }
+    .pe-bookmark svg { stroke: #fff; }
+    .pe-bookmark.is-saved svg { fill: #fff; }
+    .project-mini-header { background: rgba(0,0,0,0.95); border-bottom-color: rgba(255,255,255,0.07); color: #797979; }
+    .pmh-num { color: #444; }
+    .pmh-title { color: #fff; }
+    .pmh-nav:hover { color: #fff; }
+    .pe-empty-mark { color: #444; }
+    .pe-empty-title { color: #fff; }
+    .pe-empty-desc { color: #888; }
+    .pe-empty-cta { color: #fff; }
+  }
+}
