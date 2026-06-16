@@ -2,8 +2,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { projects, subfilters, homepageMeta } from '@/lib/data';
-import { ArchSVG } from '@/components/UI/ArchSVG';
+import { projects, subfilters } from '@/lib/data';
 import ProjectImage from '@/components/UI/ProjectImage';
 import { StaggerList } from '@/components/animations/StaggerList';
 
@@ -40,18 +39,7 @@ export default function ProjectsPageClient() {
     }, 80);
   };
 
-  const navProject = (dir: 1 | -1) => {
-    if (openIdx === null) return;
-    const cur = filtered.findIndex(p => projects.indexOf(p) === openIdx);
-    if (cur === -1) return;
-    const next = cur + dir;
-    if (next < 0 || next >= filtered.length) return;
-    toggleProject(projects.indexOf(filtered[next]));
-  };
-
-  const total = filtered.length;
   const openProject = openIdx !== null ? projects[openIdx] : null;
-  const openPosInFiltered = openProject ? filtered.findIndex(p => p.code === openProject.code) : -1;
 
   return (
     <div id="page-projects">

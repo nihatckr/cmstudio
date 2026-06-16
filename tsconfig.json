@@ -20,7 +20,13 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    // Additional strict checks for code quality
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "next-env.d.ts",

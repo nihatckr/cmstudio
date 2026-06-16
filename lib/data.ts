@@ -34,33 +34,6 @@ export enum EmploymentType {
   HYBRID = 'Hybrid',
 }
 
-// ─── Helper Functions ────────────────────────────────────────────────────────
-// These functions will be used during database migration
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function parseSize(size: string): { area: number; unit: string } {
-  const match = size.replace(/,/g, '').match(/^(\d+(?:\.\d+)?)\s*(.+)$/);
-  if (!match) return { area: 0, unit: 'm²' };
-  return { area: parseFloat(match[1]), unit: match[2] };
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function parseLocation(location: string): { city: string; country: string } {
-  const parts = location.split(',').map(s => s.trim());
-  if (parts.length === 2) {
-    return { city: parts[0], country: parts[1] };
-  }
-  return { city: location, country: '' };
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function generateSlug(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
 // ─── Projects ────────────────────────────────────────────────────────────────
 
 export interface Project {
