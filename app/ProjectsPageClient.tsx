@@ -2,8 +2,9 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { projects, subfilters } from '@/lib/data';
+import { subfilters } from '@/lib/data';
 import ProjectImage from '@/components/UI/ProjectImage';
+import type { Project } from '@prisma/client';
  
 // Lazy load ProjectDetail - only loads when a project is opened
 const ProjectDetail = dynamic(() => import('@/components/UI/ProjectDetail').then(mod => ({ default: mod.ProjectDetail })), {
@@ -11,15 +12,20 @@ const ProjectDetail = dynamic(() => import('@/components/UI/ProjectDetail').then
 });
 
 type Filter = 'all' | 'hospitality' | 'residential' | 'commercial';
-export default function ProjectsPageClient() {
+
+interface ProjectsPageClientProps {
+  initialProjects: Project[];
+}
+
+export default function ProjectsPageClient({ initialProjects }: ProjectsPageClientProps) {
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
   const [activeSubItem, setActiveSubItem] = useState<string | null>(null);
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
-  const filtered = useMemo(() => projects.filter(p => {
+  const filtered = useMemo(() => initialProjects.filter(p => {
     if (activeFilter === 'all') return true;
-    return p.type === activeFilter;
-  }), [activeFilter]);
+    return p.type === activeFilter.toUpperCase();
+  }), [activeFilter, initialProjects]);
 
   const currentSubfilters = activeFilter !== 'all'
     ? subfilters[activeFilter] : null;
@@ -38,7 +44,7 @@ export default function ProjectsPageClient() {
     }, 80);
   };
 
-  const openProject = openIdx !== null ? projects[openIdx] : null;
+  const openProject = openIdx !== null ? initialProjects[openIdx] : null;
 
   return (
     <div id="page-projects">
@@ -53,25 +59,25 @@ export default function ProjectsPageClient() {
           className={`fb-pill${activeFilter === 'all' ? ' active' : ''}`}
           onClick={() => handleFilter('all')}
         >
-          All<span className="fb-count">{projects.length}</span>
+          All<span className="fb-count">{initialProjects.length}</span>
         </button>
         <button
           className={`fb-pill${activeFilter === 'hospitality' ? ' active' : ''}`}
           onClick={() => handleFilter('hospitality')}
         >
-          Hospitality<span className="fb-count">{projects.filter(p => p.type === 'hospitality').length}</span>
+          Hospitality<span className="fb-count">{initialProjects.filter(p => p.type === 'HOSPITALITY').length}</span>
         </button>
         <button
           className={`fb-pill${activeFilter === 'residential' ? ' active' : ''}`}
           onClick={() => handleFilter('residential')}
         >
-          Residential<span className="fb-count">{projects.filter(p => p.type === 'residential').length}</span>
+          Residential<span className="fb-count">{initialProjects.filter(p => p.type === 'RESIDENTIAL').length}</span>
         </button>
         <button
           className={`fb-pill${activeFilter === 'commercial' ? ' active' : ''}`}
           onClick={() => handleFilter('commercial')}
         >
-          Commercial<span className="fb-count">{projects.filter(p => p.type === 'commercial').length}</span>
+          Commercial<span className="fb-count">{initialProjects.filter(p => p.type === 'COMMERCIAL').length}</span>
         </button>
       </div>
 
@@ -93,7 +99,7 @@ export default function ProjectsPageClient() {
       {/* Projects grid */}
       <div className="projects-grid">
         {filtered.map((p, relIdx) => {
-          const origIdx = projects.indexOf(p);
+          const origIdx = initialProjects.indexOf(p);
           const isOpen = origIdx === openIdx;
           return (
             <div
@@ -127,7 +133,7 @@ export default function ProjectsPageClient() {
                 <ProjectDetail 
                   project={openProject} 
                   idx={origIdx}
-                  total={projects.length}
+                  total={initialProjects.length}
                   onClose={() => setOpenIdx(null)} 
                 />
               )}

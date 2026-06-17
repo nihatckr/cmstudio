@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import type { Project } from '@/lib/data';
+import type { Project } from '@prisma/client';
 import { archSVGString } from '@/components/UI/ArchSVG';
 import { Lightbox, type LightboxImage } from '@/components/UI/Lightbox';
 
