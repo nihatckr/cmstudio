@@ -2,7 +2,6 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { subfilters } from '@/lib/data';
 import ProjectImage from '@/components/UI/ProjectImage';
 import type { Project } from '@prisma/client';
  
@@ -12,6 +11,13 @@ const ProjectDetail = dynamic(() => import('@/components/UI/ProjectDetail').then
 });
 
 type Filter = 'all' | 'hospitality' | 'residential' | 'commercial';
+
+// Subfilters for each project type
+const subfilters: Record<string, string[]> = {
+  hospitality: ['Hotel & Resort', 'Boutique Hotel', 'Restaurant'],
+  residential: ['Villa', 'Residential', 'Tower', 'Complex'],
+  commercial: ['Office', 'Mixed-Use', 'Tower'],
+};
 
 interface ProjectsPageClientProps {
   initialProjects: Project[];

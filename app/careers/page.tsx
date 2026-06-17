@@ -1,24 +1,42 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { jobs, careersLocations, careersApplicationEmail, careersMeta, siteMetadata } from '@/lib/data';
+import { getJobs, getSiteMetadata } from '@/lib/actions';
 
-export const metadata: Metadata = {
+// Hardcoded careers metadata (can be moved to database later)
+const careersMeta = {
+  eyebrow: 'Join us',
   title: 'Careers',
-  description: 'Join our award-winning Istanbul studio. Open positions for architects, interior designers, sustainability consultants and interns. Flexible hours, health insurance, design budget.',
-  openGraph: {
-    title: 'Careers — City Marin Studio',
-    description: 'Join our award-winning Istanbul studio. Open positions for architects and designers.',
-    url: `${siteMetadata.siteUrl}/careers`,
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Careers — City Marin Studio',
-    description: 'Join our award-winning Istanbul studio. Open positions for architects and designers.',
-  },
+  lede: "We're always looking for talented architects, interior designers, and sustainability specialists who care about making beautiful spaces.",
+  jobsListingLabel: 'Open positions',
+  generalApplicationsLabel: "Don't see a perfect fit?",
 };
 
-export default function CareersPage() {
+const careersLocations = 'Istanbul · Istanbul';
+const careersApplicationEmail = 'careers@citymarinstudio.com';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const siteMetadata = await getSiteMetadata();
+  
+  return {
+    title: 'Careers',
+    description: 'Join our award-winning Istanbul studio. Open positions for architects, interior designers, sustainability consultants and interns. Flexible hours, health insurance, design budget.',
+    openGraph: {
+      title: 'Careers — City Marin Studio',
+      description: 'Join our award-winning Istanbul studio. Open positions for architects and designers.',
+      url: `${siteMetadata?.siteUrl}/careers`,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary',
+      title: 'Careers — City Marin Studio',
+      description: 'Join our award-winning Istanbul studio. Open positions for architects and designers.',
+    },
+  };
+}
+
+export default async function CareersPage() {
+  const jobs = await getJobs();
+
   return (
     <div className="careers-page">
       <div className="careers-hero">
@@ -33,9 +51,9 @@ export default function CareersPage() {
           <span>{careersLocations}</span>
         </div>
         <div className="careers-jobs">
-          {jobs.map((job, i) => (
-            <div className="careers-job" key={i}>
-              <div className="cj-meta"><span>{job.dept}</span><span>{job.loc}</span></div>
+          {jobs.map((job) => (
+            <div className="careers-job" key={job.id}>
+              <div className="cj-meta"><span>{job.dept}</span><span>{job.location}</span></div>
               <div>
                 <div className="cj-title">{job.title}</div>
                 <div className="cj-desc">{job.desc}</div>
