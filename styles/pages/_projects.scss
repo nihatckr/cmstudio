@@ -941,3 +941,174 @@
     min-height: 200px;
   }
 }
+
+// ── New Projects Page (HomePage) ──────────────────────────────────────────────
+#page-projects {
+  min-height: 100vh;
+  padding-top: var(--bar-h);
+}
+
+// Filter bar
+.filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 0;
+  border-bottom: 1px solid $border-divider;
+  
+  @include nightshift(border-bottom-color, $nightshift-border-divider);
+}
+
+.fb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid $border-divider;
+  background: transparent;
+  font-family: $font-standard;
+  font-size: $text-sm;
+  letter-spacing: $tracking-menu;
+  text-transform: uppercase;
+  color: $color-mid-grey;
+  cursor: pointer;
+  transition: all $duration-fast $ease-in-out;
+  
+  @include nightshift(border-color, $nightshift-border-divider);
+  @include nightshift(color, $color-dark-grey);
+  
+  &:hover {
+    border-color: $color-black;
+    color: $color-black;
+    
+    @include nightshift(border-color, $color-white);
+    @include nightshift(color, $color-white);
+  }
+  
+  &.active {
+    border-color: $color-black;
+    background: $color-black;
+    color: $color-white;
+    
+    @include nightshift(border-color, $color-white);
+    @include nightshift(background, $color-white);
+    @include nightshift(color, $color-black);
+  }
+}
+
+.fb-count {
+  opacity: 0.6;
+}
+
+.fb-subfilters {
+  display: flex;
+  gap: 8px;
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid $border-divider;
+  
+  @include nightshift(border-left-color, $nightshift-border-divider);
+}
+
+.fb-sub {
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  font-family: $font-standard;
+  font-size: $text-xs;
+  letter-spacing: $tracking-menu;
+  color: $color-mid-grey;
+  cursor: pointer;
+  transition: all $duration-fast $ease-in-out;
+  
+  @include nightshift(color, $color-dark-grey);
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: $color-black;
+    
+    @include nightshift(background, rgba(255, 255, 255, 0.1));
+    @include nightshift(color, $color-white);
+  }
+  
+  &.active {
+    background: rgba(0, 0, 0, 0.1);
+    color: $color-black;
+    
+    @include nightshift(background, rgba(255, 255, 255, 0.15));
+    @include nightshift(color, $color-white);
+  }
+}
+
+// Projects grid
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2px;
+  padding: 0;
+  background: $border-divider;
+  
+  @include nightshift(background, $nightshift-border-divider);
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  background: $color-white;
+  position: relative;
+  overflow: hidden;
+  
+  @include nightshift(background, $color-black);
+  
+  &.open {
+    grid-column: 1 / -1;
+  }
+}
+
+.project-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  
+  &:hover .project-info {
+    background: rgba(0, 0, 0, 0.02);
+    
+    @include nightshift(background, rgba(255, 255, 255, 0.05));
+  }
+}
+
+.project-info {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 16px 20px;
+  font-family: $font-standard;
+  font-size: $text-sm;
+  letter-spacing: $tracking-menu;
+  transition: background $duration-fast $ease-in-out;
+}
+
+.project-num {
+  color: $color-mid-grey;
+  font-size: $text-xs;
+  
+  @include nightshift(color, $color-dark-grey);
+}
+
+.project-title {
+  flex: 1;
+  font-weight: 500;
+}
+
+.project-loc {
+  color: $color-mid-grey;
+  font-size: $text-xs;
+  text-transform: uppercase;
+  
+  @include nightshift(color, $color-dark-grey);
+}
