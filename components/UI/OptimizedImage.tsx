@@ -16,6 +16,7 @@ interface OptimizedImageProps {
   className?: string;
   sizes?: string;
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  unoptimized?: boolean;
 }
 
 export default function OptimizedImage({
@@ -28,6 +29,7 @@ export default function OptimizedImage({
   className = '',
   sizes,
   objectFit = 'cover',
+  unoptimized = false,
 }: OptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -92,14 +94,15 @@ export default function OptimizedImage({
         transition: 'opacity 0.3s ease-in-out',
         opacity: isLoading ? 0.6 : 1,
       }}
-      placeholder="blur"
-      blurDataURL={placeholderSrc}
+      placeholder={unoptimized ? undefined : "blur"}
+      blurDataURL={unoptimized ? undefined : placeholderSrc}
       onLoad={() => setIsLoading(false)}
       onError={() => {
         setIsLoading(false);
         setHasError(true);
       }}
       quality={85}
+      unoptimized={unoptimized}
     />
   );
 }
