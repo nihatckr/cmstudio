@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         pathname: '/api/placeholder/**',
         search: '', // Empty string allows all query params (hue, w, h, etc.)
       },
+      {
+        pathname: '/projects/**',
+        search: '', // Allow project images from public/projects
+      },
     ],
   },
   // Security: Additional headers configured via middleware.ts
