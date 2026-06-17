@@ -10,6 +10,7 @@ import { BackToTop } from "@/components/UI/BackToTop";
 import { LangToggle } from "@/components/UI/LangToggle";
 import { ScrollReveal } from "@/components/UI/ScrollReveal";
 import { SearchOverlay, GlobalKeyboard, IntroScreen } from "@/components/ClientProviders";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "../styles/main.scss";
 
 export const metadata: Metadata = {
@@ -129,6 +130,7 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
+          <GoogleAnalytics />
           <a href="#mainContent" className="skip-link">Skip to content</a>
           <ErrorBoundary>
             <Header />
