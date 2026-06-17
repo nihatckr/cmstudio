@@ -1,5 +1,6 @@
 // prisma/seed.ts
 // Seed database with data from lib/data.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
