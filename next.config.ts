@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
     localPatterns: [
       {
-        pathname: '/api/placeholder',
+        pathname: '/api/placeholder/**',
         search: '', // Empty string allows all query params (hue, w, h, etc.)
       },
     ],
