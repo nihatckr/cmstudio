@@ -4,8 +4,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { projects, subfilters } from '@/lib/data';
 import ProjectImage from '@/components/UI/ProjectImage';
-import { StaggerList } from '@/components/animations/StaggerList';
-
+ 
 // Lazy load ProjectDetail - only loads when a project is opened
 const ProjectDetail = dynamic(() => import('@/components/UI/ProjectDetail').then(mod => ({ default: mod.ProjectDetail })), {
   ssr: false,
@@ -92,7 +91,7 @@ export default function ProjectsPageClient() {
       )}
 
       {/* Projects grid */}
-      <StaggerList className="projects-grid">
+      <div className="projects-grid">
         {filtered.map((p, relIdx) => {
           const origIdx = projects.indexOf(p);
           const isOpen = origIdx === openIdx;
@@ -135,7 +134,7 @@ export default function ProjectsPageClient() {
             </div>
           );
         })}
-      </StaggerList>
+      </div>
     </div>
   );
 }

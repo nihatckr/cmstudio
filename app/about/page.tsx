@@ -7,8 +7,7 @@ import {
 import { generateLocalBusinessSchema, generateBreadcrumbSchema } from '@/lib/structuredData';
 import { StructuredData } from '@/components/StructuredData';
 import { StudioTour } from '@/components/UI/StudioTour';
-import { GSAPScrollReveal } from '@/components/animations/ScrollReveal';
-
+ 
 export const metadata: Metadata = {
   title: 'About',
   description: 'Istanbul-based architecture studio founded in 2019. Award-winning hospitality, residential and commercial design across Turkey and the Mediterranean. LEED-certified sustainable approach.',
@@ -64,7 +63,7 @@ export default function AboutPage() {
       </div>
 
       {/* Values */}
-      <GSAPScrollReveal>
+   
         <div className="about-values">
           {aboutValues.map(v => (
             <div className="value-col" key={v.label}>
@@ -73,16 +72,16 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-      </GSAPScrollReveal>
+     
 
       {/* Stats */}
-      <GSAPScrollReveal delay={0.2}>
+     
         <div className="about-stats">
           {aboutStats.map(s=>(
             <div className="ast-col" key={s.label}><div className="ast-num">{s.num}</div><div className="ast-label">{s.label}</div></div>
           ))}
         </div>
-      </GSAPScrollReveal> 
+    
 
       {/* 360° Studio tour */}
       <StudioTour />
