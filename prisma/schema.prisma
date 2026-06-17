@@ -1,0 +1,177 @@
+// This is your Prisma schema file
+// Database-ready structure matching lib/data.ts
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum ProjectType {
+  HOSPITALITY  @map("hospitality")
+  RESIDENTIAL  @map("residential")
+  COMMERCIAL   @map("commercial")
+}
+
+enum ProjectStatus {
+  PLANNING
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+}
+
+enum JobDepartment {
+  ARCHITECTURE
+  INTERIOR
+  SUSTAINABILITY
+  ENGINEERING
+  MANAGEMENT
+  INTERNSHIP
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  HYBRID
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+
+model Project {
+  id          Int           @id @default(autoincrement())
+  code        String        @unique @db.VarChar(10)
+  slug        String        @unique @db.VarChar(100)
+  title       String        @db.VarChar(200)
+  description String?       @db.Text
+  city        String        @db.VarChar(100)
+  country     String        @db.VarChar(100)
+  location    String        @db.VarChar(200)
+  type        ProjectType
+  typology    String        @db.VarChar(100)
+  area        Int
+  areaUnit    String        @default("m²") @db.VarChar(10)
+  size        String        @db.VarChar(50)
+  status      ProjectStatus @default(PLANNING)
+  year        String        @db.VarChar(4)
+  client      String        @db.VarChar(200)
+  hue         Int           @default(200)
+  tags        String[]
+  images      String[]
+  featured    Boolean       @default(false)
+  published   Boolean       @default(true)
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([type])
+  @@index([status])
+  @@index([featured])
+  @@index([published])
+  @@index([sortOrder])
+}
+
+model TeamMember {
+  id               Int      @id @default(autoincrement())
+  name             String   @db.VarChar(200)
+  slug             String   @unique @db.VarChar(100)
+  role             String   @db.VarChar(200)
+  email            String?  @db.VarChar(200)
+  phone            String?  @db.VarChar(50)
+  bio              String?  @db.Text
+  avatar           String?  @db.VarChar(500)
+  linkedin         String?  @db.VarChar(500)
+  portfolio        String?  @db.VarChar(500)
+  specializations  String[]
+  hue              Int      @default(200)
+  active           Boolean  @default(true)
+  sortOrder        Int      @default(0)
+  sectionName      String   @db.VarChar(100)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([slug])
+  @@index([active])
+  @@index([sectionName])
+  @@index([sortOrder])
+}
+
+model Job {
+  id              Int            @id @default(autoincrement())
+  slug            String         @unique @db.VarChar(100)
+  dept            JobDepartment
+  location        String         @db.VarChar(100)
+  employmentType  EmploymentType
+  remote          Boolean        @default(false)
+  title           String         @db.VarChar(200)
+  desc            String         @db.Text
+  requirements    String[]
+  responsibilities String[]
+  benefits        String[]
+  salaryMin       Int?
+  salaryMax       Int?
+  salaryCurrency  String?        @db.VarChar(10)
+  active          Boolean        @default(true)
+  featured        Boolean        @default(false)
+  postedAt        DateTime       @default(now())
+  loc             String         @db.VarChar(200)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([slug])
+  @@index([dept])
+  @@index([active])
+  @@index([featured])
+  @@index([postedAt])
+}
+
+model SiteMetadata {
+  id               Int      @id @default(1)
+  siteName         String   @db.VarChar(100)
+  title            String   @db.VarChar(200)
+  description      String   @db.Text
+  siteUrl          String   @db.VarChar(500)
+  locale           String   @default("en_US") @db.VarChar(10)
+  twitterHandle    String?  @db.VarChar(50)
+  ogImageUrl       String   @db.VarChar(500)
+  ogImageWidth     Int      @default(1200)
+  ogImageHeight    Int      @default(630)
+  ogImageAlt       String   @db.VarChar(200)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model PageMetadata {
+  id          Int      @id @default(autoincrement())
+  pageName    String   @unique @db.VarChar(100)
+  title       String?  @db.VarChar(200)
+  description String?  @db.Text
+  keywords    String[]
+  ogTitle     String?  @db.VarChar(200)
+  ogDescription String? @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([pageName])
+}
+
+model ContentBlock {
+  id          Int      @id @default(autoincrement())
+  blockKey    String   @unique @db.VarChar(100)
+  blockType   String   @db.VarChar(50)
+  content     String   @db.Text
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([blockKey])
+  @@index([blockType])
+  @@index([published])
+}

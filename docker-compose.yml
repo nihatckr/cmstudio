@@ -1,0 +1,25 @@
+# docker-compose.yml
+# PostgreSQL database for City Marin Studio
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: cmstudio-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: cmstudio
+      POSTGRES_PASSWORD: cmstudio_dev_2025
+      POSTGRES_DB: cmstudio
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cmstudio -d cmstudio"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
